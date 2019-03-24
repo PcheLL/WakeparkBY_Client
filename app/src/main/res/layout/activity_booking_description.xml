@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000">
+
+        <TextView
+            android:id="@+id/textViewBookingDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:hint="Бронирование"
+            android:textColorHint="#ffff00"
+            android:textSize="35dp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewBookingDes"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewInfoLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Место: "
+                android:textSize="18dp"
+                android:textColor="#ffff00"/>
+
+            <TextView
+                android:id="@+id/textViewInfoDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Дата: "
+                android:textSize="18dp"
+                android:textColor="#ffff00"/>
+
+            <TextView
+                android:id="@+id/textViewInfoTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Время: "
+                android:textSize="18dp"
+                android:textColor="#ffff00"/>
+
+            <TextView
+                android:id="@+id/textViewInfoPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Цена: "
+                android:textSize="18dp"
+                android:textColor="#ffff00"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_below="@+id/textViewBookingDes"
+            android:layout_toRightOf="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            >
+            <TextView
+                android:id="@+id/textViewInfoLocation1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:textColor="#ffffff"/>
+
+            <TextView
+                android:id="@+id/textViewInfoDate1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp"
+                android:textColor="#ffffff"/>
+
+            <TextView
+                android:id="@+id/textViewInfoTime1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp"
+                android:textColor="#ffffff"/>
+
+            <TextView
+                android:id="@+id/textViewInfoPrice1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:text="Забронировать"
+            android:textColor="#ffffff"
+            android:textSize="15dp"
+            android:background="@drawable/button_welcome"/>
+        <Button
+            android:id="@+id/buttonBackToMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:text="Главное меню"
+            android:textColor="#ffffff"
+            android:textSize="15dp"
+            android:visibility="invisible"
+            android:background="@drawable/button_welcome"/>
+
+        <ImageView
+            android:id="@+id/imageViewReserved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/reserved1"
+            android:visibility="invisible" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewMySeasonTickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:hint="Ваш абонемент"
+        android:textColorHint="#ffff00"
+        android:textSize="35dp" >
+
+    </TextView>
+
+
+        <TextView
+            android:id="@+id/textViewSeasonTicketsTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="30dp"
+            android:textColor="#ffff00"
+            android:textSize="70dp" >
+
+        </TextView>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
