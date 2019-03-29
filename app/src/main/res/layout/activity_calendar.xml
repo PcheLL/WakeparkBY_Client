@@ -5,52 +5,59 @@
     android:background="#ffffff">
 
     <RelativeLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000">
+        android:background="#000000"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textViewSelectTime"
+            android:id="@+id/textViewChooseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:hint="Свободное время"
+            android:hint="Выберите дату"
             android:textColorHint="#ffff00"
             android:textSize="35dp" />
 
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_below="@+id/textViewSelectTime">
-
-            <ListView
-                android:id="@+id/listViewTime"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                style="@style/ListView">
-            </ListView>
-
-
-
-            <Button
-                android:id="@+id/buttonSelectTime"
+            android:gravity="center"
+            android:layout_below="@+id/textViewChooseDate"
+            >
+            <DatePicker
+                android:id="@+id/datePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
+                android:layout_below="@+id/textViewChooseDate"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="#ffff"
+                android:theme="@style/DayOfWeekPickerStyle"
+                style="@style/MyDatePickerStyle"
+                android:layout_gravity="center_horizontal">
+
+
+            </DatePicker>
+
+            <Button
+                android:id="@+id/buttonSelectDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Продолжить"
+                android:textColor="#ffffff"
                 android:textSize="16dp"
+                android:layout_weight="0"
                 android:layout_gravity="right"
                 android:layout_marginRight="20dp"
-                android:textColor="#ffffff"
-                android:background="@drawable/button_welcome"/>
-
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_welcome"
+                />
         </LinearLayout>
 
+
     </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>

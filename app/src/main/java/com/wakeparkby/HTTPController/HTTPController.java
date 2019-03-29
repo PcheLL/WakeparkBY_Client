@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 
 public interface HTTPController {
     @GET("/wakepark-Wakepark/timeList")
-    Call<List<TimeSpace>> getTimeSpace(@Header("data") String data);
+    Call<List<TimeSpace>> getTimeSpace(@Header("location") String place, @Header("data") String data, @Header("reversNumber") int reverseCableNumber);
     @POST("/wakepark-Wakepark/timeList")
     Call<Booking> postBooking(@Body Booking booking,@Header("clientId") int clientId);
 }

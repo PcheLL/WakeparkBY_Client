@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.Booking.Booking">
+        <activity android:name=".Activity.Booking.LocationSelectionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,6 +29,8 @@
         <activity android:name=".Activity.SignIn.SignInActivity" />
         <activity android:name=".Activity.Welcome.WelcomeActivity" />
         <activity android:name=".Activity.Booking.ChooseTimeIntervalActivity" />
+        <activity android:name=".Activity.Booking.DateSelectionActivity" />
+        <activity android:name=".Activity.Booking.ReverseCableSelectionActivity" />
     </application>
 
 </manifest>

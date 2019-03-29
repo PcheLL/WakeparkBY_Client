@@ -6,11 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.HTTPController.HTTPController;
 import com.wakeparkby.HTTPController.TimeSpace;
+import com.wakeparkby.Observer.Observer;
 import com.wakeparkby.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -25,6 +28,9 @@ public class RetrofitClient {
 
     private Retrofit retrofit;
     private HTTPController httpController;
+    private List <TimeSpace> listTimeSpace = new ArrayList<>();
+    private Observer observer = new Observer("Retrofit");
+
 
     private RetrofitClient(){
         retrofit = new Retrofit.Builder()
@@ -32,6 +38,7 @@ public class RetrofitClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
          httpController = retrofit.create(HTTPController.class);
+         observer.setStatus(5);
 
     }
 
@@ -39,23 +46,25 @@ public class RetrofitClient {
         return retrofitClient;
     }
 
-    public  void getTimeSpace(String data){
+    public void getTimeSpace(final String place, final String date, final int reverseCableNumber){
 
-        Call<List<TimeSpace>> call = httpController.getTimeSpace(data);
+        Call<List<TimeSpace>> call = httpController.getTimeSpace(place,date,reverseCableNumber);
         call.enqueue(new Callback<List<TimeSpace>>() {
             @Override
             public void onResponse(Call<List<TimeSpace>> call, Response<List<TimeSpace>> response) {
                 System.out.println(response.toString());
                 if(response.isSuccessful()) {
-                    List<TimeSpace> listTimeSpace = response.body();
+                   listTimeSpace = response.body();
                     System.out.println("sda");
+                    setListTimeSpace(listTimeSpace);
+                    //BookingController bookingController = new BookingController(place,date,reverseCableNumber);
+                    observer.notifyAllObservers(1);
                 }
             }
             @Override
             public void onFailure(Call<List<TimeSpace>> call, Throwable t) {
             }
         });
-        //setContentView(R.layout.activity_main);
     }
 
     public  void postBooking(Booking booking){
@@ -76,5 +85,11 @@ public class RetrofitClient {
         //setContentView(R.layout.activity_main);
     }
 
+    public void setListTimeSpace(List<TimeSpace> listTimeSpace) {
+        this.listTimeSpace = listTimeSpace;
+    }
 
+    public List<TimeSpace> getListTimeSpace() {
+        return listTimeSpace;
+    }
 }
