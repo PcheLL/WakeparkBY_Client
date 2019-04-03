@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".Welcome">
+    tools:context=".Activity.SignIn.SignInActivity">
 
     <RelativeLayout
 
@@ -13,6 +13,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -21,36 +22,52 @@
             android:src="@drawable/logo_wakeparkby" />
 
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <RelativeLayout
+            android:id="@+id/container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:background="@android:color/transparent"
-            android:orientation="vertical">
+            android:layout_centerHorizontal="true"
+            android:padding="20dp">
 
-            <Button
-                android:id="@+id/buttonCreateAcc"
+            <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/button_welcome"
-                android:hint="Регистрация"
-                android:textColorHint="#ffffff"
-                android:textSize="16dp" />
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:text="Введите номер телефона"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                android:textColor="#ffffff" />
+
+            <EditText
+                android:id="@+id/editTextMobile"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="10dp"
+                android:maxLength="13"
+                android:hint="+375(**)***-**-**"
+                android:inputType="phone"
+                android:textColorHint="#A9A9A9"
+                android:backgroundTint="#ffff00"
+                android:textColor="#ffff00"
+                />
 
             <Button
-                android:id="@+id/buttonSignIn"
-                android:layout_width="match_parent"
+                android:id="@+id/buttonContinue"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/buttonCreateAcc"
-                android:layout_marginTop="5dp"
+                android:layout_below="@id/editTextMobile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/button_welcome"
-                android:hint="Войти"
-                android:textColorHint="#ffffff"
-                android:textSize="16dp" />
-        </LinearLayout>
+                android:text="Войти"
+                android:textAllCaps="false"
+                android:textColor="#cdd8f1" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

@@ -41,6 +41,7 @@
                         android:text=" С:   "
                         android:textColor="#ffff00"/>
                     <Spinner
+                        android:id="@+id/SpinnerFirstHours"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
@@ -52,10 +53,9 @@
                         android:text="часов    "
                         android:textColor="#ffff00"/>
                     <Spinner
+                        android:id="@+id/SpinnerFirstMinutes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
-
-
                     </Spinner>
                     <TextView
                         android:layout_width="wrap_content"
@@ -75,10 +75,9 @@
                         android:text="До: "
                         android:textColor="#ffff00"/>
                     <Spinner
+                        android:id="@+id/SpinnerSecondHours"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
-
-
                     </Spinner>
                     <TextView
                         android:layout_width="wrap_content"
@@ -86,10 +85,9 @@
                         android:text="часов    "
                         android:textColor="#ffff00"/>
                     <Spinner
+                        android:id="@+id/SpinnerSecondMinutes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
-
-
                     </Spinner>
                     <TextView
                         android:layout_width="wrap_content"
@@ -99,7 +97,7 @@
                 </LinearLayout>
             </LinearLayout>
             <Button
-                android:id="@+id/buttonSelectTime"
+                android:id="@+id/buttonSelectTimeInterval"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Продолжить"

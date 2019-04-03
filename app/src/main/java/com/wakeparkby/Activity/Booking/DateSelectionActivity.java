@@ -24,7 +24,7 @@ public class DateSelectionActivity extends AppCompatActivity implements View.OnC
         buttonSelectDate.setOnClickListener(this);
         long now = System.currentTimeMillis() - 1000;
         datePicker.setMinDate(now);
-        datePicker.setMaxDate(now+(1000*60*60*24*13));
+        datePicker.setMaxDate(now+(1000*60*60*24*5));
     }
 
     @Override

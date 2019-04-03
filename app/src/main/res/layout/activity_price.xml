@@ -67,7 +67,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
-            android:visibility="invisible">
+            android:visibility="gone">
 
             <TableLayout
                 android:id="@+id/tabla_cuerpo"
@@ -171,7 +171,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="Бесплатно"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -220,7 +220,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="Бесплатно"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -270,7 +270,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="-"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -318,7 +318,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="-"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -365,7 +365,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="10"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -376,7 +376,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="10"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -413,7 +413,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="15"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -424,7 +424,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="15"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -462,7 +462,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="20"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -473,7 +473,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="20"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -509,7 +509,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="30"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -520,7 +520,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="30"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -538,7 +538,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
-            android:visibility="invisible">
+            android:visibility="gone">
 
             <TableLayout
                 android:id="@+id/tabla_cuerpo_1"
@@ -633,7 +633,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="10"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -673,7 +673,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="15"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -714,7 +714,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="20"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -753,7 +753,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="30"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -791,7 +791,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="15"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -830,7 +830,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="20"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -870,7 +870,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="25"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -908,7 +908,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="35"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -928,7 +928,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
-            android:visibility="invisible">
+            android:visibility="gone">
 
             <TableLayout
                 android:id="@+id/tabla_cuerpo_2"
@@ -1021,7 +1021,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="50"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -1032,7 +1032,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="90"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -1043,7 +1043,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="130"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -1071,7 +1071,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="65"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -1082,7 +1082,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="110"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
@@ -1093,7 +1093,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/cell_shape"
                         android:padding="5dp"
-                        android:text="150"
+                        android:text=""
                         android:textAlignment="center"
                         android:textColor="#ffffff">
                     </TextView>
