@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.Price.PriceActivity">
+        <activity android:name=".Activity.Booking.LocationSelectionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,19 +20,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.Booking.BookingDescriptionActivity" />
-        <activity android:name=".Activity.Booking.LocationSelectionActivity"/>
-
+        <activity android:name=".Activity.SignIn.SignInActivity"/>
         <activity android:name=".Activity.History.HistoryActivity" />
         <activity android:name=".Activity.MainMenu.MainMenuActivity" />
-
         <activity android:name=".Activity.SeasonTickets.SeasonTicketsActivity" />
         <activity android:name=".Activity.Welcome.WelcomeActivity" />
         <activity android:name=".Activity.Booking.ChooseTimeIntervalActivity" />
         <activity android:name=".Activity.Booking.DateSelectionActivity" />
         <activity android:name=".Activity.Booking.ReverseCableSelectionActivity" />
         <activity android:name=".Activity.SignIn.VerifyPhoneActivity" />
-        <activity android:name=".Activity.SignIn.SignInActivity"/>
-
+        <activity android:name=".Activity.Price.PriceActivity"/>
         <activity android:name=".Activity.Booking.ChooseTimeActivity"/>
 
     </application>

@@ -47,23 +47,14 @@ public class ChooseTimeActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_choose_time);
         listViewTime = (ListView) findViewById(R.id.listViewTime);
         listViewTime.setOnItemClickListener(this);
-        /////Удалить
         updateList();
-        /////
 
-        /// bookingController = new BookingController(getIntent().getStringExtra("place"), getIntent().getStringExtra("date"),
-        ///       getIntent().getIntExtra("reverseCableNumber", 0));
 
     }
 
     private void updateList() {
         List<String> timeSpaceList = new ArrayList<String>();
-        ////// Удалить
-        timeSpaceList.add("09:00 - 11:20 ");
-        timeSpaceList.add("14:00 - 15:30 ");
-        timeSpaceList.add("16:45 - 21:00 ");
-        //////
-        //timeSpaceList = bookingController.getFinalTimeSpaceList();
+        timeSpaceList = bookingController.getFinalTimeSpaceList();
         ArrayAdapter<String> timeAdapter = new ArrayAdapter<>(ChooseTimeActivity.this,
                 R.layout.text_view,
                 timeSpaceList.toArray(new String[timeSpaceList.size()]));
@@ -79,9 +70,9 @@ public class ChooseTimeActivity extends AppCompatActivity implements AdapterView
         int endHours = Integer.parseInt(timeAtPosition.substring(8, 10));
         int endMinutes = Integer.parseInt(timeAtPosition.substring(11, 13));
         Intent intent_timeInterval = new Intent(this,ChooseTimeIntervalActivity.class);
-        intent_timeInterval.putExtra("place", getIntent().getStringExtra("place"));
+        intent_timeInterval.putExtra("location", getIntent().getStringExtra("place"));
         intent_timeInterval.putExtra("date", getIntent().getStringExtra("date"));
-        intent_timeInterval.putExtra("place", getIntent().getIntExtra("reverseCableNumber", 0));
+        intent_timeInterval.putExtra("reverseCableNumber", getIntent().getIntExtra("reverseCableNumber", 0));
         intent_timeInterval.putExtra("startHours",startHours);
         intent_timeInterval.putExtra("startMinutes", startMinutes);
         intent_timeInterval.putExtra("endMinutes", endMinutes);

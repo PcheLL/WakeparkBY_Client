@@ -31,8 +31,8 @@ public class BookingController {
         public void update(){
             if (observer.getStatus() == 10){
                 if(observer.getId() == 1){
+                    listTimeSpace.clear();
                     setListTimeSpace(retrofitClient.getListTimeSpace());
-                   // listTimeSpace = retrofitClient.getListTimeSpace();
                     observer.notifyAllObservers(2);
                 }else{}
             }
@@ -40,27 +40,19 @@ public class BookingController {
     };
 
     public BookingController(String place, String date, int reverseCableNumber, Intent intent_time, Context context) {
-        //this.place = place;
-        //this.date = date;
-        //this.reverseCableNumber = reverseCableNumber;
-        //this.intent = intent_time;
-       // retrofitClient.postBooking(new Booking(data,place,1,1000,1200));
-        intent_time.putExtra("place", place);
-        intent_time.putExtra("date", date);
-        intent_time.putExtra("reverseCableNumber",reverseCableNumber);
-        start(context,intent_time);
-       /// retrofitClient.getTimeSpace(place,date,reverseCableNumber);
-       // retrofitClient.postBooking(new Booking(date ,place,reverseCableNumber,1000,1200));
-    }
-
-    public BookingController(String place, String date, int reverseCableNumber) {
-        this.place = place;
-        this.date = date;
-        this.reverseCableNumber = reverseCableNumber;
+       intent_time.putExtra("place", place);
+       intent_time.putExtra("date", date);
+       intent_time.putExtra("reverseCableNumber",reverseCableNumber);
+       start(context,intent_time);
+       retrofitClient.getTimeSpace(place,date,reverseCableNumber);
     }
 
     public BookingController() {
 
+    }
+
+    public BookingController(String date, String location, int reverseCableNumber, int newStartTime, int newEndTime) {
+        retrofitClient.postBooking(new Booking(date ,location, reverseCableNumber,newStartTime,newEndTime));
     }
 
     public static void start(Context context, Intent intent) {
@@ -132,32 +124,3 @@ public class BookingController {
         return endMinutesIntervalList;
     }
 }
-
-
-
-/* for (int i = startTime ; i < endTime - 5; i +=5){
-            int fl1 = 0;
-            int fl2 = 0;
-            int startTimeHours = i/60;
-            int startTimeMinutes = startTime - startTimeHours * 60;
-                for (int j = 0; j < startHoursIntervalList.size();j++){
-                    String time = startHoursIntervalList.get(j);
-                    if (time.equals(String.valueOf(startTimeHours))){
-                        fl1 = 1;
-                    }
-                }
-                if (fl1 == 0){
-                    startHoursIntervalList.add(String.valueOf(startTimeHours));
-                }
-                ////не работает
-            for (int j = 0; j < startMinutesIntervalList.size();j++){
-                String time = startMinutesIntervalList.get(j);
-                if (time.equals(String.valueOf(startTimeMinutes))){
-                    fl2 = 1;
-                }
-            }
-            if (fl2 == 0){
-                startMinutesIntervalList.add(String.valueOf(startTimeMinutes));
-            }
-        }
-        System.out.print("");*/

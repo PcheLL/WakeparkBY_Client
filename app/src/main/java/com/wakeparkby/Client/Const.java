@@ -4,5 +4,5 @@ import lombok.Getter;
 
 
 public class Const {
-     static final String TIMESPACE_URL = "http://3.122.192.222:8080";
+     static final String TIMESPACE_URL = "http://18.184.80.136:8080";
 }

@@ -18,11 +18,11 @@ public class Booking {
     private int endTime;
 
     public Booking(){}
-    public Booking(String data, String place, int i, int i1, int i2){
+    public Booking(String data, String place, int reversNumber, int startTime, int endTime){
         this.data = data;
         this.location = place;
-        this.reversNumber = i;
-        this.startTime = i1;
-        this.endTime = i2;
+        this.reversNumber = reversNumber;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 }

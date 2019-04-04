@@ -76,13 +76,14 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     //the country id is concatenated
     //you can take the country id as user input as well
     private void sendVerificationCode(String mobile) {
+        //1
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 mobile,
                 60,
                 TimeUnit.SECONDS,
-                TaskExecutors.MAIN_THREAD,
+                this,
                 mCallbacks);
-
+        System.out.print("");
     }
 
 
@@ -91,7 +92,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-
+            //3
             //Getting the code sent by SMS
             String code = phoneAuthCredential.getSmsCode();
 
@@ -115,7 +116,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
-
+            //2
             //storing the verification id that is sent to the user
             mVerificationId = s;
             mResendToken = forceResendingToken;
@@ -127,7 +128,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private void verifyVerificationCode(String code) {
         //creating the credential
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
-
+        //4
         //signing the user
         signInWithPhoneAuthCredential(credential);
     }
