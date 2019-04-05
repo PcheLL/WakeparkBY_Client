@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 
 import com.wakeparkby.Activity.Booking.ChooseTimeActivity;
+import com.wakeparkby.Activity.Booking.ChooseTimeIntervalActivity;
 import com.wakeparkby.Activity.Booking.DateSelectionActivity;
 import com.wakeparkby.Client.RetrofitClient;
 import com.wakeparkby.HTTPController.Booking;
@@ -51,8 +52,9 @@ public class BookingController {
 
     }
 
-    public BookingController(String date, String location, int reverseCableNumber, int newStartTime, int newEndTime) {
+    public BookingController(String date, String location, int reverseCableNumber, int newStartTime, int newEndTime, Intent intent_description, ChooseTimeIntervalActivity chooseTimeIntervalActivity) {
         retrofitClient.postBooking(new Booking(date ,location, reverseCableNumber,newStartTime,newEndTime));
+        chooseTimeIntervalActivity.startActivity(intent_description);
     }
 
     public static void start(Context context, Intent intent) {

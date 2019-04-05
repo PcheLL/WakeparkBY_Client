@@ -31,6 +31,7 @@
             android:layout_marginTop="5dp">
 
             <Button
+                android:visibility="gone"
                 android:id="@+id/buttonСhildren"
                 android:layout_width="95dp"
                 android:layout_height="wrap_content"
@@ -39,6 +40,8 @@
                 android:background="@drawable/button_welcome"
                 />
             <Button
+                android:visibility="gone"
+
                 android:id="@+id/buttonAdults"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,6 +51,7 @@
                 android:background="@drawable/button_welcome"
                 />
             <Button
+                android:visibility="gone"
                 android:id="@+id/buttonRent"
                 android:layout_width="95dp"
                 android:layout_height="wrap_content"
@@ -1104,6 +1108,54 @@
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:id="@+id/relativeLayoutProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone">
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateDrawable="@drawable/progress_bar"
+                android:indeterminateOnly="true"
+                android:layout_centerHorizontal="true"/>
+            <TextView
+                android:layout_below="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Сейчас уточним ..."
+                android:textColor="#ffff00"
+                android:textSize="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/relativeLayoutProgressBarPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone">
+            <ProgressBar
+                android:id="@+id/progressBarPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateDrawable="@drawable/progress_bar"
+                android:indeterminateOnly="true"
+                android:layout_centerHorizontal="true"/>
+            <TextView
+                android:layout_below="@+id/progressBarPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Уточняем..."
+                android:textColor="#ffff00"
+                android:textSize="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"/>
+        </RelativeLayout>
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

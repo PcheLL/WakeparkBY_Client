@@ -3,10 +3,12 @@ package com.wakeparkby.Activity.Price;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wakeparkby.R;
@@ -26,6 +28,7 @@ public class PriceActivity extends AppCompatActivity implements View.OnClickList
     private LinearLayout layoutСhildren;
     private LinearLayout layoutAdults;
     private LinearLayout layoutRent;
+    RelativeLayout relativeLayoutProgressBarPrice;
 
     private TextView textView23;
     private TextView textView33;
@@ -63,6 +66,7 @@ public class PriceActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_price);
+        relativeLayoutProgressBarPrice = findViewById(R.id.relativeLayoutProgressBarPrice);
         buttСhildren = (Button) findViewById(R.id.buttonСhildren);
         buttСhildren.setOnClickListener((View.OnClickListener) this);
         buttAdults = (Button) findViewById(R.id.buttonAdults);
@@ -111,6 +115,7 @@ public class PriceActivity extends AppCompatActivity implements View.OnClickList
             public void run() {
                 Document doc;
                 try {
+                    relativeLayoutProgressBarPrice.setVisibility(View.VISIBLE);
                     doc = Jsoup.connect("http://wakepark.by/prices").get();
                     textView23.setText(String.valueOf(doc.select("#drozdy-wake > div:nth-child(1) > table > tbody > tr:nth-child(1) > td:nth-child(3)").first().childNode(0)));
                     textView33.setText(String.valueOf(doc.select("#drozdy-wake > div:nth-child(1) > table > tbody > tr:nth-child(2) > td:nth-child(2)").first().childNode(0)));
@@ -142,6 +147,10 @@ public class PriceActivity extends AppCompatActivity implements View.OnClickList
                     textView__32.setText(String.valueOf(doc.select("#drozdy-wake > div:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(2)").first().childNode(0)));
                     textView__33.setText(String.valueOf(doc.select("#drozdy-wake > div:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(3)").first().childNode(0)));
                     textView__34.setText(String.valueOf(doc.select("#drozdy-wake > div:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(4)").first().childNode(0)));
+                    relativeLayoutProgressBarPrice.setVisibility(View.GONE);
+                    buttСhildren.setVisibility(View.VISIBLE);
+                    buttAdults.setVisibility(View.VISIBLE);
+                    buttRent.setVisibility(View.VISIBLE);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

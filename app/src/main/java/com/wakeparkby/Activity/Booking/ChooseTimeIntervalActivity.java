@@ -1,6 +1,6 @@
 package com.wakeparkby.Activity.Booking;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.wakeparkby.Controller.BookingController;
-import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.R;
 
 import java.util.ArrayList;
@@ -55,10 +54,10 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
         textViewStringMinutes = findViewById(R.id.textViewStringMinutes);
         buttonSelectTimeInterval = findViewById(R.id.buttonSelectTimeInterval);
         buttonSelectTimeInterval.setOnClickListener(this);
-        updateSpinner();
+        updateChooseTimeInterval();
     }
 
-    private void updateSpinner() {
+    private void updateChooseTimeInterval() {
 
         startHours = getIntent().getIntExtra("startHours", 0);
         startMinutes = getIntent().getIntExtra("startMinutes", 0);
@@ -230,9 +229,10 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
 
     @Override
     public void onClick(View v) {
+        Intent intent_description = new Intent(this,BookingDescriptionActivity.class);
         String location = getIntent().getStringExtra("location");
         String date = getIntent().getStringExtra("date");
         int reverseCableNumber =  getIntent().getIntExtra("reverseCableNumber", 0);
-        BookingController bookingController = new BookingController(date, location , reverseCableNumber , newStartTime,newEndTime);
+        BookingController bookingController = new BookingController(date, location , reverseCableNumber , newStartTime,newEndTime, intent_description, this);
     }
 }

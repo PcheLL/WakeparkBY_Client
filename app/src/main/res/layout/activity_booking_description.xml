@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:hint="Бронирование"
+            android:hint="Забронировано"
             android:textColorHint="#ffff00"
             android:textSize="35dp" />
 
@@ -106,18 +106,6 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/buttonBooking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="30dp"
-            android:text="Забронировать"
-            android:textColor="#ffffff"
-            android:textSize="15dp"
-            android:background="@drawable/button_welcome"/>
-        <Button
             android:id="@+id/buttonBackToMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -128,7 +116,7 @@
             android:text="Главное меню"
             android:textColor="#ffffff"
             android:textSize="15dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:background="@drawable/button_welcome"/>
 
         <ImageView
