@@ -18,7 +18,7 @@ public class LocationSelectionActivity extends AppCompatActivity implements View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location_selection);
+       // setContentView(R.layout.activity_location_selection);
         buttonDrozdy = findViewById(R.id.buttonDrozdy);
         buttonDrozdy.setOnClickListener(this);
         buttonLogoysk = findViewById(R.id.buttonLogoysk);

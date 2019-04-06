@@ -4,7 +4,10 @@ package com.wakeparkby.Activity.MainMenu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -76,27 +79,33 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        Intent intent_LocationSelection = new Intent(this, LocationSelectionActivity.class);
+        /*Intent intent_LocationSelection = new Intent(this, LocationSelectionActivity.class);
         Intent intent_SeasonTickets = new Intent(this, SeasonTicketsActivity.class);
         Intent intent_Price = new Intent(this, PriceActivity.class);
         Intent intent_History = new Intent(this, HistoryActivity.class);
-        Intent intent_SignIn = new Intent(this, SignInActivity.class);
+        Intent intent_SignIn = new Intent(this, SignInActivity.class);*/
         int id = item.getItemId();
-
-        if (id == R.id.nav_ChoosePl) {
-            startActivity(intent_LocationSelection);
-        } else if (id == R.id.nav_MySeasonTickets) {
-            startActivity(intent_SeasonTickets);
-        } else if (id == R.id.nav_Price) {
-            startActivity(intent_Price);
-        } else if (id == R.id.nav_History) {
-            startActivity(intent_History);
-        } else if (id == R.id.nav_Exit) {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(intent_SignIn);
+        displaySelectedScreen(id);
+        return true;
+    }
+    private void displaySelectedScreen(int id) {
+        Fragment fragment = null;
+        switch (id) {
+            case R.id.nav_ChoosePl:
+                fragment = new Gallery();
+                break;
+            case R.id.nav_MySeasonTickets:
+                fragment = new SeasonTicketsActivity();
+                break;
         }
+
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_main, fragment);
+            fragmentTransaction.commit();
+        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }
