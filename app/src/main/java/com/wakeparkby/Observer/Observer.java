@@ -78,6 +78,11 @@ public class Observer {
         }
     }
 
+
+    public void removeFromList(Observer observer) {
+        observers.remove(observer);
+    }
+
     /**
      * is abstract method for update in observer
      */

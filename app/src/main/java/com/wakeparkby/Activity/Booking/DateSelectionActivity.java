@@ -48,6 +48,5 @@ public class DateSelectionActivity extends AppCompatActivity implements View.OnC
         intent_Reverse.putExtra("place", getIntent().getStringExtra("place"));
         intent_Reverse.putExtra("date", date);
         BookingController.start(this, intent_Reverse);
-        startActivity(intent_Reverse);
     }
 }

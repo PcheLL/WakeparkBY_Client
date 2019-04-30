@@ -5,6 +5,7 @@
     android:background="#ffffff">
 
     <RelativeLayout
+        android:id="@+id/relativeLayoutHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffffff"
@@ -25,6 +26,10 @@
             android:layout_below="@+id/textViewHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></ExpandableListView>
+        <ViewFlipper
+            android:id="@+id/flipper"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

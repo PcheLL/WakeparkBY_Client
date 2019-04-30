@@ -54,6 +54,26 @@ public class BookingController {
 
     public BookingController(String date, String location, int reverseCableNumber, int newStartTime, int newEndTime, Intent intent_description, ChooseTimeIntervalActivity chooseTimeIntervalActivity) {
         retrofitClient.postBooking(new Booking(date ,location, reverseCableNumber,newStartTime,newEndTime));
+        String finalTimeInterval = null;
+            int startHours = newStartTime / 60;
+            int startMinutes = newStartTime - startHours * 60;
+            int endHours = newEndTime / 60;
+            int endMinutes = newEndTime - endHours * 60;
+            if (startMinutes == 0) {
+                if (endMinutes == 0) {
+                   finalTimeInterval = startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes + "0";
+                } else {
+                    finalTimeInterval = startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes;
+                }
+            } else if (endMinutes == 0) {
+                finalTimeInterval = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes + "0";
+            } else {
+                finalTimeInterval = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes;
+            }
+        intent_description.putExtra("location",location);
+        intent_description.putExtra("date",date);
+        intent_description.putExtra("reverseCableNumber",reverseCableNumber);
+        intent_description.putExtra("finalTimeInterval",finalTimeInterval);
         chooseTimeIntervalActivity.startActivity(intent_description);
     }
 

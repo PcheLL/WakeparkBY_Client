@@ -5,16 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.service.autofill.Validator;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
+import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.R;
 
-public class LocationSelectionActivity extends AppCompatActivity implements View.OnClickListener {
+public class LocationSelectionActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
     Button buttonDrozdy;
     Button buttonLogoysk;
+    private float fromPosition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +27,8 @@ public class LocationSelectionActivity extends AppCompatActivity implements View
         buttonDrozdy.setOnClickListener(this);
         buttonLogoysk = findViewById(R.id.buttonLogoysk);
         buttonLogoysk.setOnClickListener(this);
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayoutLocationSelection);
+        relativeLayout.setOnTouchListener(this);
     }
 
     @Override
@@ -38,5 +44,30 @@ public class LocationSelectionActivity extends AppCompatActivity implements View
                 BookingController.start(this,intent_Date);
                 break;
         }
+    }
+    public boolean onTouch(View view, MotionEvent event)
+    {
+        switch (event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                fromPosition = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                float toPosition = event.getX();
+                if (fromPosition < toPosition)
+                {
+                    Intent intent = new Intent(this, MainMenuActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.go_prev_in,R.anim.go_prev_out);
+                }
+            default:
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

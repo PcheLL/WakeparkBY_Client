@@ -1,21 +1,25 @@
 package com.wakeparkby.Activity.SeasonTickets;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wakeparkby.Activity.Booking.ChooseTimeActivity;
+import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
 import com.wakeparkby.Controller.SeasonTicketController;
 import com.wakeparkby.Observer.Observer;
 import com.wakeparkby.R;
 
-public class SeasonTicketsActivity extends AppCompatActivity {
+public class SeasonTicketsActivity extends AppCompatActivity implements View.OnTouchListener {
     private String number =  "375336416565";
     TextView textViewSeasonTicketsTime;
     RelativeLayout relativeLayoutProgressBar;
     SeasonTicketController seasonTicketController;
+    private float fromPosition;
     Observer observer = new Observer("SeasonTicket") {
 
         /**
@@ -41,13 +45,41 @@ public class SeasonTicketsActivity extends AppCompatActivity {
         textViewSeasonTicketsTime = findViewById(R.id.textViewSeasonTicketsTime);
         seasonTicketController = new SeasonTicketController(number);
         relativeLayoutProgressBar = findViewById(R.id.relativeLayoutProgressBar);
-
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayoutSeasonTicket);
+        relativeLayout.setOnTouchListener(this);
+        updateSeasonTicket();
     }
 
 
     private void updateSeasonTicket() {
         textViewSeasonTicketsTime.setText(seasonTicketController.getSeasonTicket());
-        textViewSeasonTicketsTime.setVisibility(View.VISIBLE);
         relativeLayoutProgressBar.setVisibility(View.GONE);
+        textViewSeasonTicketsTime.setVisibility(View.VISIBLE);
+    }
+    public boolean onTouch(View view, MotionEvent event)
+    {
+        switch (event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                fromPosition = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                float toPosition = event.getX();
+
+                if (fromPosition < toPosition)
+                {
+                    Intent intent = new Intent(this, MainMenuActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.go_prev_in,R.anim.go_prev_out);
+                }
+            default:
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

@@ -1,16 +1,24 @@
 package com.wakeparkby.Activity.Price;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
+import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
 import com.wakeparkby.Observer.Observer;
 import com.wakeparkby.R;
 
@@ -22,7 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PriceActivity extends AppCompatActivity implements View.OnClickListener {
+public class PriceActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
     private Button buttСhildren;
     private Button buttAdults;
     private Button buttRent;
@@ -62,6 +70,9 @@ public class PriceActivity extends AppCompatActivity implements View.OnClickList
     private TextView textView__32;
     private TextView textView__33;
     private TextView textView__34;
+
+    private ViewFlipper flipper;
+    private float fromPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +118,8 @@ public class PriceActivity extends AppCompatActivity implements View.OnClickList
         textView__32 = (TextView) findViewById(R.id.textView__32);
         textView__33 = (TextView) findViewById(R.id.textView__33);
         textView__34 = (TextView) findViewById(R.id.textView__34);
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayoutPrice);
+        relativeLayout.setOnTouchListener(this);
         refreshPriceList();
     }
     public void refreshPriceList() {
@@ -187,5 +200,32 @@ public class PriceActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+    public boolean onTouch(View view, MotionEvent event)
+    {
+        switch (event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                fromPosition = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                float toPosition = event.getX();
+
+                if (fromPosition < toPosition)
+                {
+                    Intent intent = new Intent(this, MainMenuActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.go_prev_in,R.anim.go_prev_out);
+                }
+            default:
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
 }
 

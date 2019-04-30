@@ -49,4 +49,9 @@ public class ReverseCableSelectionActivity extends AppCompatActivity implements 
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
 }
