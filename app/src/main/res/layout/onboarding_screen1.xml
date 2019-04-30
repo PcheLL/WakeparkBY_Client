@@ -22,8 +22,8 @@
         android:textSize="15sp"
         android:layout_marginTop="20dp"
         android:textColor="#ffffff"
-        android:text="Для того, чтобы забронировать время, выберите
-разедл 'Бронирование' в главном меню. После чего место, номер реверса и дату."
+        android:text="Для того, чтобы забронировать время выберите
+разедел 'Бронирование' в боковом меню. После чего выберите место, номер реверса и дату."
         />
     <ImageView
         android:layout_marginTop="30dp"
