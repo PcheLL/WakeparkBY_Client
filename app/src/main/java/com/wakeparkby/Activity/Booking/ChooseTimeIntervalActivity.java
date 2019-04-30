@@ -98,6 +98,10 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
         ArrayAdapter<String> endMinutesIntervalListAdapter = new ArrayAdapter<>(ChooseTimeIntervalActivity.this,
                 R.layout.text_view,
                 endMinutesIntervalList.toArray(new String[endMinutesIntervalList.size()]));
+        startHoursIntervalListAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        startMinutesIntervalListAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        endHoursIntervalListAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        endMinutesIntervalListAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerStartHours.setAdapter(startHoursIntervalListAdapter);
         spinnerStartMinutes.setAdapter(startMinutesIntervalListAdapter);
         spinnerEndHours.setAdapter(endHoursIntervalListAdapter);
@@ -149,7 +153,9 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
                 ArrayAdapter<String> endMinutesIntervalListAdapter = new ArrayAdapter<>(ChooseTimeIntervalActivity.this,
                         R.layout.text_view,
                         endMinutesIntervalList.toArray(new String[endMinutesIntervalList.size()]));
-
+                startMinutesIntervalListAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+                endHoursIntervalListAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+                endMinutesIntervalListAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
                 spinnerStartMinutes.setAdapter(startMinutesIntervalListAdapter);
                 spinnerEndHours.setAdapter(endHoursIntervalListAdapter);
                 spinnerEndMinutes.setAdapter(endMinutesIntervalListAdapter);
@@ -180,6 +186,8 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
                 ArrayAdapter<String> endMinutesIntervalListAdapter1 = new ArrayAdapter<>(ChooseTimeIntervalActivity.this,
                         R.layout.text_view,
                         endMinutesIntervalList.toArray(new String[endMinutesIntervalList.size()]));
+
+                endMinutesIntervalListAdapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
                 spinnerEndMinutes.setAdapter(endMinutesIntervalListAdapter1);
                 break;
             case R.id.SpinnerSecondHours:
@@ -201,7 +209,7 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
                         R.layout.text_view,
                         endMinutesIntervalList.toArray(new String[endMinutesIntervalList.size()]));
 
-
+                endMinutesIntervalListAdapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
                 spinnerEndMinutes.setAdapter(endMinutesIntervalListAdapter2);
                 break;
             case R.id.SpinnerSecondMinutes:
