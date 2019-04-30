@@ -71,7 +71,6 @@ public class PriceActivity extends AppCompatActivity implements View.OnClickList
     private TextView textView__33;
     private TextView textView__34;
 
-    private ViewFlipper flipper;
     private float fromPosition;
 
     @Override

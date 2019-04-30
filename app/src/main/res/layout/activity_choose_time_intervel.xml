@@ -6,7 +6,7 @@
         android:background="#000000">
 
         <RelativeLayout
-            android:id="@+id/relativeLayoutChoosePlace"
+            android:id="@+id/relativeLayoutChooseTimeInterval"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible">

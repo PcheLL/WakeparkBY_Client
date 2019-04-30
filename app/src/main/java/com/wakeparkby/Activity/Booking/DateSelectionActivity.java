@@ -3,18 +3,22 @@ package com.wakeparkby.Activity.Booking;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RelativeLayout;
 
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.R;
 
-public class DateSelectionActivity extends AppCompatActivity implements View.OnClickListener {
+public class DateSelectionActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
     DatePicker datePicker;
     Button buttonSelectDate;
     private String date;
+    private float fromPosition;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,8 @@ public class DateSelectionActivity extends AppCompatActivity implements View.OnC
         long now = System.currentTimeMillis() - 1000;
         datePicker.setMinDate(now);
         datePicker.setMaxDate(now + (1000 * 60 * 60 * 24 * 5));
+        RelativeLayout relativeLayoutCalendar = findViewById(R.id.relativeLayoutCalendar);
+        relativeLayoutCalendar.setOnTouchListener(this);
     }
 
     @Override
@@ -48,5 +54,22 @@ public class DateSelectionActivity extends AppCompatActivity implements View.OnC
         intent_Reverse.putExtra("place", getIntent().getStringExtra("place"));
         intent_Reverse.putExtra("date", date);
         BookingController.start(this, intent_Reverse);
+    }
+
+    public boolean onTouch(View view, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                fromPosition = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                float toPosition = event.getX();
+
+                if (fromPosition < toPosition) {
+                    super.onBackPressed();
+                }
+            default:
+                break;
+        }
+        return true;
     }
 }

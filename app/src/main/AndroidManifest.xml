@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wakeparkby">
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,29 +13,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <service android:name=".Client.Notification.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".Activity.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".Activity.Booking.BookingDescriptionActivity" />
-        <activity android:name=".Activity.SignIn.SignInActivity"/>
-        <activity android:name=".Activity.History.HistoryActivity" />
 
-        <activity android:name=".Activity.Welcome.WelcomeActivity" />
-        <activity android:name=".Activity.Booking.ChooseTimeIntervalActivity" />
-        <activity android:name=".Activity.Booking.DateSelectionActivity" />
-        <activity android:name=".Activity.Booking.ReverseCableSelectionActivity" />
-        <activity android:name=".Activity.SignIn.VerifyPhoneActivity" />
-        <activity android:name=".Activity.Price.PriceActivity"/>
-        <activity android:name=".Activity.Booking.ChooseTimeActivity"/>
-        <activity android:name=".Activity.Booking.LocationSelectionActivity"/>
-        <activity android:name=".Activity.SeasonTickets.SeasonTicketsActivity"/>
-        <activity android:name=".Activity.MainMenu.MainMenuActivity"/>
+        </activity >
+
+        <activity android:name=".Activity.Booking.BookingDescriptionActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.SignIn.SignInActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.History.HistoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.Welcome.WelcomeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.Booking.ChooseTimeIntervalActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.Booking.DateSelectionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.Booking.ReverseCableSelectionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.SignIn.VerifyPhoneActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.Price.PriceActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.Booking.ChooseTimeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.Booking.LocationSelectionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.SeasonTickets.SeasonTicketsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.MainMenu.MainMenuActivity" android:screenOrientation="portrait"/>
     </application>
+
 
 </manifest>

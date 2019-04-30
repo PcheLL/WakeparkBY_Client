@@ -3,10 +3,12 @@ package com.wakeparkby.Activity.Booking;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -16,7 +18,7 @@ import com.wakeparkby.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChooseTimeIntervalActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class ChooseTimeIntervalActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, View.OnTouchListener {
     Spinner spinnerStartHours;
     Spinner spinnerStartMinutes;
     Spinner spinnerEndHours;
@@ -36,7 +38,7 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
     int endMinutes = 0;
     int newStartTime = 0;
     int newEndTime = 0;
-
+    private float fromPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,8 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
         textViewStringMinutes = findViewById(R.id.textViewStringMinutes);
         buttonSelectTimeInterval = findViewById(R.id.buttonSelectTimeInterval);
         buttonSelectTimeInterval.setOnClickListener(this);
+        RelativeLayout relativeLayoutCalendar = findViewById(R.id.relativeLayoutChooseTimeInterval);
+        relativeLayoutCalendar.setOnTouchListener(this);
         updateChooseTimeInterval();
     }
 
@@ -229,15 +233,32 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
 
     @Override
     public void onClick(View v) {
-        Intent intent_description = new Intent(this,BookingDescriptionActivity.class);
+        Intent intent_description = new Intent(this, BookingDescriptionActivity.class);
         String location = getIntent().getStringExtra("location");
         String date = getIntent().getStringExtra("date");
-        int reverseCableNumber =  getIntent().getIntExtra("reverseCableNumber", 0);
-        BookingController bookingController = new BookingController(date, location , reverseCableNumber , newStartTime,newEndTime, intent_description, this);
+        int reverseCableNumber = getIntent().getIntExtra("reverseCableNumber", 0);
+        BookingController bookingController = new BookingController(date, location, reverseCableNumber, newStartTime, newEndTime, intent_description, this);
+    }
+
+    public boolean onTouch(View view, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                fromPosition = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                float toPosition = event.getX();
+
+                if (fromPosition < toPosition) {
+                    super.onBackPressed();
+                }
+            default:
+                break;
+        }
+        return true;
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         super.onBackPressed();
     }
 }

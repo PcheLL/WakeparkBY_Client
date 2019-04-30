@@ -2,17 +2,23 @@ package com.wakeparkby.Activity.MainMenu;
 
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 
 
-import android.view.Menu;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.wakeparkby.Activity.Booking.LocationSelectionActivity;
@@ -22,24 +28,91 @@ import com.wakeparkby.Activity.SeasonTickets.SeasonTicketsActivity;
 import com.wakeparkby.Activity.SignIn.SignInActivity;
 import com.wakeparkby.R;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
+
 public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    TextView textView_Air_Temperature_Logoysk;
+    TextView textView_Wind_Speed_Logoysk;
+    TextView textView_Weather_Logoysk;
+
+    TextView textView_Air_Temperature_Drozdy;
+    TextView textView_Wind_Speed_Drozdy;
+    TextView textView_Weather_Drozdy;
+
+    NavigationView navigationView;
+    AppBarLayout appBarLayout;
+    ConstraintLayout constraintLayout;
+    RelativeLayout relativeLayoutProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-        //        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        //drawer.addDrawerListener(toggle);
-        //toggle.syncState();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        appBarLayout = findViewById(R.id.appbar);
+        constraintLayout = findViewById(R.id.content_main);
+        relativeLayoutProgressBar = findViewById(R.id.relativeLayoutProgressBarMainMenu);
+        textView_Air_Temperature_Logoysk = findViewById(R.id.textView_Air_Temperature_Logoysk);
+        textView_Wind_Speed_Logoysk = findViewById(R.id.textView_Wind_Speed_Logoysk);
+        textView_Weather_Logoysk = findViewById(R.id.textView_Weather_Logoysk);
 
+        textView_Air_Temperature_Drozdy = findViewById(R.id.textView_Air_Temperature_Drozdy);
+        textView_Wind_Speed_Drozdy = findViewById(R.id.textView_Wind_Speed_Drozdy);
+        textView_Weather_Drozdy = findViewById(R.id.textView_Weather_Drozdy);
+
+        //appBarLayout.setVisibility(View.GONE);
+        constraintLayout.setVisibility(View.GONE);
+        relativeLayoutProgressBar.setVisibility(View.VISIBLE);
+
+        refreshWeather();
+    }
+
+    private void refreshWeather() {
+        Thread newThread = new Thread() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            public void run() {
+                Document docLogoysk;
+                Document docDrozdy;
+                try {
+                    docLogoysk = Jsoup.connect("https://yandex.by/pogoda/minsk?lat=54.18134156547551&lon=27.810362236397864").get();
+                    textView_Air_Temperature_Logoysk.setText(String.valueOf(docLogoysk.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
+                    textView_Wind_Speed_Logoysk.setText(String.valueOf(docLogoysk.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__props.fact__props_position_middle > dl.term.term_orient_v.fact__wind-speed > dd > span.wind-speed").first().childNode(0)));
+                    textView_Weather_Logoysk.setText(String.valueOf(docLogoysk.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
+
+                    docDrozdy = Jsoup.connect("https://yandex.by/pogoda/minsk?lat=53.95676295721988&lon=27.445825327087764").get();
+                    textView_Air_Temperature_Drozdy.setText(String.valueOf(docDrozdy.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
+                    textView_Wind_Speed_Drozdy.setText(String.valueOf(docDrozdy.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__props.fact__props_position_middle > dl.term.term_orient_v.fact__wind-speed > dd > span.wind-speed").first().childNode(0)));
+                    textView_Weather_Drozdy.setText(String.valueOf(docDrozdy.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            relativeLayoutProgressBar.setVisibility(View.GONE);
+                         //   navigationView.setVisibility(View.VISIBLE);
+                          //  appBarLayout.setVisibility(View.VISIBLE);
+                            constraintLayout.setVisibility(View.VISIBLE);
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        newThread.start();
     }
 
     @Override
@@ -52,27 +125,6 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
