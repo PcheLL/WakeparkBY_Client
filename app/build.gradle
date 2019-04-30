@@ -39,4 +39,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.6'
     implementation 'com.android.support:design:28.0.0'
     implementation 'org.jsoup:jsoup:1.11.3'
+    implementation 'com.github.navasmdc:MaterialDesign:1.5@aar'
+    implementation 'com.ogaclejapan.smarttablayout:library:1.2.1@aar'
 }

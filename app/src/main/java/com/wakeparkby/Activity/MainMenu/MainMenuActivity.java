@@ -2,6 +2,7 @@ package com.wakeparkby.Activity.MainMenu;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.wakeparkby.Activity.Booking.LocationSelectionActivity;
 import com.wakeparkby.Activity.History.HistoryActivity;
+import com.wakeparkby.Activity.Onboarding.OnboardingActivity;
 import com.wakeparkby.Activity.Price.PriceActivity;
 import com.wakeparkby.Activity.SeasonTickets.SeasonTicketsActivity;
 import com.wakeparkby.Activity.SignIn.SignInActivity;
@@ -50,35 +52,50 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        SharedPreferences preferences =
+                getSharedPreferences("my_preferences", MODE_PRIVATE);
+
+        if(!preferences.getBoolean("onboarding_complete",false)){
+
+            Intent onboarding = new Intent(this, OnboardingActivity.class);
+            startActivity(onboarding);
+
+            finish();
+            return;
+        }
+        else {
+
+            setContentView(R.layout.activity_main_menu);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        appBarLayout = findViewById(R.id.appbar);
-        constraintLayout = findViewById(R.id.content_main);
-        relativeLayoutProgressBar = findViewById(R.id.relativeLayoutProgressBarMainMenu);
-        textView_Air_Temperature_Logoysk = findViewById(R.id.textView_Air_Temperature_Logoysk);
-        textView_Wind_Speed_Logoysk = findViewById(R.id.textView_Wind_Speed_Logoysk);
-        textView_Weather_Logoysk = findViewById(R.id.textView_Weather_Logoysk);
+            navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+            appBarLayout = findViewById(R.id.appbar);
+            constraintLayout = findViewById(R.id.content_main);
+            relativeLayoutProgressBar = findViewById(R.id.relativeLayoutProgressBarMainMenu);
+            textView_Air_Temperature_Logoysk = findViewById(R.id.textView_Air_Temperature_Logoysk);
+            textView_Wind_Speed_Logoysk = findViewById(R.id.textView_Wind_Speed_Logoysk);
+            textView_Weather_Logoysk = findViewById(R.id.textView_Weather_Logoysk);
 
-        textView_Air_Temperature_Drozdy = findViewById(R.id.textView_Air_Temperature_Drozdy);
-        textView_Wind_Speed_Drozdy = findViewById(R.id.textView_Wind_Speed_Drozdy);
-        textView_Weather_Drozdy = findViewById(R.id.textView_Weather_Drozdy);
+            textView_Air_Temperature_Drozdy = findViewById(R.id.textView_Air_Temperature_Drozdy);
+            textView_Wind_Speed_Drozdy = findViewById(R.id.textView_Wind_Speed_Drozdy);
+            textView_Weather_Drozdy = findViewById(R.id.textView_Weather_Drozdy);
 
-        //appBarLayout.setVisibility(View.GONE);
-        constraintLayout.setVisibility(View.GONE);
-        relativeLayoutProgressBar.setVisibility(View.VISIBLE);
+            //appBarLayout.setVisibility(View.GONE);
+            constraintLayout.setVisibility(View.GONE);
+            relativeLayoutProgressBar.setVisibility(View.VISIBLE);
 
-        refreshWeather();
+            refreshWeather();
+        }
     }
 
     private void refreshWeather() {
