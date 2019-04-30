@@ -235,4 +235,9 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
         int reverseCableNumber =  getIntent().getIntExtra("reverseCableNumber", 0);
         BookingController bookingController = new BookingController(date, location , reverseCableNumber , newStartTime,newEndTime, intent_description, this);
     }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
 }

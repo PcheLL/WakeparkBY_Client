@@ -47,7 +47,9 @@ public class SeasonTicketsActivity extends AppCompatActivity implements View.OnT
         relativeLayoutProgressBar = findViewById(R.id.relativeLayoutProgressBar);
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayoutSeasonTicket);
         relativeLayout.setOnTouchListener(this);
-        updateSeasonTicket();
+        relativeLayoutProgressBar.setVisibility(View.VISIBLE);
+        textViewSeasonTicketsTime.setVisibility(View.GONE);
+        //updateSeasonTicket();
     }
 
 
@@ -71,6 +73,7 @@ public class SeasonTicketsActivity extends AppCompatActivity implements View.OnT
                     Intent intent = new Intent(this, MainMenuActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.go_prev_in,R.anim.go_prev_out);
+                    observer.removeFromList(observer);
                 }
             default:
                 break;
@@ -81,5 +84,11 @@ public class SeasonTicketsActivity extends AppCompatActivity implements View.OnT
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        observer.removeFromList(observer);
+        super.onBackPressed();
     }
 }
