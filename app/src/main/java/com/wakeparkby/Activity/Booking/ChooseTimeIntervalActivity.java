@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.R;
@@ -38,6 +39,7 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
     int endMinutes = 0;
     int newStartTime = 0;
     int newEndTime = 0;
+    private int finalTime = 0;
     private float fromPosition;
 
     @Override
@@ -168,6 +170,7 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
                     ArrayAdapter<String> endHoursIntervalListAdapter1 = new ArrayAdapter<>(ChooseTimeIntervalActivity.this,
                             R.layout.text_view,
                             endHoursIntervalList.toArray(new String[endHoursIntervalList.size()]));
+                    endHoursIntervalListAdapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
                     spinnerEndHours.setAdapter(endHoursIntervalListAdapter1);
                     endMinutesIntervalList.add(0 + "");
                 }
@@ -221,12 +224,12 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
                 int b1 = Integer.valueOf(spinnerEndMinutes.getItemAtPosition(spinnerEndMinutes.getSelectedItemPosition()).toString());
                 newStartTime = a * 60 + b;
                 newEndTime = a1 * 60 + b1;
-                int c = newEndTime - newStartTime;
-                if (c < 0) {
+                finalTime = newEndTime - newStartTime;
+                if (finalTime < 0) {
                     textViewAllTime.setText("");
-                    textViewStringMinutes.setText("Неправильное время");
+                    textViewStringMinutes.setText("Некорректное время");
                 } else {
-                    textViewAllTime.setText(String.valueOf(c));
+                    textViewAllTime.setText(String.valueOf(finalTime));
                     textViewStringMinutes.setText(" минут");
                 }
                 break;
@@ -241,11 +244,15 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
 
     @Override
     public void onClick(View v) {
-        Intent intent_description = new Intent(this, BookingDescriptionActivity.class);
-        String location = getIntent().getStringExtra("location");
-        String date = getIntent().getStringExtra("date");
-        int reverseCableNumber = getIntent().getIntExtra("reverseCableNumber", 0);
-        BookingController bookingController = new BookingController(date, location, reverseCableNumber, newStartTime, newEndTime, intent_description, this);
+        if (finalTime < 0 || finalTime == 0) {
+            Toast.makeText(this, "Некорректное время !", Toast.LENGTH_LONG).show();
+        } else {
+            Intent intent_description = new Intent(this, BookingDescriptionActivity.class);
+            String location = getIntent().getStringExtra("location");
+            String date = getIntent().getStringExtra("date");
+            int reverseCableNumber = getIntent().getIntExtra("reverseCableNumber", 0);
+            BookingController bookingController = new BookingController(date, location, reverseCableNumber, newStartTime, newEndTime, intent_description, this);
+        }
     }
 
     public boolean onTouch(View view, MotionEvent event) {
