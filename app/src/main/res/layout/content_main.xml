@@ -19,6 +19,7 @@
     android:layout_marginTop="0dp"
     android:paddingLeft="10dp">
     <TextView
+        android:id="@+id/textViewNameLogoysk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#ffff00"
@@ -110,6 +111,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/textViewNameDrozdy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#ffff00"

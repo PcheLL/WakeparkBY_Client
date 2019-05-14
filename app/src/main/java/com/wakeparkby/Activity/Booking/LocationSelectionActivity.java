@@ -70,4 +70,10 @@ public class LocationSelectionActivity extends AppCompatActivity implements View
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainMenuActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.go_prev_in,R.anim.go_prev_out);
+    }
 }

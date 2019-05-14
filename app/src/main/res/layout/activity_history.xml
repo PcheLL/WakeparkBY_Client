@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/relativeLayoutHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
+        android:background="#000000"
         android:orientation="vertical">
 
         <TextView
@@ -21,11 +20,17 @@
             android:textColorHint="#ffff00"
             android:textSize="35dp">
         </TextView>
-        <ExpandableListView
-            android:id="@+id/expListView"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_below="@+id/textViewHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></ExpandableListView>
+            >
+            <ListView
+                android:layout_marginTop="10dp"
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+        </LinearLayout>
         <ViewFlipper
             android:id="@+id/flipper"
             android:layout_width="fill_parent"

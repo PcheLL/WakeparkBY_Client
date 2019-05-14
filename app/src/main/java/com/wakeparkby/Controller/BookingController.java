@@ -27,25 +27,26 @@ public class BookingController {
     List<String> endMinutesIntervalList = new ArrayList<>();
     private static List<TimeSpace> listTimeSpace = new ArrayList<>();
     private RetrofitClient retrofitClient = RetrofitClient.getRetrofitClient();
-    Observer observer = new Observer("BookingController"){
+    Observer observer = new Observer("BookingController") {
         @Override
-        public void update(){
-            if (observer.getStatus() == 10){
-                if(observer.getId() == 1){
+        public void update() {
+            if (observer.getStatus() == 10) {
+                if (observer.getId() == 1) {
                     listTimeSpace.clear();
                     setListTimeSpace(retrofitClient.getListTimeSpace());
                     observer.notifyAllObservers(2);
-                }else{}
+                } else {
+                }
             }
         }
     };
 
     public BookingController(String place, String date, int reverseCableNumber, Intent intent_time, Context context) {
-       intent_time.putExtra("place", place);
-       intent_time.putExtra("date", date);
-       intent_time.putExtra("reverseCableNumber",reverseCableNumber);
-       start(context,intent_time);
-       retrofitClient.getTimeSpace(place,date,reverseCableNumber);
+        intent_time.putExtra("place", place);
+        intent_time.putExtra("date", date);
+        intent_time.putExtra("reverseCableNumber", reverseCableNumber);
+        start(context, intent_time);
+        retrofitClient.getTimeSpace(place, date, reverseCableNumber);
     }
 
     public BookingController() {
@@ -53,27 +54,35 @@ public class BookingController {
     }
 
     public BookingController(String date, String location, int reverseCableNumber, int newStartTime, int newEndTime, Intent intent_description, ChooseTimeIntervalActivity chooseTimeIntervalActivity) {
-        retrofitClient.postBooking(new Booking(date ,location, reverseCableNumber,newStartTime,newEndTime));
+        retrofitClient.postBooking(new Booking(date, location, reverseCableNumber, newStartTime, newEndTime));
         String finalTimeInterval = null;
-            int startHours = newStartTime / 60;
-            int startMinutes = newStartTime - startHours * 60;
-            int endHours = newEndTime / 60;
-            int endMinutes = newEndTime - endHours * 60;
-            if (startMinutes == 0) {
-                if (endMinutes == 0) {
-                   finalTimeInterval = startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes + "0";
-                } else {
-                    finalTimeInterval = startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes;
-                }
-            } else if (endMinutes == 0) {
-                finalTimeInterval = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes + "0";
+        int startHours = newStartTime / 60;
+        int startMinutes = newStartTime - startHours * 60;
+        int endHours = newEndTime / 60;
+        int endMinutes = newEndTime - endHours * 60;
+        if (startMinutes == 0) {
+            if (endMinutes == 0) {
+                finalTimeInterval = startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes + "0";
             } else {
-                finalTimeInterval = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes;
+                finalTimeInterval = startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes;
             }
-        intent_description.putExtra("location",location);
-        intent_description.putExtra("date",date);
-        intent_description.putExtra("reverseCableNumber",reverseCableNumber);
-        intent_description.putExtra("finalTimeInterval",finalTimeInterval);
+        } else if (endMinutes == 0) {
+            finalTimeInterval = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes + "0";
+        } else if (startMinutes < 10) {
+            if (endMinutes < 10) {
+                finalTimeInterval = startHours + ":0" + startMinutes + " - " + endHours + ":0" + endMinutes;
+            } else
+                finalTimeInterval = startHours + ":0" + startMinutes + " - " + endHours + ":" + endMinutes;
+
+        } else if (endMinutes < 10) {
+            finalTimeInterval = startHours + ":" + startMinutes + " - " + endHours + ":0" + endMinutes;
+        } else {
+            finalTimeInterval = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes;
+        }
+        intent_description.putExtra("location", location);
+        intent_description.putExtra("date", date);
+        intent_description.putExtra("reverseCableNumber", reverseCableNumber);
+        intent_description.putExtra("finalTimeInterval", finalTimeInterval);
         chooseTimeIntervalActivity.startActivity(intent_description);
     }
 

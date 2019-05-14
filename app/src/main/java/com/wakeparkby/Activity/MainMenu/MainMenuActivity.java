@@ -22,12 +22,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.wakeparkby.Activity.Booking.DateSelectionActivity;
 import com.wakeparkby.Activity.Booking.LocationSelectionActivity;
 import com.wakeparkby.Activity.History.HistoryActivity;
 import com.wakeparkby.Activity.Onboarding.OnboardingActivity;
 import com.wakeparkby.Activity.Price.PriceActivity;
 import com.wakeparkby.Activity.SeasonTickets.SeasonTicketsActivity;
 import com.wakeparkby.Activity.SignIn.SignInActivity;
+import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.R;
 
 import org.jsoup.Jsoup;
@@ -35,10 +37,14 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     TextView textView_Air_Temperature_Logoysk;
     TextView textView_Wind_Speed_Logoysk;
     TextView textView_Weather_Logoysk;
+
+    TextView textViewNameLogoysk;
+    TextView textViewNameDrozdy;
+
 
     TextView textView_Air_Temperature_Drozdy;
     TextView textView_Wind_Speed_Drozdy;
@@ -90,10 +96,13 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
             textView_Wind_Speed_Drozdy = findViewById(R.id.textView_Wind_Speed_Drozdy);
             textView_Weather_Drozdy = findViewById(R.id.textView_Weather_Drozdy);
 
+            textViewNameLogoysk = findViewById(R.id.textViewNameLogoysk);
+            textViewNameDrozdy = findViewById(R.id.textViewNameDrozdy);
+            textViewNameLogoysk.setOnClickListener(this);
+            textViewNameDrozdy.setOnClickListener(this);
             //appBarLayout.setVisibility(View.GONE);
             constraintLayout.setVisibility(View.GONE);
             relativeLayoutProgressBar.setVisibility(View.VISIBLE);
-
             refreshWeather();
         }
     }
@@ -168,5 +177,20 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent_Date = new Intent(this, DateSelectionActivity.class);
+        switch (v.getId()) {
+            case R.id.textViewNameLogoysk:
+                intent_Date.putExtra("place","LOGOISK");
+                BookingController.start(this,intent_Date);
+                break;
+            case R.id.textViewNameDrozdy:
+                intent_Date.putExtra("place","DROZDI");
+                BookingController.start(this,intent_Date);
+                break;
+        }
     }
 }
