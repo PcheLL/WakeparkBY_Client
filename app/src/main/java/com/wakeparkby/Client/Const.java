@@ -4,5 +4,5 @@ package com.wakeparkby.Client;
 
 
 public class Const {
-    static final String TIMESPACE_URL = "http://52.59.235.20:8080";
+    static final String TIMESPACE_URL = "http://52.59.235.201:8080";
 }

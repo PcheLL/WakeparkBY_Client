@@ -1,9 +1,7 @@
 package com.wakeparkby.Activity.Booking;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.autofill.Validator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,7 +10,6 @@ import android.widget.RelativeLayout;
 
 import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
 import com.wakeparkby.Controller.BookingController;
-import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.R;
 
 public class LocationSelectionActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {

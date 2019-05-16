@@ -1,18 +1,11 @@
 package com.wakeparkby.Client;
 
-import android.app.Application;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.wakeparkby.Controller.BookingController;
+import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.Controller.SeasonTicketController;
 import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.HTTPController.HTTPController;
 import com.wakeparkby.HTTPController.TimeSpace;
 import com.wakeparkby.Observer.Observer;
-import com.wakeparkby.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +23,8 @@ public class RetrofitClient {
     private Retrofit retrofit;
     private HTTPController httpController;
     private List<TimeSpace> listTimeSpace = new ArrayList<>();
+    private ArrayList<History> historyArrayList= new ArrayList<>();
+
     private Observer observer = new Observer("Retrofit");
 
 
@@ -108,5 +103,33 @@ public class RetrofitClient {
             public void onFailure(Call<String> call, Throwable t) {
             }
         });
+    }
+
+
+    public void getUserHistory(String userId) {
+        httpController.getUserHistory(userId).enqueue(new Callback<ArrayList<History>>() {
+            @Override
+            public void onResponse(Call<ArrayList<History>> call, Response<ArrayList<History>> response) {
+                System.out.println(response.toString());
+                if (response.isSuccessful()) {
+                    historyArrayList = response.body();
+                 //   setListTimeSpace(listTimeSpace);
+                    //BookingController bookingController = new BookingController(place,date,reverseCableNumber);
+                    observer.notifyAllObservers(4);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<History>> call, Throwable t) {
+            }
+        });
+    }
+
+    public ArrayList<History> getHistoryArrayList() {
+        return historyArrayList;
+    }
+
+    public void setHistoryArrayList(ArrayList<History> historyArrayList) {
+        this.historyArrayList = historyArrayList;
     }
 }

@@ -10,7 +10,6 @@ import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 
 import com.wakeparkby.Controller.BookingController;
-import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.R;
 
 public class DateSelectionActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {

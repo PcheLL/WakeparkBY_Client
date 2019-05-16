@@ -23,50 +23,91 @@
 
 
         <RelativeLayout
-            android:id="@+id/container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:padding="20dp">
+            android:layout_centerVertical="true">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textViewEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                android:text="Введите номер телефона"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-                android:textColor="#ffffff" />
+                android:hint="Почта:"
+                android:textColorHint="#ffffff"
+                android:textSize="18dp" />
 
             <EditText
-                android:id="@+id/editTextMobile"
-                android:layout_width="300dp"
+                android:id="@+id/editTextEmail"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textView"
-                android:layout_marginTop="10dp"
-                android:drawablePadding="10dp"
-                android:maxLength="13"
-                android:hint="+375(**)***-**-**"
+                android:layout_below="@id/textViewEmail"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:hint="example@gmail.com"
                 android:inputType="phone"
                 android:textColorHint="#A9A9A9"
                 android:backgroundTint="#ffff00"
-                android:textColor="#ffff00"
-                />
+                android:textColor="#ffff00"/>
 
-            <Button
-                android:id="@+id/buttonContinue"
+            <TextView
+                android:id="@+id/textViewPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/editTextMobile"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/button_welcome"
-                android:text="Войти"
-                android:textAllCaps="false"
-                android:textColor="#cdd8f1" />
+                android:layout_below="@id/editTextEmail"
+                android:layout_alignLeft="@+id/editTextPassword"
+                android:hint="Пароль:"
+                android:textColorHint="#ffffff"
+                android:textSize="18dp"
 
+                />
+
+            <EditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewPassword"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:hint="**********"
+                android:inputType="textPassword"
+                android:textColorHint="#A9A9A9"
+                android:backgroundTint="#ffff00"
+                android:textColor="#ffff00"/>
+
+            <TextView
+                android:id="@+id/textViewNewPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextPassword"
+                android:layout_alignRight="@+id/editTextPassword"
+                android:clickable="true"
+                android:hint="Забыли пароль ?"
+                android:textColorHint="#ffff00"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/textViewNewAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextPassword"
+                android:layout_alignLeft="@+id/editTextPassword"
+                android:clickable="true"
+                android:hint="Регистрация"
+                android:textColorHint="#ffff00"
+                android:textSize="10dp" />
+
+            <Button
+                android:id="@+id/buttonEnter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewNewPassword"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_welcome"
+                android:hint="Войти"
+                android:textColorHint="#ffffff"
+                android:textSize="16dp" />
         </RelativeLayout>
 
     </RelativeLayout>

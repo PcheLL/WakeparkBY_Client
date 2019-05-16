@@ -11,13 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.R;
 
 import java.util.ArrayList;
 
 public class AdapterHistoryArray extends ArrayAdapter<History> {
-private Context context;
-private ArrayList<History> historyArrayList= new ArrayList<>();
+    private Context context;
+    private ArrayList<History> historyArrayList = new ArrayList<>();
 
     public AdapterHistoryArray(@NonNull Context context, int resource, ArrayList<History> profileArrayList) {
         super(context, resource, profileArrayList);
@@ -34,17 +35,48 @@ private ArrayList<History> historyArrayList= new ArrayList<>();
         TextView locationName = (TextView) view.findViewById(R.id.textViewLocationHistory);
         TextView reverseNumber = (TextView) view.findViewById(R.id.textViewReversNumberHistory);
         ImageView image = (ImageView) view.findViewById(R.id.iconStatus);
-
-        //set price and rental attributes
         data.setText(String.valueOf(history.getData()));
-        time.setText(String.valueOf(history.getTime()));
-        locationName.setText(String.valueOf(history.getLocationName()));
-        reverseNumber.setText(String.valueOf(history.getReverseNumber()));
 
-        //get the image associated with this property
-        int imageID = context.getResources().getIdentifier(history.getImage(), "drawable", context.getPackageName());
-        image.setImageResource(imageID);
+        int start = Integer.valueOf(history.getStartTime());
+        int end = Integer.valueOf(history.getEndTime());
+        int startHours = start / 60;
+        int startMinutes = start - startHours * 60;
+        int endHours = end / 60;
+        int endMinutes = end - endHours * 60;
+        String historyLocationName = null;
+        String historyTime = null;
 
+        if (startMinutes == 0) {
+            if (endMinutes == 0) {
+                historyTime = startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes + "0";
+            } else {
+                historyTime = startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes;
+            }
+        } else if (endMinutes == 0) {
+            historyTime = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes + "0";
+        } else {
+            historyTime = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes;
+        }
+        time.setText(historyTime);
+
+        if ((String.valueOf(history.getLocation()).equals("LOGOISK"))){
+            historyLocationName = "Логойск";
+        } else if ((String.valueOf(history.getLocation()).equals("DROZDI"))){
+            historyLocationName = "Дрозды";
+        }
+        locationName.setText(historyLocationName);
+
+        reverseNumber.setText(String.valueOf(history.getReversNumber()));
+        if (String.valueOf(history.getStatus()).equals("BOOKED")) {
+            int imageID = context.getResources().getIdentifier("ic_booked", "drawable", context.getPackageName());
+            image.setImageResource(imageID);
+        } else if (String.valueOf(history.getStatus()).equals("VISITED")) {
+            int imageID = context.getResources().getIdentifier("ic_visited", "drawable", context.getPackageName());
+            image.setImageResource(imageID);
+        } else if (String.valueOf(history.getStatus()).equals("MISSED")) {
+            int imageID = context.getResources().getIdentifier("ic_missed", "drawable", context.getPackageName());
+            image.setImageResource(imageID);
+        }
         return view;
     }
 }

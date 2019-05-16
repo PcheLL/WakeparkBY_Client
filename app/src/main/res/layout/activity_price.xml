@@ -1151,7 +1151,7 @@
                 android:layout_below="@+id/progressBarPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Уточняем..."
+                android:text="Уточняем цены..."
                 android:textColor="#ffff00"
                 android:textSize="20dp"
                 android:layout_centerHorizontal="true"

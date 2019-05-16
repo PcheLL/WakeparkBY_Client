@@ -1,13 +1,9 @@
 package com.wakeparkby.Controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 
-import com.wakeparkby.Activity.Booking.ChooseTimeActivity;
 import com.wakeparkby.Activity.Booking.ChooseTimeIntervalActivity;
-import com.wakeparkby.Activity.Booking.DateSelectionActivity;
 import com.wakeparkby.Client.RetrofitClient;
 import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.HTTPController.TimeSpace;
@@ -123,35 +119,5 @@ public class BookingController {
         return finalTimeSpaceList;
     }
 
-    public void setStartHoursIntervalList(List<String> startHoursIntervalList) {
-        this.startHoursIntervalList = startHoursIntervalList;
-    }
 
-    public void setStartMinutesIntervalList(List<String> startMinutesIntervalList) {
-        this.startMinutesIntervalList = startMinutesIntervalList;
-    }
-
-    public void setEndHoursIntervalList(List<String> endHoursIntervalList) {
-        this.endHoursIntervalList = endHoursIntervalList;
-    }
-
-    public void setEndMinutesIntervalList(List<String> endMinutesIntervalList) {
-        this.endMinutesIntervalList = endMinutesIntervalList;
-    }
-
-    public List<String> getStartHoursIntervalList() {
-        return startHoursIntervalList;
-    }
-
-    public List<String> getStartMinutesIntervalList() {
-        return startMinutesIntervalList;
-    }
-
-    public List<String> getEndHoursIntervalList() {
-        return endHoursIntervalList;
-    }
-
-    public List<String> getEndMinutesIntervalList() {
-        return endMinutesIntervalList;
-    }
 }

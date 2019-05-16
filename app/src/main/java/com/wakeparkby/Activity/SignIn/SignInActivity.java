@@ -19,7 +19,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        editTextMobile = findViewById(R.id.editTextMobile);
+        /*editTextMobile = findViewById(R.id.editTextMobile);
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null){
             Intent intent_MainMenu = new Intent(SignInActivity.this, MainMenuActivity.class);
@@ -42,6 +42,6 @@ public class SignInActivity extends AppCompatActivity {
                 intent.putExtra("mobile", mobile);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 }

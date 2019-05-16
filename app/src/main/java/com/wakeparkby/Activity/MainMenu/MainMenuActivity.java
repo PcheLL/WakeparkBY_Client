@@ -115,7 +115,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
                 Document docDrozdy;
                 try {
                     docLogoysk = Jsoup.connect("https://yandex.by/pogoda/minsk?lat=54.18134156547551&lon=27.810362236397864").get();
-                    textView_Air_Temperature_Logoysk.setText(String.valueOf(docLogoysk.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
+ /*                   textView_Air_Temperature_Logoysk.setText(String.valueOf(docLogoysk.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
                     textView_Wind_Speed_Logoysk.setText(String.valueOf(docLogoysk.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__props.fact__props_position_middle > dl.term.term_orient_v.fact__wind-speed > dd > span.wind-speed").first().childNode(0)));
                     textView_Weather_Logoysk.setText(String.valueOf(docLogoysk.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
 
@@ -123,7 +123,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
                     textView_Air_Temperature_Drozdy.setText(String.valueOf(docDrozdy.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
                     textView_Wind_Speed_Drozdy.setText(String.valueOf(docDrozdy.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__props.fact__props_position_middle > dl.term.term_orient_v.fact__wind-speed > dd > span.wind-speed").first().childNode(0)));
                     textView_Weather_Drozdy.setText(String.valueOf(docDrozdy.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
-
+*/
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

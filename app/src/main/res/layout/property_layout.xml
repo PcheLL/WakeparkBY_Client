@@ -34,7 +34,7 @@
                     android:padding="5dp"
                     android:text="13:00 - 15:30"
                     android:textColor="#ffffff"
-                    android:textSize="15sp"></TextView>
+                    android:textSize="13sp"></TextView>
             </TableRow>
 
             <TableRow
@@ -51,7 +51,7 @@
                     android:padding="5dp"
                     android:text="24.05.2019"
                     android:textColor="#ffffff"
-                    android:textSize="10sp"></TextView>
+                    android:textSize="8sp"></TextView>
             </TableRow>
 
 
@@ -74,7 +74,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="Дрозды"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                 android:layout_marginBottom="10dp"
                 android:text=" ( "
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/textViewReversNumberHistory"
@@ -91,15 +91,15 @@
                 android:layout_marginBottom="10dp"
                 android:text="3"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text=" )"
+                android:text=" реверс )"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
         </LinearLayout>
 
 
@@ -116,8 +116,8 @@
 
             <ImageView
                 android:id="@+id/iconStatus"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true" />
         </LinearLayout>
