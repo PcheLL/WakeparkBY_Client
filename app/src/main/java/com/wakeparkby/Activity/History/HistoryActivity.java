@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -18,7 +19,7 @@ import com.wakeparkby.R;
 
 import java.util.ArrayList;
 
-public class HistoryActivity extends AppCompatActivity implements View.OnTouchListener {
+public class HistoryActivity extends AppCompatActivity implements View.OnTouchListener, AdapterView.OnItemClickListener {
     private ArrayList<History> historyArrayList = new ArrayList<>();
     HistoryController historyController = new HistoryController();
     private float fromPosition;
@@ -48,6 +49,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnTouchLi
         relativeLayoutHistory = findViewById(R.id.relativeLayoutHistory);
         relativeLayoutHistory.setOnTouchListener(this);
         listView = (ListView) findViewById(R.id.listview);
+        listView.setOnItemClickListener(this);
         relativeLayoutProgressBarHistory = findViewById(R.id.relativeLayoutProgressBarHistory);
         HistoryController historyController = new HistoryController(userId);
         listView.setVisibility(View.GONE);
@@ -91,4 +93,12 @@ public class HistoryActivity extends AppCompatActivity implements View.OnTouchLi
     }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        History history = historyArrayList.get(position);
+        AdapterHistory adapterHistory = new AdapterHistory(history);
+        String idHistory = adapterHistory.getHistoryId();
+        System.out.print(idHistory);
+
+    }
 }

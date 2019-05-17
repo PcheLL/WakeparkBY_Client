@@ -62,15 +62,14 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         SharedPreferences preferences =
                 getSharedPreferences("my_preferences", MODE_PRIVATE);
 
-        if(!preferences.getBoolean("onboarding_complete",false)){
+        if (!preferences.getBoolean("onboarding_complete", false)) {
 
             Intent onboarding = new Intent(this, OnboardingActivity.class);
             startActivity(onboarding);
 
             finish();
             return;
-        }
-        else {
+        } else {
 
             setContentView(R.layout.activity_main_menu);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -115,26 +114,29 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
                 Document docDrozdy;
                 try {
                     docLogoysk = Jsoup.connect("https://yandex.by/pogoda/minsk?lat=54.18134156547551&lon=27.810362236397864").get();
- /*                   textView_Air_Temperature_Logoysk.setText(String.valueOf(docLogoysk.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
-                    textView_Wind_Speed_Logoysk.setText(String.valueOf(docLogoysk.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__props.fact__props_position_middle > dl.term.term_orient_v.fact__wind-speed > dd > span.wind-speed").first().childNode(0)));
-                    textView_Weather_Logoysk.setText(String.valueOf(docLogoysk.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
+                    textView_Air_Temperature_Logoysk.setText(String.valueOf(docLogoysk.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
+                    textView_Wind_Speed_Logoysk.setText(String.valueOf(docLogoysk.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__props.fact__props_position_middle > dl.term.term_orient_v.fact__wind-speed > dd > span.wind-speed").first().childNode(0)));
+                    textView_Weather_Logoysk.setText(String.valueOf(docLogoysk.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
 
                     docDrozdy = Jsoup.connect("https://yandex.by/pogoda/minsk?lat=53.95676295721988&lon=27.445825327087764").get();
-                    textView_Air_Temperature_Drozdy.setText(String.valueOf(docDrozdy.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
-                    textView_Wind_Speed_Drozdy.setText(String.valueOf(docDrozdy.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__props.fact__props_position_middle > dl.term.term_orient_v.fact__wind-speed > dd > span.wind-speed").first().childNode(0)));
-                    textView_Weather_Drozdy.setText(String.valueOf(docDrozdy.select("body > div > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.fact_size_m.fact_with-hourly-prognosis > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
-*/
+                    textView_Air_Temperature_Drozdy.setText(String.valueOf(docDrozdy.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
+                    textView_Wind_Speed_Drozdy.setText(String.valueOf(docDrozdy.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__props.fact__props_position_middle > dl.term.term_orient_v.fact__wind-speed > dd > span.wind-speed").first().childNode(0)));
+                    textView_Weather_Drozdy.setText(String.valueOf(docDrozdy.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             relativeLayoutProgressBar.setVisibility(View.GONE);
-                         //   navigationView.setVisibility(View.VISIBLE);
-                          //  appBarLayout.setVisibility(View.VISIBLE);
                             constraintLayout.setVisibility(View.VISIBLE);
                         }
                     });
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    textView_Air_Temperature_Logoysk.setText("-");
+                    textView_Wind_Speed_Logoysk.setText("-");
+                    textView_Weather_Logoysk.setText("-");
+                    textView_Air_Temperature_Drozdy.setText("-");
+                    textView_Wind_Speed_Drozdy.setText("-");
+                    textView_Weather_Drozdy.setText("-");
                 }
             }
         };
@@ -184,12 +186,12 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         Intent intent_Date = new Intent(this, DateSelectionActivity.class);
         switch (v.getId()) {
             case R.id.textViewNameLogoysk:
-                intent_Date.putExtra("place","LOGOISK");
-                BookingController.start(this,intent_Date);
+                intent_Date.putExtra("place", "LOGOISK");
+                BookingController.start(this, intent_Date);
                 break;
             case R.id.textViewNameDrozdy:
-                intent_Date.putExtra("place","DROZDI");
-                BookingController.start(this,intent_Date);
+                intent_Date.putExtra("place", "DROZDI");
+                BookingController.start(this, intent_Date);
                 break;
         }
     }

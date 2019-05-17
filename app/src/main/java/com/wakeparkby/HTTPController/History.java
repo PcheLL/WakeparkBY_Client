@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class History {
     @Expose
+    private String id;
+    @Expose
     private String data;
     @Expose
     private String location;
@@ -18,17 +20,6 @@ public class History {
     private String endTime;
     @Expose
     private String status;
-    //@Expose
-    //private String image;
 
     public History() {}
-
-    public History(String data, String location, String reversNumber, String startTime, String endTime, String status) {
-        this.data = data;
-        this.location = location;
-        this.reversNumber = reversNumber;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.status = status;
-    }
 }
