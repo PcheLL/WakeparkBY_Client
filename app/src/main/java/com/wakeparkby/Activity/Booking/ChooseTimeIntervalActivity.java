@@ -112,39 +112,80 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        int lastTime = 60;
-        int firstTime = 0;
-        int selectedMinutes;
-        int selectedHours = 0;
+        int fitrsMin;
+        int lastMin;
+        int firstHours;
+        int lastHours;
+        int startFitrsMin;
+        int endFitrsMin;
+        int startlastMin;
+        int endlastMin;
+        int startlastHours;
+        int endlastHours;
+
+        int selectedFirstHours = Integer.valueOf(spinnerStartHours.getItemAtPosition(spinnerStartHours.getSelectedItemPosition()).toString());
+
 
         switch (parent.getId()) {
             case R.id.SpinnerFirstHours:
-                selectedHours = Integer.valueOf(spinnerStartHours.getItemAtPosition(spinnerStartHours.getSelectedItemPosition()).toString());
+
+                if(selectedFirstHours == startHours){
+                    startFitrsMin = startMinutes;
+                }
+                else{
+                    startFitrsMin = 0;
+                }
+
+                if (selectedFirstHours == endHours){
+                    endFitrsMin = endMinutes-5;
+                }
+                else{
+                    endFitrsMin = 55;
+                }
+
+                if(startFitrsMin != 55){
+                    startlastHours = selectedFirstHours;
+                }else
+                {
+                    startlastHours = selectedFirstHours+1;
+                }
+
+                endlastHours = endHours;
+
+                if(startlastHours == selectedFirstHours){
+                    startlastMin = startFitrsMin+5;
+                }
+                else{
+                    startlastMin = 0;
+                }
+
+                if(startlastHours == endHours){
+                    endlastMin = endMinutes;
+                }
+                else{
+                    endlastMin=55;
+                }
+
 
                 startMinutesIntervalList.clear();
-                endMinutesIntervalList.clear();
                 endHoursIntervalList.clear();
+                endMinutesIntervalList.clear();
 
-                if (selectedHours == startHours) {
-                    firstTime = startMinutes;
-                }
-                if (selectedHours == endHours) {
-                    lastTime = endMinutes;
-                }
-
-                for (int i = firstTime; i < lastTime; i += 5) {
+                for(int i = startFitrsMin ; i <= endFitrsMin; i+=5){
                     startMinutesIntervalList.add(String.valueOf(i));
-                    if (i != firstTime) {
-                        endMinutesIntervalList.add(String.valueOf(i));
-                    }
                 }
 
-                for (int i = selectedHours; i <= endHours; i++) {
-                    if (endMinutes == 0 && i == endHours) {
-                        break;
-                    }
+                for (int i = startlastHours; i <= endlastHours; i++){
                     endHoursIntervalList.add(String.valueOf(i));
                 }
+
+                for(int i = startlastMin; i<= endlastMin; i+=5){
+                    endMinutesIntervalList.add(String.valueOf(i));
+                }
+
+
+
+
 
                 ArrayAdapter<String> startMinutesIntervalListAdapter = new ArrayAdapter<>(ChooseTimeIntervalActivity.this,
                         R.layout.text_view,
@@ -163,51 +204,83 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
                 spinnerEndMinutes.setAdapter(endMinutesIntervalListAdapter);
                 break;
             case R.id.SpinnerFirstMinutes:
-                endMinutesIntervalList.clear();
-                selectedMinutes = Integer.valueOf(spinnerStartMinutes.getItemAtPosition(spinnerStartMinutes.getSelectedItemPosition()).toString());
-                if (selectedMinutes == 55) {
-                    endHoursIntervalList.remove(0);
-                    ArrayAdapter<String> endHoursIntervalListAdapter1 = new ArrayAdapter<>(ChooseTimeIntervalActivity.this,
-                            R.layout.text_view,
-                            endHoursIntervalList.toArray(new String[endHoursIntervalList.size()]));
-                    endHoursIntervalListAdapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
-                    spinnerEndHours.setAdapter(endHoursIntervalListAdapter1);
-                    endMinutesIntervalList.add(0 + "");
-                }
-                firstTime = (selectedMinutes + 5) % 60;
-                lastTime = 60;
-                if (endHoursIntervalList.size() == 1) {
-                    lastTime = endMinutes;
-                    lastTime += 5;
+
+                int selectedFirstMinutes = Integer.valueOf(spinnerStartMinutes.getItemAtPosition(spinnerStartMinutes.getSelectedItemPosition()).toString());
+
+
+
+                startlastHours = selectedFirstHours;
+
+                if (selectedFirstMinutes == 55) {
+                    startlastHours ++ ;
                 }
 
-                for (int i = firstTime; i < lastTime; i += 5) {
-                    endMinutesIntervalList.add(i + "");
+
+
+                if(startlastHours == selectedFirstHours){
+                    startlastMin = selectedFirstMinutes+5;
+                }
+                else{
+                    startlastMin = 0;
+                }
+
+                if(startlastHours == endHours){
+                    endlastMin = endMinutes;
+                }
+                else{
+                    endlastMin=55;
+                }
+
+                endMinutesIntervalList.clear();
+                endHoursIntervalList.clear();
+
+                for(int i = startlastMin; i<= endlastMin; i+=5){
+                    endMinutesIntervalList.add(String.valueOf(i));
+                }
+
+                for (int i = startlastHours; i <= endHours; i++) {
+                    endHoursIntervalList.add(String.valueOf(i));
                 }
 
 
                 ArrayAdapter<String> endMinutesIntervalListAdapter1 = new ArrayAdapter<>(ChooseTimeIntervalActivity.this,
                         R.layout.text_view,
                         endMinutesIntervalList.toArray(new String[endMinutesIntervalList.size()]));
-
+                ArrayAdapter<String> endHoursIntervalListAdapter1 = new ArrayAdapter<>(ChooseTimeIntervalActivity.this,
+                        R.layout.text_view,
+                        endHoursIntervalList.toArray(new String[endHoursIntervalList.size()]));
+                endHoursIntervalListAdapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
                 endMinutesIntervalListAdapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
+
+                spinnerEndHours.setAdapter(endHoursIntervalListAdapter1);
                 spinnerEndMinutes.setAdapter(endMinutesIntervalListAdapter1);
                 break;
+
             case R.id.SpinnerSecondHours:
                 int selectedEndHours = Integer.valueOf(spinnerEndHours.getItemAtPosition(spinnerEndHours.getSelectedItemPosition()).toString());
+                selectedFirstMinutes = Integer.valueOf(spinnerStartMinutes.getItemAtPosition(spinnerStartMinutes.getSelectedItemPosition()).toString());
 
-
-                if (selectedEndHours != selectedHours) {
-                    endMinutesIntervalList.clear();
-                    lastTime = 60;
-                    if (selectedEndHours == endHours) {
-                        lastTime = endTime;
-                    }
-
-                    for (int i = 0; i < lastTime; i += 5) {
-                        endMinutesIntervalList.add(i + "");
-                    }
+                if(selectedFirstHours == selectedEndHours){
+                    startlastMin = selectedFirstMinutes+5;
                 }
+                else{
+                    startlastMin = 0;
+                }
+
+                if(selectedEndHours == endHours){
+                    endlastMin = endMinutes;
+                }
+                else{
+                    endlastMin=55;
+                }
+
+                endMinutesIntervalList.clear();
+
+                for(int i = startlastMin; i<= endlastMin; i+=5){
+                    endMinutesIntervalList.add(String.valueOf(i));
+                }
+
+
                 ArrayAdapter<String> endMinutesIntervalListAdapter2 = new ArrayAdapter<>(ChooseTimeIntervalActivity.this,
                         R.layout.text_view,
                         endMinutesIntervalList.toArray(new String[endMinutesIntervalList.size()]));
@@ -277,3 +350,89 @@ public class ChooseTimeIntervalActivity extends AppCompatActivity implements Ada
         super.onBackPressed();
     }
 }
+
+/*
+
+
+                int selectedEndHours = Integer.valueOf(spinnerEndHours.getItemAtPosition(spinnerEndHours.getSelectedItemPosition()).toString());
+                selectedFirstMinutes = Integer.valueOf(spinnerStartMinutes.getItemAtPosition(spinnerStartMinutes.getSelectedItemPosition()).toString());
+
+                if(selectedFirstHours == selectedEndHours){
+                    startlastMin = selectedFirstMinutes+5;
+                }
+                else{
+                    startlastMin = 0;
+                }
+
+                if(selectedEndHours == endHours){
+                    endlastMin = endMinutes;
+                }
+                else{
+                    endlastMin=55;
+                }
+
+                endMinutesIntervalList.clear();
+
+                for(int i = startlastMin; i<= endlastMin; i+=5){
+                    endMinutesIntervalList.add(String.valueOf(i));
+                }
+
+
+                ArrayAdapter<String> endMinutesIntervalListAdapter2 = new ArrayAdapter<>(ChooseTimeIntervalActivity.this,
+                        R.layout.text_view,
+                        endMinutesIntervalList.toArray(new String[endMinutesIntervalList.size()]));
+
+                endMinutesIntervalListAdapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
+                spinnerEndMinutes.setAdapter(endMinutesIntervalListAdapter2);
+                break;
+            case R.id.SpinnerSecondMinutes:
+
+
+
+
+                break;
+        }
+    }
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+//        if (finalTime < 0 || finalTime == 0) {
+////            Toast.makeText(this, "Некорректное время !", Toast.LENGTH_LONG).show();
+//        } else
+        {
+            Intent intent_description = new Intent(this, BookingDescriptionActivity.class);
+            String location = getIntent().getStringExtra("location");
+            String date = getIntent().getStringExtra("date");
+            int reverseCableNumber = getIntent().getIntExtra("reverseCableNumber", 0);
+            BookingController bookingController = new BookingController(date, location, reverseCableNumber, newStartTime, newEndTime, intent_description, this);
+        }
+    }
+
+    public boolean onTouch(View view, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                fromPosition = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                float toPosition = event.getX();
+
+                if (fromPosition < toPosition) {
+                    super.onBackPressed();
+                }
+            default:
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+}*/
