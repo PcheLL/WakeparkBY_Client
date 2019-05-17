@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "599131651798",
+    "firebase_url": "https://wakeparkby-96ca4.firebaseio.com",
+    "project_id": "wakeparkby-96ca4",
+    "storage_bucket": "wakeparkby-96ca4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599131651798:android:a9528698a14d56ef",
+        "android_client_info": {
+          "package_name": "com.wakeparkby"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599131651798-fmncbr4b7mkev8e3vkftstuoum9b0b7b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wakeparkby",
+            "certificate_hash": "9eec19bb439eaf98bfeea4c0905102e41530bb1b"
+          }
+        },
+        {
+          "client_id": "599131651798-1ojdnvgeb6r6uust6nv3jbj4etlfpspo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzQSlUs_PqtQACtJ6p_B6bEyIG-MGQdNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599131651798-1ojdnvgeb6r6uust6nv3jbj4etlfpspo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
