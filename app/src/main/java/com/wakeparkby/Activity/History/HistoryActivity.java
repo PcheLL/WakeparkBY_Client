@@ -137,6 +137,11 @@ public class HistoryActivity extends AppCompatActivity implements View.OnTouchLi
                         reversNumber + " реверс )" + System.lineSeparator() + "Дата: " + data + System.lineSeparator() + "Время: " + time, idHistory);
             }
 
+        } else if (status.equals("MISSED")){
+            Toast.makeText(getApplicationContext(), "Вы уже оменили бронирование", Toast.LENGTH_LONG).show();
+        } else if (status.equals("VISITED")){
+            Toast.makeText(getApplicationContext(), "Вы уже посетили вейкпарк", Toast.LENGTH_LONG).show();
+
         }
 
 
@@ -150,14 +155,16 @@ public class HistoryActivity extends AppCompatActivity implements View.OnTouchLi
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int which) {
-                        Toast.makeText(getApplicationContext(), "Вернуться", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
                     }
                 });
         builder.setPositiveButton("Отменить",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int which) {
-                        Toast.makeText(getApplicationContext(), "Отменить", Toast.LENGTH_LONG).show();
+                        historyController.deleteHistory(userId,idHistory);
+                        Toast.makeText(getApplicationContext(), "Вы отменили бронирование", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
                     }
                 });
         builder.show();

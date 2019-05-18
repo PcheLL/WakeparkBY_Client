@@ -10,6 +10,7 @@ import com.wakeparkby.Observer.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -131,5 +132,21 @@ public class RetrofitClient {
 
     public void setHistoryArrayList(ArrayList<History> historyArrayList) {
         this.historyArrayList = historyArrayList;
+    }
+
+    public void deleteHistory(String userId, String idHistory) {
+        httpController.deleteHistory(userId,idHistory).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    getUserHistory(userId);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 }

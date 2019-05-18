@@ -38,4 +38,8 @@ public class HistoryController {
     public static ArrayList<History> getListHistory() {
         return listHistory;
     }
+
+    public void deleteHistory(String userId, String idHistory) {
+        retrofitClient.deleteHistory(userId,idHistory);
+    }
 }
