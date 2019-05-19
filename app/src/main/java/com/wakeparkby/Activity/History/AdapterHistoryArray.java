@@ -48,14 +48,28 @@ public class AdapterHistoryArray extends ArrayAdapter<History> {
 
         if (startMinutes == 0) {
             if (endMinutes == 0) {
-                historyTime = startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes + "0";
-            } else {
-                historyTime = startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes;
+                historyTime = String.valueOf(startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes + "0");
+            } else if (endMinutes < 10 ){
+                historyTime = String.valueOf(startHours + ":" + startMinutes + "0 - " + endHours + ":0" + endMinutes);
+            }
+
+            else {
+                historyTime = String.valueOf(startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes);
             }
         } else if (endMinutes == 0) {
-            historyTime = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes + "0";
-        } else {
-            historyTime = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes;
+            if (startMinutes < 10) {
+                historyTime = String.valueOf(startHours + ":0" + startMinutes + " - " + endHours + ":0" + endMinutes);
+            } else {
+                historyTime = String.valueOf(startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes + "0");
+            }
+        } else if (startMinutes < 10) {
+            if (endMinutes < 10) {
+                historyTime = String.valueOf(startHours + ":0" + startMinutes + " - " + endHours + ":0" + endMinutes);
+            } else {
+                historyTime = String.valueOf(startHours + ":0" + startMinutes + " - " + endHours + ":" + endMinutes);
+            }
+        } else if (endMinutes < 10 ) {
+            historyTime = String.valueOf(startHours + ":" + startMinutes + " - " + endHours + ":0" + endMinutes);
         }
         time.setText(historyTime);
 

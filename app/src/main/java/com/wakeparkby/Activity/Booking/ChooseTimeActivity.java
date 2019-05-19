@@ -93,15 +93,24 @@ public class ChooseTimeActivity extends AppCompatActivity implements AdapterView
         }
         int endHours = 0;
         try {
-            endHours = Integer.parseInt(timeAtPosition.substring(8, 10));
-        } catch (NumberFormatException ex) {
             endHours = Integer.parseInt(timeAtPosition.substring(7, 9));
+        } catch (NumberFormatException ex) {
+            try {
+                endHours = Integer.parseInt(timeAtPosition.substring(7,8));
+            } catch (NumberFormatException ex1){
+                endHours = Integer.parseInt(timeAtPosition.substring(8,10));
+            }
+
         }
         int endMinutes = 0;
         try {
-            endMinutes = Integer.parseInt(timeAtPosition.substring(11, 13));
-        } catch (StringIndexOutOfBoundsException ex) {
             endMinutes = Integer.parseInt(timeAtPosition.substring(10, 12));
+        } catch (NumberFormatException ex) {
+            try {
+                endMinutes = Integer.parseInt(timeAtPosition.substring(9, 11));
+            } catch (NumberFormatException ex2){
+                endMinutes = Integer.parseInt(timeAtPosition.substring(11, 13));
+            }
         }
 
 
