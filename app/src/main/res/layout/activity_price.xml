@@ -1153,7 +1153,7 @@
                 android:layout_height="wrap_content"
                 android:text="Уточняем цены..."
                 android:textColor="#ffff00"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"/>
         </RelativeLayout>

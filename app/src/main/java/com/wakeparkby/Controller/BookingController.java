@@ -83,6 +83,11 @@ public class BookingController {
         } else {
             finalTimeInterval = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes;
         }
+        if (location.equals("LOGOISK")){
+            location = "Логойск";
+        } else if (location.equals("DROZDI")){
+            location = "Дрозды";
+        }
         intent_description.putExtra("location", location);
         intent_description.putExtra("date", date);
         intent_description.putExtra("reverseCableNumber", reverseCableNumber);
