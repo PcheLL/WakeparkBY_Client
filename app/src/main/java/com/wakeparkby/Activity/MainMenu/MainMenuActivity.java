@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.wakeparkby.Activity.Booking.DateSelectionActivity;
@@ -173,8 +174,11 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         } else if (id == R.id.nav_History) {
             startActivity(intent_History);
         } else if (id == R.id.nav_Exit) {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(intent_SignIn);
+            Toast.makeText(getApplicationContext(), "В разработке", Toast.LENGTH_LONG).show();
+            //FirebaseAuth.getInstance().signOut();
+            //startActivity(intent_SignIn);
+        } else if (id == R.id.nav_settings){
+            Toast.makeText(getApplicationContext(), "В разработке", Toast.LENGTH_LONG).show();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

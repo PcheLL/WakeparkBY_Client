@@ -5,20 +5,33 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:icon="@drawable/ic_booking"
             android:id="@+id/nav_ChoosePl"
             android:title="Бронирование" />
         <item
+            android:icon="@drawable/ic_session_ticket"
             android:id="@+id/nav_MySeasonTickets"
             android:title="Мой абонемент" />
         <item
+            android:icon="@drawable/ic_price"
             android:id="@+id/nav_Price"
             android:title="Цены" />
         <item
+            android:icon="@drawable/ic_history"
             android:id="@+id/nav_History"
             android:title="История" />
-        <item
-            android:id="@+id/nav_Exit"
-            android:title="Выход" />
     </group>
+    <item android:title="Системное">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_sitting"
+                android:title="Настройки" />
+            <item
+                android:icon="@drawable/ic_exit"
+                android:id="@+id/nav_Exit"
+                android:title="Выход" />
+        </menu>
+    </item>
 
 </menu>

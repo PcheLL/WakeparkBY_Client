@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ public class SeasonTicketsActivity extends AppCompatActivity implements View.OnT
     TextView textViewSeasonTicketsTime;
     RelativeLayout relativeLayoutProgressBar;
     SeasonTicketController seasonTicketController;
+    LinearLayout linearLayoutTimeSeasonTicket;
     private float fromPosition;
     Observer observer = new Observer("SeasonTicket") {
 
@@ -47,10 +49,11 @@ public class SeasonTicketsActivity extends AppCompatActivity implements View.OnT
         relativeLayoutProgressBar = findViewById(R.id.relativeLayoutProgressBar);
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayoutSeasonTicket);
         relativeLayout.setOnTouchListener(this);
-        relativeLayoutProgressBar.setVisibility(View.VISIBLE);
-        textViewSeasonTicketsTime.setVisibility(View.GONE);
         RelativeLayout relativeLayout1 = findViewById(R.id.relativeLayoutHistory);
         relativeLayout.setOnTouchListener(this);
+        linearLayoutTimeSeasonTicket = findViewById(R.id.linearLayoutTimeSeasonTicket);
+        relativeLayoutProgressBar.setVisibility(View.VISIBLE);
+        linearLayoutTimeSeasonTicket.setVisibility(View.GONE);
         //updateSeasonTicket();
     }
 
@@ -58,7 +61,7 @@ public class SeasonTicketsActivity extends AppCompatActivity implements View.OnT
     private void updateSeasonTicket() {
         textViewSeasonTicketsTime.setText(seasonTicketController.getSeasonTicket());
         relativeLayoutProgressBar.setVisibility(View.GONE);
-        textViewSeasonTicketsTime.setVisibility(View.VISIBLE);
+        linearLayoutTimeSeasonTicket.setVisibility(View.VISIBLE);
     }
     public boolean onTouch(View view, MotionEvent event)
     {
