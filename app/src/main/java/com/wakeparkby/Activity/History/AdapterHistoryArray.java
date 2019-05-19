@@ -70,6 +70,8 @@ public class AdapterHistoryArray extends ArrayAdapter<History> {
             }
         } else if (endMinutes < 10 ) {
             historyTime = String.valueOf(startHours + ":" + startMinutes + " - " + endHours + ":0" + endMinutes);
+        } else {
+            historyTime = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes;
         }
         time.setText(historyTime);
 

@@ -58,20 +58,28 @@ public class BookingController {
         int endMinutes = newEndTime - endHours * 60;
         if (startMinutes == 0) {
             if (endMinutes == 0) {
-                finalTimeInterval = startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes + "0";
-            } else {
-                finalTimeInterval = startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes;
+                finalTimeInterval = String.valueOf(startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes + "0");
+            } else if (endMinutes < 10 ){
+                finalTimeInterval = String.valueOf(startHours + ":" + startMinutes + "0 - " + endHours + ":0" + endMinutes);
+            }
+
+            else {
+                finalTimeInterval = String.valueOf(startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes);
             }
         } else if (endMinutes == 0) {
-            finalTimeInterval = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes + "0";
+            if (startMinutes < 10) {
+                finalTimeInterval = String.valueOf(startHours + ":0" + startMinutes + " - " + endHours + ":0" + endMinutes);
+            } else {
+                finalTimeInterval = String.valueOf(startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes + "0");
+            }
         } else if (startMinutes < 10) {
             if (endMinutes < 10) {
-                finalTimeInterval = startHours + ":0" + startMinutes + " - " + endHours + ":0" + endMinutes;
-            } else
-                finalTimeInterval = startHours + ":0" + startMinutes + " - " + endHours + ":" + endMinutes;
-
-        } else if (endMinutes < 10) {
-            finalTimeInterval = startHours + ":" + startMinutes + " - " + endHours + ":0" + endMinutes;
+                finalTimeInterval = String.valueOf(startHours + ":0" + startMinutes + " - " + endHours + ":0" + endMinutes);
+            } else {
+                finalTimeInterval = String.valueOf(startHours + ":0" + startMinutes + " - " + endHours + ":" + endMinutes);
+            }
+        } else if (endMinutes < 10 ) {
+            finalTimeInterval = String.valueOf(startHours + ":" + startMinutes + " - " + endHours + ":0" + endMinutes);
         } else {
             finalTimeInterval = startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes;
         }
@@ -107,11 +115,27 @@ public class BookingController {
             if (startMinutes == 0) {
                 if (endMinutes == 0) {
                     finalTimeSpaceList.add(startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes + "0");
-                } else {
+                } else if (endMinutes < 10 ){
+                    finalTimeSpaceList.add(startHours + ":" + startMinutes + "0 - " + endHours + ":0" + endMinutes);
+                }
+
+                else {
                     finalTimeSpaceList.add(startHours + ":" + startMinutes + "0 - " + endHours + ":" + endMinutes);
                 }
             } else if (endMinutes == 0) {
-                finalTimeSpaceList.add(startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes + "0");
+                if (startMinutes < 10) {
+                    finalTimeSpaceList.add(startHours + ":0" + startMinutes + " - " + endHours + ":0" + endMinutes);
+                } else {
+                    finalTimeSpaceList.add(startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes + "0");
+                }
+            } else if (startMinutes < 10) {
+                if (endMinutes < 10) {
+                    finalTimeSpaceList.add(startHours + ":0" + startMinutes + " - " + endHours + ":0" + endMinutes);
+                } else {
+                    finalTimeSpaceList.add(startHours + ":0" + startMinutes + " - " + endHours + ":" + endMinutes);
+                }
+            } else if (endMinutes < 10 ) {
+                finalTimeSpaceList.add(startHours + ":" + startMinutes + " - " + endHours + ":0" + endMinutes);
             } else {
                 finalTimeSpaceList.add(startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes);
             }

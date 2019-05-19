@@ -44,6 +44,7 @@ public class ChooseTimeActivity extends AppCompatActivity implements AdapterView
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,9 +97,9 @@ public class ChooseTimeActivity extends AppCompatActivity implements AdapterView
             endHours = Integer.parseInt(timeAtPosition.substring(7, 9));
         } catch (NumberFormatException ex) {
             try {
-                endHours = Integer.parseInt(timeAtPosition.substring(7,8));
-            } catch (NumberFormatException ex1){
-                endHours = Integer.parseInt(timeAtPosition.substring(8,10));
+                endHours = Integer.parseInt(timeAtPosition.substring(7, 8));
+            } catch (NumberFormatException ex1) {
+                endHours = Integer.parseInt(timeAtPosition.substring(8, 10));
             }
 
         }
@@ -108,9 +109,11 @@ public class ChooseTimeActivity extends AppCompatActivity implements AdapterView
         } catch (NumberFormatException ex) {
             try {
                 endMinutes = Integer.parseInt(timeAtPosition.substring(9, 11));
-            } catch (NumberFormatException ex2){
+            } catch (NumberFormatException ex2) {
                 endMinutes = Integer.parseInt(timeAtPosition.substring(11, 13));
             }
+        } catch (StringIndexOutOfBoundsException ex3){
+            endMinutes = Integer.parseInt(timeAtPosition.substring(9, 11));
         }
 
 
