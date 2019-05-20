@@ -1,37 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:icon="@drawable/ic_booking"
-            android:id="@+id/nav_ChoosePl"
-            android:title="Бронирование" />
-        <item
-            android:icon="@drawable/ic_session_ticket"
-            android:id="@+id/nav_MySeasonTickets"
-            android:title="Мой абонемент" />
-        <item
-            android:icon="@drawable/ic_price"
-            android:id="@+id/nav_Price"
-            android:title="Цены" />
-        <item
-            android:icon="@drawable/ic_history"
-            android:id="@+id/nav_History"
-            android:title="История" />
-    </group>
-    <item android:title="Системное">
-        <menu>
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_sitting"
-                android:title="Настройки" />
-            <item
-                android:icon="@drawable/ic_exit"
-                android:id="@+id/nav_Exit"
-                android:title="Выход" />
-        </menu>
-    </item>
+    <item
+        android:id="@+id/nav_choosePl"
+        android:icon="@drawable/ic_booking"
+        android:title="@string/nav_choosePl" />
+    <item
+        android:id="@+id/nav_mySeasonTickets"
+        android:icon="@drawable/ic_session_ticket"
+        android:title="@string/nav_mySeasonTickets" />
+    <item
+        android:id="@+id/nav_price"
+        android:icon="@drawable/ic_price"
+        android:title="@string/nav_price" />
+    <item
+        android:id="@+id/nav_history"
+        android:icon="@drawable/ic_history"
+        android:title="@string/nav_history" />
+    <item
+        android:id="@+id/nav_weather"
+        android:icon="@drawable/ic_weather"
+        android:title="@string/nav_weather" />
 
 </menu>

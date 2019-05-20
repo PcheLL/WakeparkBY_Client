@@ -6,4 +6,9 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="nav_price">Цены</string>
+    <string name="nav_choosePl">Бронирование</string>
+    <string name="nav_mySeasonTickets">Абонемент</string>
+    <string name="nav_history">История</string>
+    <string name="nav_weather">Погода</string>
 </resources>
