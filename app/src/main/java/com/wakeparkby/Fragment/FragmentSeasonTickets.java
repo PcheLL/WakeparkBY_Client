@@ -1,20 +1,16 @@
 package com.wakeparkby.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
 import com.wakeparkby.Controller.SeasonTicketController;
 import com.wakeparkby.Observer.Observer;
 import com.wakeparkby.R;

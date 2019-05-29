@@ -1,22 +1,18 @@
 package com.wakeparkby.Fragment;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wakeparkby.Activity.Booking.DateSelectionActivity;
-import com.wakeparkby.Activity.Onboarding.OnboardingActivity;
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.R;
 
@@ -24,8 +20,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentWeather extends Fragment implements View.OnClickListener {
     TextView textView_Air_Temperature_Logoysk;
@@ -36,7 +30,7 @@ public class FragmentWeather extends Fragment implements View.OnClickListener {
     TextView textView_Air_Temperature_Drozdy;
     TextView textView_Wind_Speed_Drozdy;
     TextView textView_Weather_Drozdy;
-    RelativeLayout relativeLayoutWeather;
+    LinearLayout linearLayoutWeather;
     RelativeLayout relativeLayoutProgressBarMainMenu;
 
     @Override
@@ -51,7 +45,7 @@ public class FragmentWeather extends Fragment implements View.OnClickListener {
             return rootView;*/
         // } else
         //    {
-        relativeLayoutWeather = rootView.findViewById(R.id.relativeLayoutWeather);
+        linearLayoutWeather = rootView.findViewById(R.id.linearLayoutWeather);
         relativeLayoutProgressBarMainMenu = rootView.findViewById(R.id.relativeLayoutProgressBarMainMenu);
         textView_Air_Temperature_Logoysk = rootView.findViewById(R.id.textView_Air_Temperature_Logoysk);
         textView_Wind_Speed_Logoysk = rootView.findViewById(R.id.textView_Wind_Speed_Logoysk);
@@ -64,7 +58,7 @@ public class FragmentWeather extends Fragment implements View.OnClickListener {
         textViewNameLogoysk.setOnClickListener(this);
         textViewNameDrozdy.setOnClickListener(this);
         //appBarLayout.setVisibility(View.GONE);
-        relativeLayoutWeather.setVisibility(View.GONE);
+        linearLayoutWeather.setVisibility(View.GONE);
         relativeLayoutProgressBarMainMenu.setVisibility(View.VISIBLE);
         refreshWeather();
         return rootView;
@@ -108,7 +102,6 @@ public class FragmentWeather extends Fragment implements View.OnClickListener {
 
                     textView_Weather_Drozdy.setText(String.valueOf(docDrozdy.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
 
-
                     getActivity().runOnUiThread(new Runnable() {
 
                         @Override
@@ -117,7 +110,7 @@ public class FragmentWeather extends Fragment implements View.OnClickListener {
 
                             relativeLayoutProgressBarMainMenu.setVisibility(View.GONE);
 
-                            relativeLayoutWeather.setVisibility(View.VISIBLE);
+                            linearLayoutWeather.setVisibility(View.VISIBLE);
 
                         }
 

@@ -2,12 +2,10 @@ package com.wakeparkby.Fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,7 +17,6 @@ import android.widget.Toast;
 
 import com.wakeparkby.Activity.History.AdapterHistory;
 import com.wakeparkby.Activity.History.AdapterHistoryArray;
-import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
 import com.wakeparkby.Controller.HistoryController;
 import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.Observer.Observer;
@@ -34,7 +31,6 @@ public class FragmentHistory extends Fragment implements  AdapterView.OnItemClic
     HistoryController historyController = new HistoryController();
     ListView listView;
     RelativeLayout relativeLayoutProgressBarHistory;
-    RelativeLayout relativeLayoutHistory;
     private String userId = "1";
 
     Observer observer = new Observer("History") {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.wakeparkby">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +13,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <service android:name=".Client.Notification.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -33,7 +34,6 @@
 
         <activity android:name=".Activity.Booking.BookingDescriptionActivity" android:screenOrientation="portrait" />
         <activity android:name=".Activity.SignIn.SignInActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Fragment.FragmentHistory" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.Welcome.WelcomeActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.Booking.ChooseTimeIntervalActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.Booking.DateSelectionActivity" android:screenOrientation="portrait"/>
@@ -41,7 +41,6 @@
         <activity android:name=".Activity.SignIn.VerifyPhoneActivity" android:screenOrientation="portrait" />
         <activity android:name=".Activity.Price.PriceActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.Booking.ChooseTimeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.Booking.LocationSelectionActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.SeasonTickets.SeasonTicketsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.MainMenu.MainMenuActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.Onboarding.OnboardingActivity" android:screenOrientation="portrait"/>
