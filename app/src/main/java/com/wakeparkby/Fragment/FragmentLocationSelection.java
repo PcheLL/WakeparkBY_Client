@@ -18,9 +18,13 @@ import com.wakeparkby.Activity.Booking.DateSelectionActivity;
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.R;
 
-public class FragmentLocationSelection extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
+import java.util.Calendar;
+
+public class FragmentLocationSelection extends Fragment implements View.OnClickListener{
     MaterialButton buttonDrozdy;
     MaterialButton buttonLogoysk;
+    Calendar c;
+    DatePickerDialog datePicker;
 
     public FragmentLocationSelection() {
     }
@@ -43,25 +47,29 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        DialogFragment datePicker;
+
         Intent intent_Date = new Intent(getActivity(), DateSelectionActivity.class);
         switch (v.getId()) {
             case R.id.buttonDrozdy:
                 intent_Date.putExtra("place", "DROZDI");
-                datePicker = new DatePickerFragment();
-                datePicker.show(getFragmentManager(), "DatePicker");
+                c = Calendar.getInstance();
+                int day = c.get(Calendar.DAY_OF_MONTH);
+                int month = c.get(Calendar.MONTH);
+                int year = c.get(Calendar.YEAR);
+                datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        System.out.print("");
+                    }
+                }, day, month, year);
+                datePicker.show();
+                break;
 
             case R.id.buttonLogoysk:
                 intent_Date.putExtra("place", "LOGOISK");
-                datePicker = new DatePickerFragment();
-                datePicker.show(getFragmentManager(), "DatePicker");
+               // datePicker = new DatePickerFragment();
+                //datePicker.show(getFragmentManager(), "DatePicker");
                 break;
         }
     }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        System.out.print("");
-    }
-
 }
