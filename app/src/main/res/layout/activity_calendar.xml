@@ -2,38 +2,40 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:id="@+id/relativeLayoutCalendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000"
+        android:background="#FAFAFA"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textViewChooseDate"
+            android:typeface="monospace"
+            android:textStyle="bold"
+            android:id="@+id/textViewCreateAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:hint="Выберите дату"
-            android:textColorHint="#ffff00"
-            android:textSize="35dp" />
+            android:textColorHint="#000000"
+            android:textSize="25sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_below="@+id/textViewChooseDate"
+            android:layout_below="@+id/textViewCreateAccount"
             >
             <DatePicker
                 android:id="@+id/datePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textViewChooseDate"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:background="#ffff"
                 android:theme="@style/DayOfWeekPickerStyle"
@@ -43,8 +45,9 @@
 
             </DatePicker>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonSelectDate"
+                android:theme="@style/Theme.Custom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Продолжить"
@@ -54,7 +57,7 @@
                 android:layout_gravity="right"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/button_welcome"
+                app:cornerRadius="20dp"
                 />
         </LinearLayout>
 
