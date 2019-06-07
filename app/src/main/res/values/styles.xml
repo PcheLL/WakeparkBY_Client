@@ -5,16 +5,11 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#000000</item>
         <item name="colorPrimaryDark">#000000</item>
-
-
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
-    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
-        <item name="android:headerBackground">#F9F12E</item>
-        <item name="android:datePickerMode">calendar</item>
-        <item name="android:minDate">01/01/2019</item>
-    </style>
+
 
     <style name="DayOfWeekPickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
         <item name="colorControlActivated">#000000</item>
@@ -51,5 +46,7 @@
     <style name="Theme.Custom" parent="Theme.MaterialComponents.Light">
         <item name="android:backgroundTint">#E9CB09</item>
     </style>
+
+
 
 </resources>

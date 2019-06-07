@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/relativeLayoutChooseTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000">
+        android:background="#ffffff">
 
 
 
@@ -19,8 +18,12 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:hint="Свободное время"
-            android:textColorHint="#ffff00"
-            android:textSize="35dp" />
+            android:textSize="35dp"
+            android:textColorHint="#000000"
+            android:shadowColor="#7d7d7d"
+            android:shadowRadius="5"
+            android:shadowDy="8"
+            android:fontFamily="@font/neo_sans_pro_italic"/>
 
 
         <LinearLayout
@@ -37,8 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                style="@style/ListView">
+                android:layout_marginTop="20dp">
             </ListView>
 
 

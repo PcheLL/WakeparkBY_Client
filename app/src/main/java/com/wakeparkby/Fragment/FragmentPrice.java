@@ -171,17 +171,13 @@ public class FragmentPrice extends Fragment implements View.OnClickListener {
                         });
                     } catch (NullPointerException ex){
                         Toast.makeText(getActivity(), "Дождитесь загрузки !!!", Toast.LENGTH_SHORT).show();
-
-
                     }
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         };
         newThread.start();
-
     }
 
     @Override
@@ -205,4 +201,3 @@ public class FragmentPrice extends Fragment implements View.OnClickListener {
         }
     }
 }
-

@@ -1,8 +1,12 @@
 package com.wakeparkby.Fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -26,7 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class FragmentHistory extends Fragment implements  AdapterView.OnItemClickListener {
+public class FragmentHistory extends Fragment implements AdapterView.OnItemClickListener {
     private ArrayList<History> historyArrayList = new ArrayList<>();
     HistoryController historyController = new HistoryController();
     ListView listView;
@@ -50,13 +54,19 @@ public class FragmentHistory extends Fragment implements  AdapterView.OnItemClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_history, container, false);
-        listView = (ListView) rootView.findViewById(R.id.listview);
+        View rootView = inflater.inflate(R.layout.history_card, container, false);
+     /*   listView = (ListView) rootView.findViewById(R.id.listview);
         listView.setOnItemClickListener(this);
         relativeLayoutProgressBarHistory = rootView.findViewById(R.id.relativeLayoutProgressBarHistory);
         HistoryController historyController = new HistoryController(userId);
         listView.setVisibility(View.GONE);
-        relativeLayoutProgressBarHistory.setVisibility(View.VISIBLE);
+        relativeLayoutProgressBarHistory.setVisibility(View.VISIBLE);*/
+        if (isNetworkAvailable(getContext())) {
+        } else {
+            System.out.print("Нет соединения");
+            // если сети нет показываем Тост или
+            // кидаем на активити с красивым дизайном где просим сделать реконнект
+        }
         return rootView;
     }
 
@@ -75,6 +85,15 @@ public class FragmentHistory extends Fragment implements  AdapterView.OnItemClic
         listView.setVisibility(View.VISIBLE);
     }
 
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 
@@ -117,9 +136,9 @@ public class FragmentHistory extends Fragment implements  AdapterView.OnItemClic
                         reversNumber + " реверс )" + System.lineSeparator() + "Дата: " + data + System.lineSeparator() + "Время: " + time, idHistory);
             }
 
-        } else if (status.equals("MISSED")){
+        } else if (status.equals("MISSED")) {
             Toast.makeText(getContext(), "Вы уже оменили бронирование", Toast.LENGTH_LONG).show();
-        } else if (status.equals("VISITED")){
+        } else if (status.equals("VISITED")) {
             Toast.makeText(getContext(), "Вы уже посетили вейкпарк", Toast.LENGTH_LONG).show();
 
         }
@@ -142,13 +161,14 @@ public class FragmentHistory extends Fragment implements  AdapterView.OnItemClic
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int which) {
-                        historyController.deleteHistory(userId,idHistory);
+                        historyController.deleteHistory(userId, idHistory);
                         Toast.makeText(getContext(), "Вы отменили бронирование", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }
                 });
         builder.show();
     }
+
     @Override
     public void onDetach() {
         super.onDetach();
