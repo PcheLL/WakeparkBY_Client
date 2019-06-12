@@ -22,7 +22,8 @@
         </service>
 
         <activity
-            android:name=".Activity.SplashActivity"
+            android:name= ".Activity.SignIn.SignInActivity"
+
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -34,12 +35,12 @@
         </activity >
 
         <activity android:name=".Activity.Booking.BookingDescriptionActivity" android:screenOrientation="portrait" />
-        <activity android:name=".Activity.SignIn.SignInActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.SplashActivity" android:screenOrientation="portrait" />
         <activity android:name=".Activity.Welcome.WelcomeActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.Booking.ChooseTimeIntervalActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.Booking.DateSelectionActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.Booking.ReverseCableSelectionActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.SignIn.VerifyPhoneActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.CreateAccount.VerifyPhoneActivity" android:screenOrientation="portrait" />
         <activity android:name=".Activity.Price.PriceActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.Booking.ChooseTimeActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.SeasonTickets.SeasonTicketsActivity" android:screenOrientation="portrait"/>

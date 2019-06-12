@@ -26,7 +26,7 @@
             android:shadowColor="#7d7d7d"
             android:shadowRadius="5"
             android:shadowDy="8"
-            android:fontFamily="@font/neo_sans_pro_italic" />
+            android:fontFamily="@font/neo_sans_pro_regular"/>
 
 
         <LinearLayout
@@ -39,8 +39,8 @@
             <com.google.android.material.button.MaterialButton
                 android:theme="@style/Theme.Custom"
                 android:id="@+id/buttonDrozdy"
-                android:layout_width="300dp"
-                android:layout_height="70dp"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
                 android:hint="Водохранилище Дрозды"
                 android:textColorHint="#ffffff"
                 android:textSize="14dp"
@@ -52,8 +52,8 @@
                 android:theme="@style/Theme.Custom"
                 app:cornerRadius="20dp"
                 android:id="@+id/buttonLogoysk"
-                android:layout_width="300dp"
-                android:layout_height="70dp"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
                 android:layout_below="@+id/buttonDrozdy"
                 android:hint="ГСОК ЛОГОЙСК"
                 android:textColorHint="#ffffff"

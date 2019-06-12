@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 
 import com.google.android.material.button.MaterialButton;
 import com.wakeparkby.Activity.Booking.ChooseTimeActivity;
+import com.wakeparkby.Activity.Booking.ReverseCableSelectionActivity;
 import com.wakeparkby.R;
 
 import java.util.Calendar;
@@ -45,21 +46,21 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
     @Override
     public void onClick(View v) {
 
-        Intent intent_Date = new Intent(getActivity(), ChooseTimeActivity.class);
+        Intent intent_reverseCableSelection = new Intent(getActivity(), ReverseCableSelectionActivity.class);
         switch (v.getId()) {
             case R.id.buttonDrozdy:
-                intent_Date.putExtra("place", "DROZDI");
-                showDatePicker(intent_Date,"Дрозды");
+                intent_reverseCableSelection.putExtra("place", "DROZDI");
+                showDatePicker(intent_reverseCableSelection,"Дрозды");
                 break;
 
             case R.id.buttonLogoysk:
-                intent_Date.putExtra("place", "LOGOISK");
-                showDatePicker(intent_Date,"ГСОК Логойск");
+                intent_reverseCableSelection.putExtra("place", "LOGOISK");
+                showDatePicker(intent_reverseCableSelection,"ГСОК Логойск");
                 break;
         }
     }
 
-    public void showDatePicker(Intent intent_Date, String place){
+    public void showDatePicker(Intent intent_reverseCableSelection, String place){
         c = Calendar.getInstance();
         int day = c.get(Calendar.DAY_OF_MONTH);
         int month = c.get(Calendar.MONTH);
@@ -68,7 +69,7 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 System.out.print("");
-                startActivity(intent_Date);
+                startActivity(intent_reverseCableSelection);
             }
         }, day, month, year);
         datePicker.show();

@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:background="#ffffff">
+    >
 
     <RelativeLayout
         android:id="@+id/relativeLayoutReversSelection"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FAFAFA">
 
 
         <TextView
@@ -23,7 +24,7 @@
             android:shadowColor="#7d7d7d"
             android:shadowRadius="5"
             android:shadowDy="8"
-            android:fontFamily="@font/neo_sans_pro_italic"/>
+            android:fontFamily="@font/neo_sans_pro_regular"/>
 
 
         <LinearLayout
@@ -34,35 +35,37 @@
             android:background="@android:color/transparent"
             android:orientation="vertical">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonFirstReverse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:theme="@style/Theme.Custom"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
                 android:hint="Первый"
-                android:textColorHint="#ffffff"
-                android:textSize="16dp"
-                android:background="@drawable/button_welcome"/>
+                android:textColor="#ffffff" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonSecondtReverse"
+                android:theme="@style/Theme.Custom"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/buttonDrozdy"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
                 android:hint="Второй"
-                android:textColorHint="#ffffff"
-                android:textSize="16dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/button_welcome"/>
-            <Button
+                android:textColor="#ffffff" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonThirdReverse"
+                android:theme="@style/Theme.Custom"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/buttonDrozdy"
-                android:hint="Третий"
-                android:textColorHint="#ffffff"
-                android:textSize="16dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/button_welcome"/>
+                android:hint="Третий"
+                android:textColor="#ffffff" />
         </LinearLayout>
     </RelativeLayout>
 

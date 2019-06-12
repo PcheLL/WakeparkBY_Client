@@ -1,4 +1,4 @@
-package com.wakeparkby.Activity.SignIn;
+package com.wakeparkby.Activity.CreateAccount;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,7 +48,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         //and sending the verification code to the number
         Intent intent = getIntent();
         String mobile = intent.getStringExtra("mobile");
-        sendVerificationCode(mobile);
+      //  sendVerificationCode(mobile);
 
 
         //if the automatic sms detection did not work, user can also enter the code manually
@@ -140,6 +140,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                             //verification successful we will start the profile activity
                             Intent intent = new Intent(VerifyPhoneActivity.this, MainMenuActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
                             startActivity(intent);
 
                         } else {

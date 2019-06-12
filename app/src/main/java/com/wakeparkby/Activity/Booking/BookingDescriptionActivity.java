@@ -22,12 +22,12 @@ public class BookingDescriptionActivity extends AppCompatActivity implements Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_description);
-        buttonBackToMenu = findViewById(R.id.buttonBackToMenu);
+       /* buttonBackToMenu = findViewById(R.id.buttonBackToMenu);
         buttonBackToMenu.setOnClickListener(this);
         textViewInfoLocation = findViewById(R.id.textViewInfoLocation1);
         textViewInfoDate = findViewById(R.id.textViewInfoDate1);
         textViewInfoTime = findViewById(R.id.textViewInfoTime1);
-        textViewCableNumber = findViewById(R.id.textViewCableNumber1);
+        textViewCableNumber = findViewById(R.id.textViewCableNumber1);*/
         textViewInfoLocation.setText(getIntent().getStringExtra("location"));
         textViewInfoDate.setText(getIntent().getStringExtra("date"));
         textViewInfoTime.setText(getIntent().getStringExtra("finalTimeInterval"));

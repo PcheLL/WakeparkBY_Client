@@ -47,6 +47,10 @@
         <item name="android:backgroundTint">#E9CB09</item>
     </style>
 
+    <style name="Theme.EditText" parent="Theme.MaterialComponents.Light">
+        <item name="android:backgroundTint">#000000</item>
+    </style>
+
 
 
 </resources>
