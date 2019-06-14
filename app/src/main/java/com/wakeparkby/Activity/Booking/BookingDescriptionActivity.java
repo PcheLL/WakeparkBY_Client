@@ -27,11 +27,11 @@ public class BookingDescriptionActivity extends AppCompatActivity implements Vie
         textViewInfoLocation = findViewById(R.id.textViewInfoLocation1);
         textViewInfoDate = findViewById(R.id.textViewInfoDate1);
         textViewInfoTime = findViewById(R.id.textViewInfoTime1);
-        textViewCableNumber = findViewById(R.id.textViewCableNumber1);*/
+        textViewCableNumber = findViewById(R.id.textViewCableNumber1);
         textViewInfoLocation.setText(getIntent().getStringExtra("location"));
         textViewInfoDate.setText(getIntent().getStringExtra("date"));
         textViewInfoTime.setText(getIntent().getStringExtra("finalTimeInterval"));
-        textViewCableNumber.setText(String.valueOf(getIntent().getIntExtra("reverseCableNumber",0)));
+        textViewCableNumber.setText(String.valueOf(getIntent().getIntExtra("reverseCableNumber",0)));*/
     }
     @Override
     public void onBackPressed(){

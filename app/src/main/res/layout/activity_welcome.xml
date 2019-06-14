@@ -34,7 +34,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:theme="@style/Theme.EditText"
-                        android:id="@+id/editTextEmail"
+                        android:id="@+id/textInputLayoutNumberPhone"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
@@ -42,15 +42,17 @@
                         >
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextNumberPhoneSI"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Почта"  />
+                            android:hint="Номер телефона"
+                            android:inputType="phone"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:theme="@style/Theme.EditText"
-                android:layout_below="@+id/editTextEmail"
-                android:id="@+id/editTextPassword"
+                android:layout_below="@+id/textInputLayoutNumberPhone"
+                android:id="@+id/textInputLayoutPassword"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
@@ -58,22 +60,18 @@
                 app:endIconMode="custom"
                 >
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPasswordSI"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Пароль"  />
             </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
-
-
             <TextView
                 android:id="@+id/textViewNewPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/editTextPassword"
-                android:layout_alignRight="@+id/editTextPassword"
+                android:layout_below="@id/textInputLayoutPassword"
+                android:layout_alignRight="@+id/textInputLayoutPassword"
                 android:clickable="true"
                 android:hint="Забыли пароль ?"
                 android:textColorHint="#7d7d7d"
@@ -84,8 +82,8 @@
                 android:id="@+id/textViewNewAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/editTextPassword"
-                android:layout_alignLeft="@+id/editTextPassword"
+                android:layout_below="@id/textInputLayoutPassword"
+                android:layout_alignLeft="@+id/textInputLayoutPassword"
                 android:clickable="true"
                 android:hint="Регистрация"
                 android:textColorHint="#7d7d7d"

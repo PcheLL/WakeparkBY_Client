@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "599131651798-d7dsmbjllkhvp6t44r0656dapdm1op1c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wakeparkby",
+            "certificate_hash": "7c5acc2f31b64b7bfb9eef64000fe8f748dcecf9"
+          }
+        },
+        {
           "client_id": "599131651798-fmncbr4b7mkev8e3vkftstuoum9b0b7b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

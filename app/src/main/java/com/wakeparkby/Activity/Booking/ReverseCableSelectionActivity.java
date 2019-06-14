@@ -37,7 +37,7 @@ public class ReverseCableSelectionActivity extends AppCompatActivity implements 
 
     @Override
     public void onClick(View v) {
-        Intent intent_Time = new Intent(this, ChooseTimeActivity.class);
+        Intent intent_Time = new Intent(this, newChooseTimeActivity.class);
         BookingController bookingController;
         switch (v.getId()) {
             case R.id.buttonFirstReverse:

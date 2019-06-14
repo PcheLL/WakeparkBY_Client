@@ -37,7 +37,7 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
     RelativeLayout relativeLayoutProgressBarHistory;
     private String userId = "1";
 
-    Observer observer = new Observer("History") {
+    Observer observer = new Observer("newChooseTimeActivity") {
         @Override
         public void update() {
             int n = observer.getStatus();

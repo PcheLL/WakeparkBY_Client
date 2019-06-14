@@ -5,6 +5,7 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -24,4 +25,8 @@ public interface HTTPController {
     Call<ArrayList<History>> getUserHistory(@Path("id") String userId);
     @DELETE("/wakepark-Wakepark/users/{id}/booked/{bookedId}")
     Call<ResponseBody> deleteHistory(@Path("id") String id , @Path("bookedId") String idHistory);
+    @POST("/jwtappdemo-0.0.1-SNAPSHOT/login/regist")
+    Call<String> postCreateAccountUser(@Body NewUser newUser);
+    @POST("/jwtappdemo-0.0.1-SNAPSHOT/login")
+    Call<UserResponse> postSignInUser(@Body User user);
 }

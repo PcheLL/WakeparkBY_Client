@@ -20,10 +20,10 @@
             android:hint="Свободное время"
             android:textSize="35dp"
             android:textColorHint="#000000"
+            android:fontFamily="@font/neo_sans_pro_regular"
             android:shadowColor="#7d7d7d"
             android:shadowRadius="5"
-            android:shadowDy="8"
-            android:fontFamily="@font/neo_sans_pro_regular"/>
+            android:shadowDy="8" />
 
 
         <LinearLayout
@@ -35,41 +35,25 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
-            <ListView
-                android:id="@+id/listViewTime"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewTime"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginTop="20dp">
-            </ListView>
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonChooseTime"
+                android:theme="@style/Theme.Custom"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Продолжить"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="10dp"/>
 
 
         </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeLayoutProgressBar11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:visibility="gone">
-            <ProgressBar
-                android:id="@+id/progressbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminateDrawable="@drawable/progress_bar"
-                android:indeterminateOnly="true"
-                android:layout_centerHorizontal="true"/>
-            <TextView
-                android:layout_below="@+id/progressbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Уточняем время..."
-                android:textColor="#ffff00"
-                android:textSize="15dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"/>
-        </RelativeLayout>
-
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

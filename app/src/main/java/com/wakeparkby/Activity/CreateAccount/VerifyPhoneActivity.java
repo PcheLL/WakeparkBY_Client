@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
+import com.wakeparkby.Controller.CreateAccountController;
 import com.wakeparkby.R;
 
 import java.util.concurrent.TimeUnit;
@@ -48,7 +49,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         //and sending the verification code to the number
         Intent intent = getIntent();
         String mobile = intent.getStringExtra("mobile");
-      //  sendVerificationCode(mobile);
+        sendVerificationCode(mobile);
 
 
         //if the automatic sms detection did not work, user can also enter the code manually
@@ -116,6 +117,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
             super.onCodeSent(s, forceResendingToken);
             //2
             //storing the verification id that is sent to the user
+
             mVerificationId = s;
             mResendToken = forceResendingToken;
             System.out.print("");
@@ -140,7 +142,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                             //verification successful we will start the profile activity
                             Intent intent = new Intent(VerifyPhoneActivity.this, MainMenuActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
+                            CreateAccountController createAccountController = new CreateAccountController();
+                            createAccountController.sendInfoNewUser(intent.getStringExtra("mobile"),intent.getStringExtra("userName"),intent.getStringExtra("password"));
                             startActivity(intent);
 
                         } else {

@@ -49,10 +49,11 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         } else if (editTextPhone.getText().toString().equals("")) {
             Toast.makeText(this, "Введите номер !!!", Toast.LENGTH_SHORT).show();
         } else if (editTextName.getText().toString().equals("")) {
-            Toast.makeText(this, "Введите Password !!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Введите Имя !!!", Toast.LENGTH_SHORT).show();
         } else if (view.getId() == R.id.buttonSaveCA) {
             String password = editTextPassword.getText().toString();
             String phoneNumber = editTextPhone.getText().toString();
+            String userName = editTextName.getText().toString();
 
 
                 if(phoneNumber.isEmpty() || phoneNumber.length() < 10){
@@ -63,6 +64,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
                 Intent intent = new Intent(this, VerifyPhoneActivity.class);
                 intent.putExtra("mobile", phoneNumber);
+                intent.putExtra("userName", userName );
+                intent.putExtra("password",password);
                 startActivity(intent);
             }
 

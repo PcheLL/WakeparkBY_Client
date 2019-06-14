@@ -48,9 +48,9 @@ public class ChooseTimeActivity extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_time);
-        listViewTime = (ListView) findViewById(R.id.listViewTime);
+        //listViewTime = (ListView) findViewById(R.id.listViewTime);
         listViewTime.setOnItemClickListener(this);
-        relativeLayoutProgressBar = findViewById(R.id.relativeLayoutProgressBar11);
+        //relativeLayoutProgressBar = findViewById(R.id.relativeLayoutProgressBar11);
         linearLayoutChooseTime = findViewById(R.id.linearLayoutChooseTime11);
         relativeLayoutProgressBar.setVisibility(View.VISIBLE);
         linearLayoutChooseTime.setVisibility(View.GONE);
