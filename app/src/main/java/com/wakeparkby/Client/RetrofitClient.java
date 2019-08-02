@@ -1,10 +1,16 @@
 package com.wakeparkby.Client;
 
+import com.wakeparkby.Database.App;
+import com.wakeparkby.Database.DataModel;
+import com.wakeparkby.Database.DatabaseHelper;
 import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.Controller.SeasonTicketController;
 import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.HTTPController.HTTPController;
+import com.wakeparkby.HTTPController.NewUser;
 import com.wakeparkby.HTTPController.TimeSpace;
+import com.wakeparkby.HTTPController.UserResponse;
+import com.wakeparkby.HTTPController.User;
 import com.wakeparkby.Observer.Observer;
 
 import java.util.ArrayList;
@@ -149,4 +155,47 @@ public class RetrofitClient {
             }
         });
     }
+
+    public void postCreateAccountUser(NewUser newUser) {
+        Call<String> call = httpController.postCreateAccountUser(newUser);
+        call.enqueue(new Callback<String>() {
+            @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                System.out.println(response.toString());
+                if (response.isSuccessful()) {
+                    String answer = response.body().toString();
+                }
+            }
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+            }
+        });
+    }
+
+    public void postSignInUser(User userBody) {
+        Call<UserResponse> call = httpController.postSignInUser(userBody);
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                System.out.println(response.toString());
+                if (response.isSuccessful()) {
+                    UserResponse userResponse = response.body();
+                    DatabaseHelper databaseHelper = App.getInstance().getDatabaseInstance();
+                    DataModel model = new DataModel();
+                    model.setTitle("UserToken");
+                    model.setDescription(response.body().getToken().toString());
+                    databaseHelper.getDataDao().insert(model);
+                    observer.notifyAllObservers(8);
+                }
+                else {
+                    //Обработка неправильных данных
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+            }
+        });
+    }
+
 }

@@ -2,7 +2,7 @@ package com.wakeparkby.Activity.Booking;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -12,14 +12,14 @@ import android.widget.RelativeLayout;
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.R;
 
-public class DateSelectionActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
+public class DateSelectionActivity  {
     DatePicker datePicker;
     Button buttonSelectDate;
     private String date;
     private float fromPosition;
 
 
-    @Override
+  /*  @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
@@ -70,5 +70,5 @@ public class DateSelectionActivity extends AppCompatActivity implements View.OnC
                 break;
         }
         return true;
-    }
+    }*/
 }

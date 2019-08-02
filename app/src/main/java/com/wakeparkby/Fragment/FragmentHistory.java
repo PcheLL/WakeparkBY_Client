@@ -1,12 +1,17 @@
-package com.wakeparkby.Activity.History;
+package com.wakeparkby.Fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -14,7 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
-import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
+import com.wakeparkby.Activity.History.AdapterHistory;
+import com.wakeparkby.Activity.History.AdapterHistoryArray;
 import com.wakeparkby.Controller.HistoryController;
 import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.Observer.Observer;
@@ -24,16 +30,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class HistoryActivity extends AppCompatActivity implements View.OnTouchListener, AdapterView.OnItemClickListener {
+public class FragmentHistory extends Fragment implements AdapterView.OnItemClickListener {
     private ArrayList<History> historyArrayList = new ArrayList<>();
     HistoryController historyController = new HistoryController();
-    private float fromPosition;
     ListView listView;
     RelativeLayout relativeLayoutProgressBarHistory;
-    RelativeLayout relativeLayoutHistory;
     private String userId = "1";
 
-    Observer observer = new Observer("History") {
+    Observer observer = new Observer("newChooseTimeActivity") {
         @Override
         public void update() {
             int n = observer.getStatus();
@@ -48,54 +52,49 @@ public class HistoryActivity extends AppCompatActivity implements View.OnTouchLi
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
-        relativeLayoutHistory = findViewById(R.id.relativeLayoutHistory);
-        relativeLayoutHistory.setOnTouchListener(this);
-        listView = (ListView) findViewById(R.id.listview);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.history_card, container, false);
+     /*   listView = (ListView) rootView.findViewById(R.id.listview);
         listView.setOnItemClickListener(this);
-        relativeLayoutProgressBarHistory = findViewById(R.id.relativeLayoutProgressBarHistory);
+        relativeLayoutProgressBarHistory = rootView.findViewById(R.id.relativeLayoutProgressBarHistory);
         HistoryController historyController = new HistoryController(userId);
         listView.setVisibility(View.GONE);
-        relativeLayoutProgressBarHistory.setVisibility(View.VISIBLE);
+        relativeLayoutProgressBarHistory.setVisibility(View.VISIBLE);*/
+        if (isNetworkAvailable(getContext())) {
+        } else {
+            System.out.print("Нет соединения");
+            // если сети нет показываем Тост или
+            // кидаем на активити с красивым дизайном где просим сделать реконнект
+        }
+        return rootView;
     }
 
-    public boolean onTouch(View view, MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                fromPosition = event.getX();
-                break;
-            case MotionEvent.ACTION_UP:
-                float toPosition = event.getX();
+    public FragmentHistory() {
+    }
 
-                if (fromPosition < toPosition) {
-                    Intent intent = new Intent(this, MainMenuActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.go_prev_in, R.anim.go_prev_out);
-                    observer.removeFromList(observer);
-                }
-            default:
-                break;
-        }
-        return true;
+    public static FragmentHistory newInstance() {
+        return new FragmentHistory();
     }
 
     private void updateHistoryList() {
         historyArrayList = HistoryController.getListHistory();
-        ArrayAdapter<History> adapter = new AdapterHistoryArray(this, 0, historyArrayList);
+        ArrayAdapter<History> adapter = new AdapterHistoryArray(getActivity(), 0, historyArrayList);
         listView.setAdapter(adapter);
         relativeLayoutProgressBarHistory.setVisibility(View.GONE);
         listView.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, MainMenuActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.go_prev_in, R.anim.go_prev_out);
-        observer.removeFromList(observer);
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
 
 
     @Override
@@ -119,7 +118,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnTouchLi
                 String minutesNow = timeMinutesFormat.format(resultTime);
                 int timeNow = Integer.valueOf(hoursNow) * 60 + Integer.valueOf(minutesNow);
                 if (timeNow > Integer.valueOf(adapterHistory.getStartTime()) - 120) {
-                    Toast.makeText(getApplicationContext(), "Отмена невозможна" + System.lineSeparator() + "Осталось меньше 2-x часов", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Отмена невозможна" + System.lineSeparator() + "Осталось меньше 2-x часов", Toast.LENGTH_LONG).show();
                 } else {
                     String idHistory = adapterHistory.getHistoryId();
                     String location = adapterHistory.getLocationName();
@@ -137,10 +136,10 @@ public class HistoryActivity extends AppCompatActivity implements View.OnTouchLi
                         reversNumber + " реверс )" + System.lineSeparator() + "Дата: " + data + System.lineSeparator() + "Время: " + time, idHistory);
             }
 
-        } else if (status.equals("MISSED")){
-            Toast.makeText(getApplicationContext(), "Вы уже оменили бронирование", Toast.LENGTH_LONG).show();
-        } else if (status.equals("VISITED")){
-            Toast.makeText(getApplicationContext(), "Вы уже посетили вейкпарк", Toast.LENGTH_LONG).show();
+        } else if (status.equals("MISSED")) {
+            Toast.makeText(getContext(), "Вы уже оменили бронирование", Toast.LENGTH_LONG).show();
+        } else if (status.equals("VISITED")) {
+            Toast.makeText(getContext(), "Вы уже посетили вейкпарк", Toast.LENGTH_LONG).show();
 
         }
 
@@ -148,7 +147,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnTouchLi
     }
 
     private void createTwoButtonsAlertDialog(String title, String content, String idHistory) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(title);
         builder.setMessage(content);
         builder.setNegativeButton("Вернуться",
@@ -162,11 +161,17 @@ public class HistoryActivity extends AppCompatActivity implements View.OnTouchLi
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int which) {
-                        historyController.deleteHistory(userId,idHistory);
-                        Toast.makeText(getApplicationContext(), "Вы отменили бронирование", Toast.LENGTH_LONG).show();
+                        historyController.deleteHistory(userId, idHistory);
+                        Toast.makeText(getContext(), "Вы отменили бронирование", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }
                 });
         builder.show();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        observer.removeFromList(observer);
     }
 }

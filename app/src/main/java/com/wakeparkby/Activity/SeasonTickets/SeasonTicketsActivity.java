@@ -2,14 +2,13 @@ package com.wakeparkby.Activity.SeasonTickets;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.wakeparkby.Activity.Booking.ChooseTimeActivity;
 import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
 import com.wakeparkby.Controller.SeasonTicketController;
 import com.wakeparkby.Observer.Observer;

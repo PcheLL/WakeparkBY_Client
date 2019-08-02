@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:id="@+id/relativeLayoutSeasonTicket"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000"
+        android:background="#FAFAFA"
         android:orientation="vertical">
 
         <TextView
@@ -17,8 +17,12 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/neo_sans_pro_regular"
             android:hint="Ваш абонемент"
-            android:textColorHint="#ffff00"
+            android:shadowColor="#7d7d7d"
+            android:shadowDy="8"
+            android:shadowRadius="5"
+            android:textColorHint="#000000"
             android:textSize="35dp">
 
         </TextView>
@@ -27,17 +31,18 @@
             android:id="@+id/linearLayoutTimeSeasonTicket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewMySeasonTickets"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textViewSeasonTicketsTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="0"
-                android:textColor="#ffff00"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/andy_bold"
+                android:text="50"
+                android:textColor="#E9CB09"
                 android:textSize="70dp"
                 android:visibility="visible" />
 
@@ -46,12 +51,32 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="мин"
-                android:textColor="#ffff00"
+                android:textColor="#E9CB09"
                 android:textSize="20dp"
                 android:visibility="visible">
 
             </TextView>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/separating_line_SeasonTickets"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayoutTimeSeasonTicket"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/separating_line" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSeasonTicketsHistory"
+            android:layout_below="@+id/separating_line_SeasonTickets"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            app:layout_anchorGravity="top">
+        </androidx.recyclerview.widget.RecyclerView>
 
 
         <RelativeLayout
@@ -88,4 +113,4 @@
     </RelativeLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

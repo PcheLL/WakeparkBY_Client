@@ -1,116 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+
     tools:context=".Activity.SignIn.SignInActivity">
 
     <RelativeLayout
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FAFAFA">
 
         <ImageView
             android:id="@+id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="-80dp"
+            android:layout_alignParentTop="true"
             android:scaleType="fitStart"
-            android:src="@drawable/logo_wakeparkby" />
+            android:src="@drawable/logo_splash_screen" />
 
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/welcome"
+            android:layout_marginTop="-20dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true">
 
-            <TextView
-                android:id="@+id/textViewEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Почта:"
-                android:textColorHint="#ffffff"
-                android:textSize="18dp" />
 
-            <EditText
-                android:id="@+id/editTextEmail"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:theme="@style/Theme.EditText"
+                        android:id="@+id/textInputLayoutNumberPhone"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        app:hintTextColor="@color/colorBlack"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextNumberPhoneSI"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Номер телефона"
+                            android:inputType="phone"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:theme="@style/Theme.EditText"
+                android:layout_below="@+id/textInputLayoutNumberPhone"
+                android:id="@+id/textInputLayoutPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textViewEmail"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:hint="example@gmail.com"
-                android:inputType="phone"
-                android:textColorHint="#A9A9A9"
-                android:backgroundTint="#ffff00"
-                android:textColor="#ffff00"/>
-
-            <TextView
-                android:id="@+id/textViewPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/editTextEmail"
-                android:layout_alignLeft="@+id/editTextPassword"
-                android:hint="Пароль:"
-                android:textColorHint="#ffffff"
-                android:textSize="18dp"
-
-                />
-
-            <EditText
-                android:id="@+id/editTextPassword"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewPassword"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:hint="**********"
-                android:inputType="textPassword"
-                android:textColorHint="#A9A9A9"
-                android:backgroundTint="#ffff00"
-                android:textColor="#ffff00"/>
+                app:hintTextColor="@color/colorBlack"
+                app:endIconMode="custom"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPasswordSI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Пароль"  />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/textViewNewPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/editTextPassword"
-                android:layout_alignRight="@+id/editTextPassword"
+                android:layout_below="@id/textInputLayoutPassword"
+                android:layout_alignRight="@+id/textInputLayoutPassword"
                 android:clickable="true"
                 android:hint="Забыли пароль ?"
-                android:textColorHint="#ffff00"
-                android:textSize="10dp" />
+                android:textColorHint="#7d7d7d"
+                android:textSize="12dp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textViewNewAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/editTextPassword"
-                android:layout_alignLeft="@+id/editTextPassword"
+                android:layout_below="@id/textInputLayoutPassword"
+                android:layout_alignLeft="@+id/textInputLayoutPassword"
                 android:clickable="true"
                 android:hint="Регистрация"
-                android:textColorHint="#ffff00"
-                android:textSize="10dp" />
+                android:textColorHint="#7d7d7d"
+                android:textSize="12dp"
+                android:textStyle="bold" />
 
-            <Button
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonEnter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:layout_below="@id/textViewNewPassword"
+                android:theme="@style/Theme.Custom"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/button_welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
                 android:hint="Войти"
-                android:textColorHint="#ffffff"
-                android:textSize="16dp" />
+                android:textColor="#ffffff"
+                android:layout_marginBottom="10dp"/>
+
         </RelativeLayout>
 
     </RelativeLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

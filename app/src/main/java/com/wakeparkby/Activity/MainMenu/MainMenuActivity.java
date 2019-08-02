@@ -1,202 +1,67 @@
 package com.wakeparkby.Activity.MainMenu;
 
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
+
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-
-
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.wakeparkby.Activity.Booking.DateSelectionActivity;
-import com.wakeparkby.Activity.Booking.LocationSelectionActivity;
-import com.wakeparkby.Activity.History.HistoryActivity;
-import com.wakeparkby.Activity.Onboarding.OnboardingActivity;
-import com.wakeparkby.Activity.Price.PriceActivity;
-import com.wakeparkby.Activity.SeasonTickets.SeasonTicketsActivity;
-import com.wakeparkby.Activity.SignIn.SignInActivity;
-import com.wakeparkby.Controller.BookingController;
+import com.wakeparkby.Fragment.FragmentHistory;
+import com.wakeparkby.Fragment.FragmentLocationSelection;
+import com.wakeparkby.Fragment.FragmentPrice;
+import com.wakeparkby.Fragment.FragmentSeasonTickets;
+import com.wakeparkby.Fragment.FragmentWeather;
 import com.wakeparkby.R;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+public class MainMenuActivity extends AppCompatActivity {
 
-import java.io.IOException;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-    TextView textView_Air_Temperature_Logoysk;
-    TextView textView_Wind_Speed_Logoysk;
-    TextView textView_Weather_Logoysk;
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.nav_choosePl:
+                    loadFragment(FragmentLocationSelection.newInstance());
+                    return true;
+                case R.id.nav_mySeasonTickets:
+                    loadFragment(FragmentSeasonTickets.newInstance());
+                    return true;
+                case R.id.nav_price:
+                    loadFragment(FragmentPrice.newInstance());
+                    return true;
+                case R.id.nav_history:
+                    loadFragment(FragmentHistory.newInstance());
+                    return true;
+                case R.id.nav_weather:
+                    loadFragment(FragmentWeather.newInstance());
+                    return true;
+            }
+            return false;
+        }
+    };
 
-    TextView textViewNameLogoysk;
-    TextView textViewNameDrozdy;
 
-
-    TextView textView_Air_Temperature_Drozdy;
-    TextView textView_Wind_Speed_Drozdy;
-    TextView textView_Weather_Drozdy;
-
-    NavigationView navigationView;
-    AppBarLayout appBarLayout;
-    ConstraintLayout constraintLayout;
-    RelativeLayout relativeLayoutProgressBar;
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fl_content, fragment);
+        ft.commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_menu);
 
-        SharedPreferences preferences =
-                getSharedPreferences("my_preferences", MODE_PRIVATE);
-
-        if (!preferences.getBoolean("onboarding_complete", false)) {
-
-            Intent onboarding = new Intent(this, OnboardingActivity.class);
-            startActivity(onboarding);
-
-            finish();
-            return;
-        } else {
-
-            setContentView(R.layout.activity_main_menu);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-
-
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.addDrawerListener(toggle);
-            toggle.syncState();
-
-            navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);
-            appBarLayout = findViewById(R.id.appbar);
-            constraintLayout = findViewById(R.id.content_main);
-            relativeLayoutProgressBar = findViewById(R.id.relativeLayoutProgressBarMainMenu);
-            textView_Air_Temperature_Logoysk = findViewById(R.id.textView_Air_Temperature_Logoysk);
-            textView_Wind_Speed_Logoysk = findViewById(R.id.textView_Wind_Speed_Logoysk);
-            textView_Weather_Logoysk = findViewById(R.id.textView_Weather_Logoysk);
-
-            textView_Air_Temperature_Drozdy = findViewById(R.id.textView_Air_Temperature_Drozdy);
-            textView_Wind_Speed_Drozdy = findViewById(R.id.textView_Wind_Speed_Drozdy);
-            textView_Weather_Drozdy = findViewById(R.id.textView_Weather_Drozdy);
-
-            textViewNameLogoysk = findViewById(R.id.textViewNameLogoysk);
-            textViewNameDrozdy = findViewById(R.id.textViewNameDrozdy);
-            textViewNameLogoysk.setOnClickListener(this);
-            textViewNameDrozdy.setOnClickListener(this);
-            //appBarLayout.setVisibility(View.GONE);
-            constraintLayout.setVisibility(View.GONE);
-            relativeLayoutProgressBar.setVisibility(View.VISIBLE);
-            refreshWeather();
-        }
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().findItem(R.id.nav_choosePl).setChecked(true);
+        loadFragment(FragmentLocationSelection.newInstance());
     }
 
-    private void refreshWeather() {
-        Thread newThread = new Thread() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            public void run() {
-                Document docLogoysk;
-                Document docDrozdy;
-                try {
-                    docLogoysk = Jsoup.connect("https://yandex.by/pogoda/minsk?lat=54.18134156547551&lon=27.810362236397864").get();
-                    textView_Air_Temperature_Logoysk.setText(String.valueOf(docLogoysk.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
-                    textView_Wind_Speed_Logoysk.setText(String.valueOf(docLogoysk.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__props.fact__props_position_middle > dl.term.term_orient_v.fact__wind-speed > dd > span.wind-speed").first().childNode(0)));
-                    textView_Weather_Logoysk.setText(String.valueOf(docLogoysk.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
-
-                    docDrozdy = Jsoup.connect("https://yandex.by/pogoda/minsk?lat=53.95676295721988&lon=27.445825327087764").get();
-                    textView_Air_Temperature_Drozdy.setText(String.valueOf(docDrozdy.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
-                    textView_Wind_Speed_Drozdy.setText(String.valueOf(docDrozdy.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__props.fact__props_position_middle > dl.term.term_orient_v.fact__wind-speed > dd > span.wind-speed").first().childNode(0)));
-                    textView_Weather_Drozdy.setText(String.valueOf(docDrozdy.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            relativeLayoutProgressBar.setVisibility(View.GONE);
-                            constraintLayout.setVisibility(View.VISIBLE);
-                        }
-                    });
-                } catch (IOException e) {
-                    textView_Air_Temperature_Logoysk.setText("-");
-                    textView_Wind_Speed_Logoysk.setText("-");
-                    textView_Weather_Logoysk.setText("-");
-                    textView_Air_Temperature_Drozdy.setText("-");
-                    textView_Wind_Speed_Drozdy.setText("-");
-                    textView_Weather_Drozdy.setText("-");
-                }
-            }
-        };
-        newThread.start();
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        Intent intent_LocationSelection = new Intent(this, LocationSelectionActivity.class);
-        Intent intent_SeasonTickets = new Intent(this, SeasonTicketsActivity.class);
-        Intent intent_Price = new Intent(this, PriceActivity.class);
-        Intent intent_History = new Intent(this, HistoryActivity.class);
-        Intent intent_SignIn = new Intent(this, SignInActivity.class);
-        int id = item.getItemId();
-
-        if (id == R.id.nav_ChoosePl) {
-            startActivity(intent_LocationSelection);
-        } else if (id == R.id.nav_MySeasonTickets) {
-            startActivity(intent_SeasonTickets);
-        } else if (id == R.id.nav_Price) {
-            startActivity(intent_Price);
-        } else if (id == R.id.nav_History) {
-            startActivity(intent_History);
-        } else if (id == R.id.nav_Exit) {
-            Toast.makeText(getApplicationContext(), "В разработке", Toast.LENGTH_LONG).show();
-            //FirebaseAuth.getInstance().signOut();
-            //startActivity(intent_SignIn);
-        } else if (id == R.id.nav_settings){
-            Toast.makeText(getApplicationContext(), "В разработке", Toast.LENGTH_LONG).show();
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent intent_Date = new Intent(this, DateSelectionActivity.class);
-        switch (v.getId()) {
-            case R.id.textViewNameLogoysk:
-                intent_Date.putExtra("place", "LOGOISK");
-                BookingController.start(this, intent_Date);
-                break;
-            case R.id.textViewNameDrozdy:
-                intent_Date.putExtra("place", "DROZDI");
-                BookingController.start(this, intent_Date);
-                break;
-        }
-    }
 }

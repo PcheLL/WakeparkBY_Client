@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FAFAFA">
+
+
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textViewPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:hint="Погода"
+            android:textSize="35dp"
+            android:textColorHint="#000000"
+            android:shadowColor="#7d7d7d"
+            android:shadowRadius="5"
+            android:shadowDy="8"
+            android:fontFamily="@font/neo_sans_pro_italic" />
+
+        <LinearLayout
+            android:layout_below="@+id/textViewPrice"
+            android:id="@+id/linearLayoutWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="0dp"
+            android:paddingLeft="10dp"
+            android:layout_centerHorizontal="true">
+
+            <com.google.android.material.card.MaterialCardView
+                app:cardElevation="5dp"
+                android:layout_width="350dp"
+                android:layout_height="400dp"
+                android:layout_marginLeft="@dimen/mtrl_card_spacing"
+                android:layout_marginTop="@dimen/mtrl_card_spacing"
+                android:layout_marginRight="@dimen/mtrl_card_spacing"
+                android:minHeight="200dp"
+                app:cardCornerRadius="30dp">
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layout_bg"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:paddingLeft="30dp"
+                        android:paddingTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow"/>
+                            <TextView
+                                android:id="@+id/textViewNameLogoysk"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000000"
+                                android:text="ГСОК Логойск "
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_circle_yellow"/>
+                            <TextView
+                                android:paddingLeft="3dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000000"
+                                android:text="Температура воздуха: "
+                                android:textSize="16sp"
+                                />
+                            <TextView
+                                android:id="@+id/textView_Air_Temperature_Logoysk"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#717171"
+                                android:text="-"
+                                android:textSize="20sp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#717171"
+                                android:text=" °С"
+                                android:textSize="20sp"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="15dp"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_circle_yellow"/>
+                            <TextView
+                                android:paddingLeft="3dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000000"
+                                android:text="Cкорость ветра: "
+                                android:textSize="18sp"
+                                />
+                            <TextView
+                                android:id="@+id/textView_Wind_Speed_Logoysk"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#717171"
+                                android:text="-"
+                                android:textSize="20sp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#717171"
+                                android:text=" м/c "
+                                android:textSize="20sp"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_gravity="center"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_circle_yellow"/>
+                            <TextView
+                                android:paddingLeft="3dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000000"
+                                android:text="Погода: "
+                                android:textSize="18sp"
+                                />
+                            <TextView
+                                android:visibility="gone"
+                                android:id="@+id/textView_Weather_Logoysk"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#717171"
+                                android:text="-"
+                                android:textSize="20sp"
+                                />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="30dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow"/>
+                            <TextView
+                                android:id="@+id/textViewNameDrozdy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000000"
+                                android:text="Дрозды "
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_gravity="center"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_circle_yellow"/>
+                            <TextView
+                                android:paddingLeft="3dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000000"
+                                android:text="Температура воздуха: "
+                                android:textSize="16sp"
+                                />
+                            <TextView
+                                android:id="@+id/textView_Air_Temperature_Drozdy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#717171"
+                                android:text="-"
+                                android:textSize="20sp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#717171"
+                                android:text=" °С"
+                                android:textSize="20sp"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="15dp"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_gravity="center"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_circle_yellow"/>
+                            <TextView
+                                android:paddingLeft="3dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000000"
+                                android:text="Cкорость ветра: "
+                                android:textSize="18sp"
+                                />
+                            <TextView
+                                android:id="@+id/textView_Wind_Speed_Drozdy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#717171"
+                                android:text="-"
+                                android:textSize="20sp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#717171"
+                                android:text=" м/c "
+                                android:textSize="20sp"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginLeft="15dp"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_gravity="center"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_circle_yellow"/>
+                            <TextView
+                                android:paddingLeft="3dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000000"
+                                android:text="Погода: "
+                                android:textSize="18sp"
+                                />
+                            <TextView
+                                android:visibility="gone"
+                                android:id="@+id/textView_Weather_Drozdy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#717171"
+                                android:text="-"
+                                android:textSize="20sp"
+                                />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+        </LinearLayout>
+        <RelativeLayout
+
+            android:id="@+id/relativeLayoutProgressBarMainMenu"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+
+            android:visibility="gone">
+
+            <ProgressBar
+
+                android:id="@+id/progressBarMainMenu"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:indeterminateDrawable="@drawable/progress_bar"
+
+                android:indeterminateOnly="true"
+
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+
+                android:layout_below="@+id/progressBarMainMenu"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:text="Уточняем погоду..."
+
+                android:textColor="#ffff00"
+
+                android:textSize="15dp"
+
+                android:layout_centerHorizontal="true"
+
+                android:layout_marginTop="5dp"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

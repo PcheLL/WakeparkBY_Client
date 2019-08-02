@@ -1,17 +1,15 @@
-package com.wakeparkby.Activity.SignIn;
+package com.wakeparkby.Activity.CreateAccount;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
+import com.wakeparkby.Controller.CreateAccountController;
 import com.wakeparkby.R;
 
 import java.util.concurrent.TimeUnit;
@@ -118,6 +117,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
             super.onCodeSent(s, forceResendingToken);
             //2
             //storing the verification id that is sent to the user
+
             mVerificationId = s;
             mResendToken = forceResendingToken;
             System.out.print("");
@@ -142,6 +142,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                             //verification successful we will start the profile activity
                             Intent intent = new Intent(VerifyPhoneActivity.this, MainMenuActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            CreateAccountController createAccountController = new CreateAccountController();
+                            createAccountController.sendInfoNewUser(intent.getStringExtra("mobile"),intent.getStringExtra("userName"),intent.getStringExtra("password"));
                             startActivity(intent);
 
                         } else {

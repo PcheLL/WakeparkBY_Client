@@ -1,8 +1,11 @@
 package com.wakeparkby.Activity.CreateAccount;
 
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +16,6 @@ import com.wakeparkby.R;
 
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
-    private EditText editTextEmail;
     private EditText editTextName;
     private EditText editTextPhone;
     private EditText editTextPassword;
@@ -27,7 +29,6 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
         mAuth = FirebaseAuth.getInstance();
-        editTextEmail = findViewById(R.id.editTextEmailCA);
         editTextName = findViewById(R.id.editTextNameCA);
         editTextPassword = findViewById(R.id.editTextPasswordCA);
         editTextPhone = findViewById(R.id.editTextNumberPhoneCA);
@@ -37,24 +38,38 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
     /**
      * метод для обработки нажатия
+     *
      * @param view состояние нажатия
      */
     @Override
     public void onClick(View view) {
-        if (editTextEmail.getText().toString().equals("")) {
-            Toast.makeText(this, "Введите Email !!!", Toast.LENGTH_SHORT).show();
-        } else if (editTextPassword.getText().toString().equals("")) {
+
+        if (editTextPassword.getText().toString().equals("")) {
             Toast.makeText(this, "Введите Password !!!", Toast.LENGTH_SHORT).show();
         } else if (editTextPhone.getText().toString().equals("")) {
             Toast.makeText(this, "Введите номер !!!", Toast.LENGTH_SHORT).show();
         } else if (editTextName.getText().toString().equals("")) {
-            Toast.makeText(this, "Введите Password !!!", Toast.LENGTH_SHORT).show();
-        }
-        else if (view.getId() == R.id.buttonSaveCA) {
-            String email = editTextEmail.getText().toString();
+            Toast.makeText(this, "Введите Имя !!!", Toast.LENGTH_SHORT).show();
+        } else if (view.getId() == R.id.buttonSaveCA) {
             String password = editTextPassword.getText().toString();
-            //registration(email, password);
-        }
+            String phoneNumber = editTextPhone.getText().toString();
+            String userName = editTextName.getText().toString();
+
+
+                if(phoneNumber.isEmpty() || phoneNumber.length() < 10){
+                    editTextPhone.setError("Неправильный номер телефона");
+                    editTextPhone.requestFocus();
+                    return;
+                }
+
+                Intent intent = new Intent(this, VerifyPhoneActivity.class);
+                intent.putExtra("mobile", phoneNumber);
+                intent.putExtra("userName", userName );
+                intent.putExtra("password",password);
+                startActivity(intent);
+            }
+
+
     }
 
     /**
@@ -92,6 +107,6 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
      * метод для старта создания профиля
      */
     private void startActivityCreateProfile() {
-   //     AdapterCreateAccount.startActivityCreateProfile(this);
+        //     AdapterCreateAccount.startActivityCreateProfile(this);
     }
 }
