@@ -8,7 +8,11 @@ import lombok.Setter;
 @Data
 public class TimeSpace {
     @Expose
-    private int start;
+    private int endTime;
     @Expose
-    private int end;
+    private int id;
+    @Expose
+    private int startTime;
+    @Expose
+    private String status;
 }

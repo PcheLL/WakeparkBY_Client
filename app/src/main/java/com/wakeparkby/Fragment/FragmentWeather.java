@@ -1,10 +1,13 @@
 package com.wakeparkby.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +19,16 @@ import com.wakeparkby.Activity.Booking.DateSelectionActivity;
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.R;
 
+import zh.wang.android.yweathergetter4a.WeatherInfo;
+import zh.wang.android.yweathergetter4a.YahooWeather;
+import zh.wang.android.yweathergetter4a.YahooWeatherInfoListener;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-public class FragmentWeather extends Fragment implements View.OnClickListener {
+public class FragmentWeather extends Fragment implements View.OnClickListener, YahooWeatherInfoListener {
     TextView textView_Air_Temperature_Logoysk;
     TextView textView_Wind_Speed_Logoysk;
     TextView textView_Weather_Logoysk;
@@ -32,6 +39,8 @@ public class FragmentWeather extends Fragment implements View.OnClickListener {
     TextView textView_Weather_Drozdy;
     LinearLayout linearLayoutWeather;
     RelativeLayout relativeLayoutProgressBarMainMenu;
+    private YahooWeather mYahooWeather = YahooWeather.getInstance(5000, true);
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +69,8 @@ public class FragmentWeather extends Fragment implements View.OnClickListener {
         //appBarLayout.setVisibility(View.GONE);
         linearLayoutWeather.setVisibility(View.GONE);
         relativeLayoutProgressBarMainMenu.setVisibility(View.VISIBLE);
-        refreshWeather();
+        // refreshWeather();
+        searchByPlaceName();
         return rootView;
     }
 
@@ -71,77 +81,37 @@ public class FragmentWeather extends Fragment implements View.OnClickListener {
         return new FragmentWeather();
     }
 
-    private void refreshWeather() {
 
-        Thread newThread = new Thread() {
-
-            @RequiresApi(api = Build.VERSION_CODES.N)
-
-            public void run() {
-
-                Document docLogoysk;
-
-                Document docDrozdy;
-
-                try {
-
-                    docLogoysk = Jsoup.connect("https://yandex.by/pogoda/minsk?lat=54.18134156547551&lon=27.810362236397864").get();
-
-                    textView_Air_Temperature_Logoysk.setText(String.valueOf(docLogoysk.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
-
-                    textView_Wind_Speed_Logoysk.setText(String.valueOf(docLogoysk.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__props.fact__props_position_middle > dl.term.term_orient_v.fact__wind-speed > dd > span.wind-speed").first().childNode(0)));
-
-                    textView_Weather_Logoysk.setText(String.valueOf(docLogoysk.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
+    @Override
+    public void gotWeatherInfo(WeatherInfo weatherInfo, YahooWeather.ErrorType errorType) {
+        if (weatherInfo != null) {
+            // Add your code here
+            // weatherInfo object contains all information returned by Yahoo Weather API
+            // if `weatherInfo` is null, you can get the error from `errorType`
+            System.out.println("date: " + weatherInfo.getCurrentConditionDate());
+            System.out.println("weather: " + weatherInfo.getCurrentText());
+            System.out.println("temperature in ºC: " + weatherInfo.getCurrentTemp());
+            System.out.println("wind chill: " + weatherInfo.getWindChill());
+            System.out.println("wind direction: " + weatherInfo.getWindDirection());
+            System.out.println("wind speed: " + weatherInfo.getWindSpeed());
+            System.out.println("Humidity: " + weatherInfo.getAtmosphereHumidity());
+            System.out.println("Pressure: " + weatherInfo.getAtmospherePressure());
+            System.out.println("Visibility: " + weatherInfo.getAtmosphereVisibility());
+            System.out.println("");
+        }
+    }
 
 
-                    docDrozdy = Jsoup.connect("https://yandex.by/pogoda/minsk?lat=53.95676295721988&lon=27.445825327087764").get();
+    private void searchByPlaceName() {
+        mYahooWeather.setNeedDownloadIcons(true);
+        mYahooWeather.setUnit(YahooWeather.UNIT.CELSIUS);
 
-                    textView_Air_Temperature_Drozdy.setText(String.valueOf(docDrozdy.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
-
-                    textView_Wind_Speed_Drozdy.setText(String.valueOf(docDrozdy.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__props.fact__props_position_middle > dl.term.term_orient_v.fact__wind-speed > dd > span.wind-speed").first().childNode(0)));
-
-                    textView_Weather_Drozdy.setText(String.valueOf(docDrozdy.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
-
-                    getActivity().runOnUiThread(new Runnable() {
-
-                        @Override
-
-                        public void run() {
-
-                            relativeLayoutProgressBarMainMenu.setVisibility(View.GONE);
-
-                            linearLayoutWeather.setVisibility(View.VISIBLE);
-
-                        }
-
-                    });
-
-                } catch (IOException e) {
-
-                    textView_Air_Temperature_Logoysk.setText("-");
-
-                    textView_Wind_Speed_Logoysk.setText("-");
-
-                    textView_Weather_Logoysk.setText("-");
-
-                    textView_Air_Temperature_Drozdy.setText("-");
-
-                    textView_Wind_Speed_Drozdy.setText("-");
-
-                    textView_Weather_Drozdy.setText("-");
-
-                }
-
-            }
-
-        };
-
-        newThread.start();
-
+        //mYahooWeather.queryYahooWeatherByLatLon(getContext(), 53.907973, 27.573521, FragmentWeather.this);
+        String location = "Tokyo Japan";
+        mYahooWeather.queryYahooWeatherByPlaceName(getContext(), location, FragmentWeather.this);
     }
 
     @Override
-
     public void onClick(View v) {
         Intent intent_Date = new Intent(getActivity(), DateSelectionActivity.class);
         switch (v.getId()) {

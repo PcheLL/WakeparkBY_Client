@@ -12,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.stomped.stomped.client.StompedClient;
+import com.stomped.stomped.component.StompedFrame;
+import com.stomped.stomped.listener.StompedListener;
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.HTTPController.TimeSpace;
 import com.wakeparkby.Observer.Observer;
@@ -56,11 +59,13 @@ public class ChooseTimeActivity extends AppCompatActivity implements AdapterView
         linearLayoutChooseTime.setVisibility(View.GONE);
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayoutChooseTime);
         relativeLayout.setOnTouchListener(this);
+        openConnect();
+
 
     }
 
     private void updateChooseTime() {
-        timeSpaceList = bookingController.getFinalTimeSpaceList();
+      //  timeSpaceList = bookingController.getFinalTimeSpaceList();
         if (timeSpaceList.size() == 0) {
             // relativeLayoutProgressBar.setVisibility(View.VISIBLE);
         } else {
@@ -74,6 +79,23 @@ public class ChooseTimeActivity extends AppCompatActivity implements AdapterView
         linearLayoutChooseTime.setVisibility(View.VISIBLE);
     }
 
+    //test - websocket
+    private void openConnect()  {
+        final StompedClient client = new StompedClient.StompedClientBuilder().build("http://18.196.191.127:8080/jwtappdemo-0.0.1-SNAPSHOT/gs-guide-websocket/websocket");
+        client.subscribe("/topic/activity", new StompedListener() {
+
+            @Override
+            public void onNotify(final StompedFrame frame) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //  output.setText(frame.getStompedBody());
+                        //  client.disconnect();
+                    }
+                });
+            }
+        });
+    }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -116,7 +138,7 @@ public class ChooseTimeActivity extends AppCompatActivity implements AdapterView
         }
 
 
-        Intent intent_timeInterval = new Intent(this, ChooseTimeIntervalActivity.class);
+        /*Intent intent_timeInterval = new Intent(this, ChooseTimeIntervalActivity.class);
         intent_timeInterval.putExtra("location", getIntent().getStringExtra("place"));
         intent_timeInterval.putExtra("date", getIntent().getStringExtra("date"));
         intent_timeInterval.putExtra("reverseCableNumber", getIntent().getIntExtra("reverseCableNumber", 0));
@@ -126,7 +148,7 @@ public class ChooseTimeActivity extends AppCompatActivity implements AdapterView
         intent_timeInterval.putExtra("endHours", endHours);
         BookingController.start(this, intent_timeInterval);
         listViewTime.invalidateViews();
-        observer.removeFromList(observer);
+        observer.removeFromList(observer);*/
         //finish();
     }
 

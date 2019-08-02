@@ -26,11 +26,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     private static RetrofitClient retrofitClient = new RetrofitClient();
-
+    private DatabaseHelper databaseHelper;
     private Retrofit retrofit;
     private HTTPController httpController;
     private List<TimeSpace> listTimeSpace = new ArrayList<>();
-    private ArrayList<History> historyArrayList= new ArrayList<>();
+    private ArrayList<History> historyArrayList = new ArrayList<>();
 
     private Observer observer = new Observer("Retrofit");
 
@@ -50,7 +50,9 @@ public class RetrofitClient {
     }
 
     public void getTimeSpace(final String place, final String date, final int reverseCableNumber) {
-        httpController.getTimeSpace(place, date, reverseCableNumber).enqueue(new Callback<List<TimeSpace>>() {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String token = databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        httpController.getTimeSpace(token, place, date, reverseCableNumber).enqueue(new Callback<List<TimeSpace>>() {
             @Override
             public void onResponse(Call<List<TimeSpace>> call, Response<List<TimeSpace>> response) {
                 System.out.println(response.toString());
@@ -106,6 +108,7 @@ public class RetrofitClient {
                     observer.notifyAllObservers(3);
                 }
             }
+
             @Override
             public void onFailure(Call<String> call, Throwable t) {
             }
@@ -120,7 +123,7 @@ public class RetrofitClient {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
                     historyArrayList = response.body();
-                 //   setListTimeSpace(listTimeSpace);
+                    //   setListTimeSpace(listTimeSpace);
                     //BookingController bookingController = new BookingController(place,date,reverseCableNumber);
                     observer.notifyAllObservers(4);
                 }
@@ -141,7 +144,7 @@ public class RetrofitClient {
     }
 
     public void deleteHistory(String userId, String idHistory) {
-        httpController.deleteHistory(userId,idHistory).enqueue(new Callback<ResponseBody>() {
+        httpController.deleteHistory(userId, idHistory).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
@@ -160,12 +163,13 @@ public class RetrofitClient {
         Call<String> call = httpController.postCreateAccountUser(newUser);
         call.enqueue(new Callback<String>() {
             @Override
-                public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
                     String answer = response.body().toString();
                 }
             }
+
             @Override
             public void onFailure(Call<String> call, Throwable t) {
             }
@@ -184,11 +188,11 @@ public class RetrofitClient {
                     DataModel model = new DataModel();
                     model.setTitle("UserToken");
                     model.setDescription(response.body().getToken().toString());
+                    databaseHelper.clearAllTables();
                     databaseHelper.getDataDao().insert(model);
                     observer.notifyAllObservers(8);
-                }
-                else {
-                    //Обработка неправильных данных
+                } else {
+                    observer.notifyAllObservers(9);
                 }
             }
 

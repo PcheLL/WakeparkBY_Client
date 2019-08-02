@@ -38,7 +38,6 @@
         <activity android:name=".Activity.Booking.BookingDescriptionActivity" android:screenOrientation="portrait" />
         <activity android:name=".Activity.SplashActivity" android:screenOrientation="portrait" />
         <activity android:name=".Activity.Welcome.WelcomeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.Booking.ChooseTimeIntervalActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.Booking.DateSelectionActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.Booking.ReverseCableSelectionActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Activity.CreateAccount.VerifyPhoneActivity" android:screenOrientation="portrait" />

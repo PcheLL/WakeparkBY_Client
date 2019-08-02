@@ -3,8 +3,11 @@ package com.wakeparkby.Activity.Booking;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
 import com.google.android.material.button.MaterialButton;
+import com.wakeparkby.Controller.BookingController;
+import com.wakeparkby.Observer.Observer;
 import com.wakeparkby.R;
 
 import java.util.ArrayList;
@@ -20,6 +23,23 @@ public class newChooseTimeActivity extends AppCompatActivity implements View.OnC
 
     List<newChooseTimeItem> mData;
     MaterialButton buttonChooseTime;
+    BookingController bookingController = new BookingController();
+    Observer observer = new Observer("Time") {
+        @Override
+        public void update() {
+            int n = observer.getStatus();
+            if (n == 10) {
+                if (observer.getId() == 2) {
+                    updateChooseTime();
+                    observer.setId(0);
+                } else {
+                }
+            }
+        }
+    };
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +48,8 @@ public class newChooseTimeActivity extends AppCompatActivity implements View.OnC
         buttonChooseTime = findViewById(R.id.buttonChooseTime);
         buttonChooseTime.setOnClickListener(this);
         mData = new ArrayList<>();
-        mData.add(new newChooseTimeItem("9","00","9","10","WAITING_BOOKED"));
+
+        /*mData.add(new newChooseTimeItem("9","00","9","10","WAITING_BOOKED"));
         mData.add(new newChooseTimeItem("9","10","9","20","FREE"));
         mData.add(new newChooseTimeItem("9","20","9","30","WAITING_BOOKED"));
         mData.add(new newChooseTimeItem("9","30","9","40","FREE"));
@@ -121,7 +142,30 @@ public class newChooseTimeActivity extends AppCompatActivity implements View.OnC
 
         newsAdapter = new newChooseTimeAdapter(this,mData);
         NewsRecyclerView.setAdapter(newsAdapter);
-        NewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        NewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));*/
+    }
+
+    private void updateChooseTime() {
+        for (int i = 0; i < bookingController.getFinalTimeSpaceList().size();i++){
+            mData.add(new newChooseTimeItem(bookingController.getFinalTimeSpaceList().get(i).get(0),bookingController.getFinalTimeSpaceList().get(i).get(1),
+                    bookingController.getFinalTimeSpaceList().get(i).get(2),bookingController.getFinalTimeSpaceList().get(i).get(3),
+                    bookingController.getFinalTimeSpaceList().get(i).get(4)));
+            newsAdapter = new newChooseTimeAdapter(this,mData);
+            NewsRecyclerView.setAdapter(newsAdapter);
+            NewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
+
+      /*  if (timeSpaceList.size() == 0) {
+            // relativeLayoutProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            timeAdapter = new ArrayAdapter<>(ChooseTimeActivity.this,
+                    R.layout.text_view,
+                    timeSpaceList.toArray(new String[timeSpaceList.size()]));
+            //  relativeLayoutProgressBar.setVisibility(View.GONE);
+            listViewTime.setAdapter(timeAdapter);
+        }
+        relativeLayoutProgressBar.setVisibility(View.GONE);
+        linearLayoutChooseTime.setVisibility(View.VISIBLE);*/
     }
 
     @Override

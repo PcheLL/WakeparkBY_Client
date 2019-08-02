@@ -72,6 +72,8 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
                 startActivity(intent_reverseCableSelection);
             }
         }, day, month, year);
+        datePicker.getDatePicker().setMinDate(c.getTimeInMillis());
+        datePicker.getDatePicker().setMaxDate(c.getTimeInMillis()+1000 * 60 * 60 * 24 * 5);
         datePicker.show();
     }
 }

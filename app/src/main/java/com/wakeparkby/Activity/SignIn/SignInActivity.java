@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,19 +41,22 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             int n = observer.getStatus();
             if (n == 10) {
                 if (observer.getId() == 8) {
-                    signInAnswer();
+                    signInAnswerTrue();
                     observer.setId(0);
-                } else {
+                } else if (observer.getId() == 9) {
+                    signInAnswerFalse();
+                    observer.setId(0);
                 }
             }
         }
     };
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
         textViewNewAccount = findViewById(R.id.textViewNewAccount);
         textViewNewPassword = findViewById(R.id.textViewNewPassword);
         editTextNumberPhoneSI = findViewById(R.id.editTextNumberPhoneSI);
@@ -63,14 +67,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         databaseHelper = App.getInstance().getDatabaseInstance();
 
 
-        /*if (!databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString().equals("-")) {
+      /*  if (!databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString().equals("-")) {
             Intent intent_MainMenu = new Intent(SignInActivity.this, MainMenuActivity.class);
             startActivity(intent_MainMenu);
         }*/
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+       /* if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             Intent intent_MainMenu = new Intent(SignInActivity.this, MainMenuActivity.class);
             startActivity(intent_MainMenu);
-        }
+        }*/
 
 
     }
@@ -83,18 +87,20 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent_CreateAccount);
                 break;
             case R.id.buttonEnter:
-                //  Intent intent_MainMenu = new Intent(this,MainMenuActivity.class);
-                //  startActivity(intent_MainMenu);
+
                 SignInController signInController = new SignInController(editTextNumberPhoneSI.getText().toString(), editTextPasswordSI.getText().toString());
                 break;
         }
         ;
     }
 
-    public void signInAnswer() {
+    public void signInAnswerTrue() {
         databaseHelper = App.getInstance().getDatabaseInstance();
         String token = databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
-        System.out.print(token);
-
+        Intent intent_MainMenu = new Intent(this,MainMenuActivity.class);
+        startActivity(intent_MainMenu);
+    }
+    private void signInAnswerFalse() {
+        Toast.makeText(this, "Неправильный логин/пароль", Toast.LENGTH_SHORT).show();
     }
 }
