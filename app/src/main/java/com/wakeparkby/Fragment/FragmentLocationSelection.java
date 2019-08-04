@@ -68,7 +68,19 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
         datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                System.out.print("");
+                month ++;
+                String monthOfYear = String.valueOf(month);
+                String day = String.valueOf(dayOfMonth);
+                if (dayOfMonth < 10 )
+                {
+                    day = "0" + String.valueOf(dayOfMonth);
+                }
+                if (month < 10 )
+                {
+                    monthOfYear = "0" + String.valueOf(month);
+                }
+                String date = day + "." + monthOfYear + "." + String.valueOf(year);
+                intent_reverseCableSelection.putExtra("date",date);
                 startActivity(intent_reverseCableSelection);
             }
         }, day, month, year);

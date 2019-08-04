@@ -22,10 +22,10 @@ public interface HTTPController {
 
     //@GET("/wakepark-Wakepark/{token}/timeList")
    // Call<List<TimeSpace>> getTimeSpace(@Path("token") String userToken, @Header("location") String place, @Header("data") String data, @Header("reversNumber") int reverseCableNumber);
-    @GET("/jwtappdemo-0.0.1-SNAPSHOT/user/booking")
-    Call<List<TimeSpace>> getTimeSpace(@Header("Authentication") String token, @Header("location") String place, @Header("data") String data, @Header("reversNumber") int reverseCableNumber);
+    @GET("/jwtappdemo-0.0.1-SNAPSHOT/user/timeList")
+    Call<List<TimeSpace>> getTimeSpace(@Header("Authorization") String token, @Header("location") String place, @Header("data") String data, @Header("reversNumber") int reverseCableNumber);
     @POST("/jwtappdemo-0.0.1-SNAPSHOT/user/booking")
-    Call<Booking> postBooking(@Body Booking booking, @Header("clientId") int clientId);
+    Call<Booking> postBooking(@Header("Authorization") String token, @Body Booking booking);
     @GET("/jwtappdemo-0.0.1-SNAPSHOT/users/{id}/seasonTicket")
     Call<String> getSeasonTicket(@Path("id") String number);
     @GET("/jwtappdemo-0.0.1-SNAPSHOT/users/{id}/booked")

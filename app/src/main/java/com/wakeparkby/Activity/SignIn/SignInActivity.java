@@ -66,10 +66,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         textViewNewAccount.setOnClickListener(this);
         databaseHelper = App.getInstance().getDatabaseInstance();
 
-
-      /*  if (!databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString().equals("-")) {
+        if (databaseHelper.getDataDao().getByTitle("UserToken").size() != 0){
             Intent intent_MainMenu = new Intent(SignInActivity.this, MainMenuActivity.class);
             startActivity(intent_MainMenu);
+        }
+        /*if (!databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString().equals("-")) {
+
         }*/
        /* if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             Intent intent_MainMenu = new Intent(SignInActivity.this, MainMenuActivity.class);

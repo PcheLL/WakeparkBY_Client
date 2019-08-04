@@ -1,6 +1,7 @@
 package com.wakeparkby.Activity.Booking;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,22 +9,36 @@ import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.wakeparkby.Controller.BookingController;
+import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.R;
 
+import java.io.IOException;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 public class newChooseTimeAdapter extends RecyclerView.Adapter<newChooseTimeAdapter.NewsViewHolder> {
 
     Context mContext;
     List<newChooseTimeItem> mData;
+    String place;
+    String date;
+    int reverseCableNumber;
     int positionDataSize = 0;
 
-    public newChooseTimeAdapter(Context mContext, List<newChooseTimeItem> mData) {
+    public newChooseTimeAdapter(Context mContext, List<newChooseTimeItem> mData, String place, String date, int reverseCableNumber) {
         this.mContext = mContext;
         this.mData = mData;
+        this.place = place;
+        this.date = date;
+        this.reverseCableNumber =  reverseCableNumber;
+        System.out.println("");
     }
 
     @NonNull
@@ -43,7 +58,7 @@ public class newChooseTimeAdapter extends RecyclerView.Adapter<newChooseTimeAdap
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
 
-        holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation));
+       // holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation));
 
         holder.tv_startHours.setText(mData.get(position).getStartHours());
         holder.tv_startMinutes.setText(mData.get(position).getStartMinutes());
@@ -83,8 +98,15 @@ public class newChooseTimeAdapter extends RecyclerView.Adapter<newChooseTimeAdap
         @Override
         public void onClick(View v) {
             int pos = getLayoutPosition();
-            String time = mData.get(pos).getStartHours() + "." + mData.get(pos).getStartMinutes() + " : " + mData.get(pos).getEndHours() + "." + mData.get(pos).getEndMinutes();
-            System.out.print(time);
+            int startTime = (Integer.valueOf(mData.get(pos).getStartHours()) * 60 + Integer.valueOf(mData.get(pos).getStartMinutes()));
+            int endTime = (Integer.valueOf(mData.get(pos).getEndHours()) *60 + Integer.valueOf(mData.get(pos).getEndMinutes()));
+            Thread newThread = new Thread() {
+                public void run() {
+                    BookingController bookingController = new BookingController(place,date,reverseCableNumber,startTime,endTime);
+
+                }
+            };
+            newThread.start();
         }
     }
 }

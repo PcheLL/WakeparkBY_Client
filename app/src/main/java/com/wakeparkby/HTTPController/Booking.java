@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Booking {
     @Expose
-    private String data;
+    private String bookingDate;
     @Expose
     private String location;
     @Expose
@@ -19,7 +19,7 @@ public class Booking {
 
     public Booking(){}
     public Booking(String data, String place, int reversNumber, int startTime, int endTime){
-        this.data = data;
+        this.bookingDate = data;
         this.location = place;
         this.reversNumber = reversNumber;
         this.startTime = startTime;

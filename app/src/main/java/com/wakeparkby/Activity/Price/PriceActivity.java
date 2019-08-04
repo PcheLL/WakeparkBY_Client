@@ -153,7 +153,6 @@ public class PriceActivity extends AppCompatActivity implements View.OnClickList
                     textView__32.setText(String.valueOf(doc.select("#drozdy-wake > div:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(2)").first().childNode(0)));
                     textView__33.setText(String.valueOf(doc.select("#drozdy-wake > div:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(3)").first().childNode(0)));
                     textView__34.setText(String.valueOf(doc.select("#drozdy-wake > div:nth-child(4) > table > tbody > tr:nth-child(2) > td:nth-child(4)").first().childNode(0)));
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

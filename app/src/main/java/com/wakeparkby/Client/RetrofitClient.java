@@ -51,7 +51,7 @@ public class RetrofitClient {
 
     public void getTimeSpace(final String place, final String date, final int reverseCableNumber) {
         databaseHelper = App.getInstance().getDatabaseInstance();
-        String token = databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
         httpController.getTimeSpace(token, place, date, reverseCableNumber).enqueue(new Callback<List<TimeSpace>>() {
             @Override
             public void onResponse(Call<List<TimeSpace>> call, Response<List<TimeSpace>> response) {
@@ -71,7 +71,8 @@ public class RetrofitClient {
     }
 
     public void postBooking(Booking booking) {
-        Call<Booking> call = httpController.postBooking(booking, 1);
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        Call<Booking> call = httpController.postBooking(token,booking);
         call.enqueue(new Callback<Booking>() {
             @Override
             public void onResponse(Call<Booking> call, Response<Booking> response) {

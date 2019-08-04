@@ -7,10 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 @Data
 public class TimeSpace {
+    //Добавить день
     @Expose
     private int endTime;
-    @Expose
-    private int id;
     @Expose
     private int startTime;
     @Expose

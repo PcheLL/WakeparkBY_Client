@@ -1,11 +1,8 @@
 package com.wakeparkby.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -15,18 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.wakeparkby.Activity.Booking.DateSelectionActivity;
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.R;
 
 import zh.wang.android.yweathergetter4a.WeatherInfo;
 import zh.wang.android.yweathergetter4a.YahooWeather;
 import zh.wang.android.yweathergetter4a.YahooWeatherInfoListener;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.io.IOException;
 
 public class FragmentWeather extends Fragment implements View.OnClickListener, YahooWeatherInfoListener {
     TextView textView_Air_Temperature_Logoysk;
@@ -113,7 +104,7 @@ public class FragmentWeather extends Fragment implements View.OnClickListener, Y
 
     @Override
     public void onClick(View v) {
-        Intent intent_Date = new Intent(getActivity(), DateSelectionActivity.class);
+       /* Intent intent_Date = new Intent(getActivity(), DateSelectionActivity.class);
         switch (v.getId()) {
 
             case R.id.textViewNameLogoysk:
@@ -132,7 +123,7 @@ public class FragmentWeather extends Fragment implements View.OnClickListener, Y
 
                 break;
 
-        }
+        }*/
 
     }
 }
