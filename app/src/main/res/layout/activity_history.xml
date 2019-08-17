@@ -9,29 +9,12 @@
         android:layout_height="match_parent"
         android:background="#FAFAFA">
 
-
-
-        <TextView
-            android:id="@+id/textViewHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:hint="История"
-            android:textSize="35dp"
-            android:textColorHint="#000000"
-            android:fontFamily="@font/neo_sans_pro_regular"
-            android:shadowColor="#7d7d7d"
-            android:shadowRadius="5"
-            android:shadowDy="8" />
-
-
         <LinearLayout
             android:id="@+id/linearLayoutHistory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_below="@+id/textViewHistory"
+            android:layout_marginTop="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 

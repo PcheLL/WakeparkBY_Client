@@ -12,21 +12,10 @@
         android:layout_height="match_parent"
         android:background="#000000">
 
-        <TextView
-            android:id="@+id/textViewPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:hint="Цены"
-            android:textColorHint="#ffff00"
-            android:textSize="35dp" />
-
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewPrice"
             android:orientation="horizontal"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp">

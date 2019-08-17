@@ -2,6 +2,8 @@ package com.wakeparkby.Fragment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,6 +73,8 @@ public class FragmentSeasonTickets extends Fragment {
         recyclerViewSeasonTicketsHistory = rootView.findViewById(R.id.recyclerViewSeasonTicketsHistory);
         recyclerViewSeasonTicketsHistory.setVisibility(View.GONE);
         seasonTicketController = new SeasonTicketController();
+        ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        toolbar.setTitle("Мой абонемент");
         return rootView;
     }
 

@@ -4,12 +4,16 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.wakeparkby.Activity.Booking.ChooseTimeActivity;
@@ -40,6 +44,8 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
         buttonLogoysk = rootView.findViewById(R.id.buttonLogoysk);
         buttonLogoysk.setOnClickListener(this);
 
+        ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        toolbar.setTitle("Выберите место");
         return rootView;
     }
 

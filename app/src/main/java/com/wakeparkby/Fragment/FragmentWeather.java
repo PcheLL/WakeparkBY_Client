@@ -3,6 +3,8 @@ package com.wakeparkby.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -62,6 +64,8 @@ public class FragmentWeather extends Fragment implements View.OnClickListener, Y
         relativeLayoutProgressBarMainMenu.setVisibility(View.VISIBLE);
         // refreshWeather();
         searchByPlaceName();
+        ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        toolbar.setTitle("Погода");
         return rootView;
     }
 

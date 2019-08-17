@@ -3,6 +3,8 @@ package com.wakeparkby.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -109,6 +111,8 @@ public class FragmentPrice extends Fragment implements View.OnClickListener {
         textView__33 = (TextView) rootView.findViewById(R.id.textView__33);
         textView__34 = (TextView) rootView.findViewById(R.id.textView__34);
         refreshPriceList();
+        ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        toolbar.setTitle("Цены");
         return rootView;
     }
 
