@@ -9,15 +9,15 @@ public class History {
     @Expose
     private String id;
     @Expose
-    private String data;
+    private String date;
     @Expose
     private String location;
     @Expose
-    private String reversNumber;
+    private int reversNumber;
     @Expose
-    private String startTime;
+    private int startTime;
     @Expose
-    private String endTime;
+    private int endTime;
     @Expose
     private String status;
 

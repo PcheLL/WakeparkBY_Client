@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/relativeLayoutCardView">
+        android:id="@+id/relativeLayoutCardViewBooking">
     <com.google.android.material.card.MaterialCardView
         android:theme="@style/Theme.MaterialComponents"
         app:cardElevation="5dp"

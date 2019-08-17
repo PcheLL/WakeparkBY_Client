@@ -1,15 +1,18 @@
 package com.wakeparkby.Controller;
 
+import com.wakeparkby.Database.App;
+import com.wakeparkby.Database.DatabaseHelper;
 import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.Client.RetrofitClient;
 import com.wakeparkby.Observer.Observer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HistoryController {
 
     private RetrofitClient retrofitClient = RetrofitClient.getRetrofitClient();
-    private static ArrayList<History> listHistory = new ArrayList<>();
+    private static List<History> listHistory = new ArrayList<>();
     Observer observer = new Observer("HistoryController") {
         @Override
         public void update() {
@@ -24,18 +27,15 @@ public class HistoryController {
         }
     };
 
-    public HistoryController(String userId) {
-        retrofitClient.getUserHistory(userId);
-    }
-
     public HistoryController() {
+       retrofitClient.getUserHistory();
     }
 
-    public static void setListHistory(ArrayList<History> listHistory) {
+    public static void setListHistory(List<History> listHistory) {
         HistoryController.listHistory = listHistory;
     }
 
-    public static ArrayList<History> getListHistory() {
+    public static List<History> getListHistory() {
         return listHistory;
     }
 

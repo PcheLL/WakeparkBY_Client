@@ -6,10 +6,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 import com.stomped.stomped.client.StompedClient;
 import com.stomped.stomped.component.StompedFrame;
 import com.stomped.stomped.listener.StompedListener;
 import com.wakeparkby.Controller.BookingController;
+import com.wakeparkby.HTTPController.Time;
+import com.wakeparkby.HTTPController.TimeSpace;
+import com.wakeparkby.HTTPController.WsEventDto;
 import com.wakeparkby.Observer.Observer;
 import com.wakeparkby.R;
 
@@ -24,9 +28,10 @@ public class newChooseTimeActivity extends AppCompatActivity implements View.OnC
     RecyclerView NewsRecyclerView;
     newChooseTimeAdapter newChooseTimeAdapter;
     final StompedClient client = new StompedClient.StompedClientBuilder().build("http://18.196.191.127:8080/jwtappdemo-0.0.1-SNAPSHOT/gs-guide-websocket/websocket");
-    List<newChooseTimeItem> mData;
+    private List<newChooseTimeItem> mData;
     MaterialButton buttonChooseTime;
     BookingController bookingController = new BookingController();
+    private List<TimeSpace> responseTimeSpaceList = new ArrayList<>();
     Observer observer = new Observer("Time") {
         @Override
         public void update() {
@@ -62,6 +67,21 @@ public class newChooseTimeActivity extends AppCompatActivity implements View.OnC
                     @Override
                     public void run() {
                         System.out.println(frame.getStompedBody());
+                        String response = frame.getStompedBody().toString().substring(0,frame.getStompedBody().length() - 1);
+                        Gson gson = new Gson();
+                        WsEventDto wsEventDto = gson.fromJson(response,WsEventDto.class);
+                        for (int i = 0 ; i < mData.size();i++){
+                            int startTime = Integer.valueOf(mData.get(i).getStartHours()) * 60 + Integer.valueOf(mData.get(i).getStartMinutes());
+                            if (startTime == wsEventDto.getBody().getStartTime()){
+                                mData.get(i).setStatus("BOOKED_NO_ACCEPTED");
+                                newChooseTimeAdapter.notifyItemChanged(i);
+                            }
+                            }
+                        //   WsEventDto wsEventDto = frame.getStompedBody();
+                        //TimeSpace timeSpace = new TimeSpace(frame.getStompedBody());
+                        // TimeSpace timeSpace = frame.getStompedBody();
+                      //  responseTimeSpaceList = frame.getStompedBody();
+
                         //  output.setText(frame.getStompedBody());
                         //  client.disconnect();
                     }

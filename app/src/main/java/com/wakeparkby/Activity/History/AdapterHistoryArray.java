@@ -35,7 +35,7 @@ public class AdapterHistoryArray extends ArrayAdapter<History> {
         TextView locationName = (TextView) view.findViewById(R.id.textViewLocationHistory);
         TextView reverseNumber = (TextView) view.findViewById(R.id.textViewReversNumberHistory);
         ImageView image = (ImageView) view.findViewById(R.id.iconStatus);
-        data.setText(String.valueOf(history.getData()));
+        data.setText(String.valueOf(history.getDate()));
 
         int start = Integer.valueOf(history.getStartTime());
         int end = Integer.valueOf(history.getEndTime());

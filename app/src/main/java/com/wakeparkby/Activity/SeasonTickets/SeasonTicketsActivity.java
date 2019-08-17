@@ -15,7 +15,6 @@ import com.wakeparkby.Observer.Observer;
 import com.wakeparkby.R;
 
 public class SeasonTicketsActivity extends AppCompatActivity implements View.OnTouchListener {
-    private String number =  "375336416565";
     TextView textViewSeasonTicketsTime;
     RelativeLayout relativeLayoutProgressBar;
     SeasonTicketController seasonTicketController;
@@ -44,7 +43,7 @@ public class SeasonTicketsActivity extends AppCompatActivity implements View.OnT
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_season_tickets);
         textViewSeasonTicketsTime = findViewById(R.id.textViewSeasonTicketsTime);
-        seasonTicketController = new SeasonTicketController(number);
+        seasonTicketController = new SeasonTicketController();
         relativeLayoutProgressBar = findViewById(R.id.relativeLayoutProgressBar);
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayoutSeasonTicket);
         relativeLayout.setOnTouchListener(this);

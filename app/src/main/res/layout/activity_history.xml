@@ -7,8 +7,9 @@
         android:id="@+id/relativeLayoutHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000"
-        android:orientation="vertical">
+        android:background="#FAFAFA">
+
+
 
         <TextView
             android:id="@+id/textViewHistory"
@@ -17,54 +18,31 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:hint="История"
-            android:textColorHint="#ffff00"
-            android:textSize="35dp">
-        </TextView>
+            android:textSize="35dp"
+            android:textColorHint="#000000"
+            android:fontFamily="@font/neo_sans_pro_regular"
+            android:shadowColor="#7d7d7d"
+            android:shadowRadius="5"
+            android:shadowDy="8" />
+
+
         <LinearLayout
-            android:layout_marginRight="7dp"
-            android:layout_marginLeft="7dp"
+            android:id="@+id/linearLayoutHistory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_below="@+id/textViewHistory"
-            >
-            <ListView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
-                android:layout_marginTop="10dp"
-                android:id="@+id/listview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewHistory"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp">
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeLayoutProgressBarHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:visibility="gone">
-            <ProgressBar
-                android:id="@+id/progressBarPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminateDrawable="@drawable/progress_bar"
-                android:indeterminateOnly="true"
-                android:layout_centerHorizontal="true"/>
-            <TextView
-                android:layout_below="@+id/progressBarPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Уточняем историю..."
-                android:textColor="#ffff00"
-                android:textSize="15dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"/>
-        </RelativeLayout>
-
-        <ViewFlipper
-            android:id="@+id/flipper"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
     </RelativeLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

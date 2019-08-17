@@ -44,6 +44,7 @@ public class newChooseTimeAdapter extends RecyclerView.Adapter<newChooseTimeAdap
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+       // positionDataSize = 0; // -решить проблему
         View layout;
         if (mData.get(positionDataSize).getStatus().equals("FREE")){
             layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_free,parent,false);
@@ -88,7 +89,7 @@ public class newChooseTimeAdapter extends RecyclerView.Adapter<newChooseTimeAdap
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            relativeLayoutCardView = itemView.findViewById(R.id.relativeLayoutCardView);
+            relativeLayoutCardView = itemView.findViewById(R.id.relativeLayoutCardViewBooking);
             tv_startHours = itemView.findViewById(R.id.chooseTimeStartHours);
             tv_startMinutes = itemView.findViewById(R.id.chooseTimeStartMinutes);
             tv_endHours = itemView.findViewById(R.id.chooseTimeEndHours);

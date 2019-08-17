@@ -14,4 +14,10 @@ public class TimeSpace {
     private int startTime;
     @Expose
     private String status;
+
+    public TimeSpace(int endTime, int startTime, String status) {
+        this.endTime = endTime;
+        this.startTime = startTime;
+        this.status = status;
+    }
 }

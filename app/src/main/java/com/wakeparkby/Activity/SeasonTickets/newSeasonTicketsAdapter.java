@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.wakeparkby.HTTPController.SeasonTicketHistory;
 import com.wakeparkby.R;
 
 import java.util.List;
@@ -18,10 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class newSeasonTicketsAdapter extends RecyclerView.Adapter<newSeasonTicketsAdapter.NewsViewHolder> {
 
     Context mContext;
-    List<newSeasonTicketsItem> mData;
+    List<SeasonTicketHistory> mData;
     int positionDataSize = 0;
 
-    public newSeasonTicketsAdapter(Context mContext, List<newSeasonTicketsItem> mData) {
+    public newSeasonTicketsAdapter(Context mContext, List<SeasonTicketHistory> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -65,7 +66,7 @@ public class newSeasonTicketsAdapter extends RecyclerView.Adapter<newSeasonTicke
 
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
-            relativeLayoutCardView = itemView.findViewById(R.id.relativeLayoutCardView);
+            relativeLayoutCardView = itemView.findViewById(R.id.relativeLayoutCardViewSeasonTicketsHistory);
             tv_date = itemView.findViewById(R.id.textViewSeasonTicketsHistoryDate);
             tv_time = itemView.findViewById(R.id.textViewSeasonTicketsHistoryTime);
         }

@@ -8,19 +8,19 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
-import com.wakeparkby.Activity.History.AdapterHistory;
-import com.wakeparkby.Activity.History.AdapterHistoryArray;
+import com.wakeparkby.Activity.History.newHistoryAdapter;
 import com.wakeparkby.Controller.HistoryController;
 import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.Observer.Observer;
@@ -29,10 +29,12 @@ import com.wakeparkby.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class FragmentHistory extends Fragment implements AdapterView.OnItemClickListener {
-    private ArrayList<History> historyArrayList = new ArrayList<>();
-    HistoryController historyController = new HistoryController();
+    RecyclerView NewsRecyclerView;
+    newHistoryAdapter newHistoryAdapter;
+    private List<History> historyList = new ArrayList<>();
     ListView listView;
     RelativeLayout relativeLayoutProgressBarHistory;
     private String userId = "1";
@@ -54,19 +56,15 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.history_card, container, false);
-     /*   listView = (ListView) rootView.findViewById(R.id.listview);
-        listView.setOnItemClickListener(this);
-        relativeLayoutProgressBarHistory = rootView.findViewById(R.id.relativeLayoutProgressBarHistory);
-        HistoryController historyController = new HistoryController(userId);
-        listView.setVisibility(View.GONE);
-        relativeLayoutProgressBarHistory.setVisibility(View.VISIBLE);*/
-        if (isNetworkAvailable(getContext())) {
+        View rootView = inflater.inflate(R.layout.activity_history, container, false);
+        NewsRecyclerView = rootView.findViewById(R.id.recyclerViewHistory);
+        HistoryController historyController = new HistoryController();
+        /*if (isNetworkAvailable(getContext())) {
         } else {
             System.out.print("Нет соединения");
             // если сети нет показываем Тост или
             // кидаем на активити с красивым дизайном где просим сделать реконнект
-        }
+        }*/
         return rootView;
     }
 
@@ -78,11 +76,16 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
     }
 
     private void updateHistoryList() {
-        historyArrayList = HistoryController.getListHistory();
-        ArrayAdapter<History> adapter = new AdapterHistoryArray(getActivity(), 0, historyArrayList);
-        listView.setAdapter(adapter);
-        relativeLayoutProgressBarHistory.setVisibility(View.GONE);
-        listView.setVisibility(View.VISIBLE);
+        historyList = HistoryController.getListHistory();
+
+       /* for (int i = 0; i < bookingController.getFinalTimeSpaceList().size();i++) {
+            mData.add(new newChooseTimeItem(bookingController.getFinalTimeSpaceList().get(i).getStartHours(), bookingController.getFinalTimeSpaceList().get(i).getStartMinutes(),
+                    bookingController.getFinalTimeSpaceList().get(i).getEndHours(), bookingController.getFinalTimeSpaceList().get(i).getEndMinutes(),
+                    bookingController.getFinalTimeSpaceList().get(i).getStatus()));
+        }*/
+        newHistoryAdapter = new newHistoryAdapter(getContext(), historyList);
+        NewsRecyclerView.setAdapter(newHistoryAdapter);
+        NewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     public static boolean isNetworkAvailable(Context context) {
@@ -99,7 +102,7 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        History history = historyArrayList.get(position);
+      /*  History history = historyList.get(position);
         AdapterHistory adapterHistory = new AdapterHistory(history);
         String status = adapterHistory.getStatus();
         if (status.equals("BOOKED")) {
@@ -143,7 +146,7 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
 
         }
 
-
+*/
     }
 
     private void createTwoButtonsAlertDialog(String title, String content, String idHistory) {
@@ -161,7 +164,7 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int which) {
-                        historyController.deleteHistory(userId, idHistory);
+                       // historyController.deleteHistory(userId, idHistory);
                         Toast.makeText(getContext(), "Вы отменили бронирование", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }

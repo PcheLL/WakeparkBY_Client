@@ -7,6 +7,7 @@ import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.Controller.SeasonTicketController;
 import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.HTTPController.HTTPController;
+import com.wakeparkby.HTTPController.SeasonTicketHistory;
 import com.wakeparkby.HTTPController.NewUser;
 import com.wakeparkby.HTTPController.TimeSpace;
 import com.wakeparkby.HTTPController.UserResponse;
@@ -30,8 +31,8 @@ public class RetrofitClient {
     private Retrofit retrofit;
     private HTTPController httpController;
     private List<TimeSpace> listTimeSpace = new ArrayList<>();
-    private ArrayList<History> historyArrayList = new ArrayList<>();
-
+    private List<SeasonTicketHistory> seasonTicketHistoryList = new ArrayList<>();
+    private List<History> historyArrayList = new ArrayList<>();
     private Observer observer = new Observer("Retrofit");
 
 
@@ -96,17 +97,18 @@ public class RetrofitClient {
         return listTimeSpace;
     }
 
-    public void getSeasonTicket(String number) {
-        httpController.getSeasonTicket(number).enqueue(new Callback<String>() {
+    public void getSeasonTicket() {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        httpController
+                .getSeasonTicket(token).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
                     String seasonTicket = response.body();
-                    setListTimeSpace(listTimeSpace);
-                    SeasonTicketController seasonTicketController = new SeasonTicketController();
-                    seasonTicketController.setSeasonTicket(seasonTicket);
-                    observer.notifyAllObservers(3);
+                    SeasonTicketController seasonTicketController = new SeasonTicketController(seasonTicket);
+                 //   observer.notifyAllObservers(3);
                 }
             }
 
@@ -114,13 +116,35 @@ public class RetrofitClient {
             public void onFailure(Call<String> call, Throwable t) {
             }
         });
+
+        httpController
+                .getSeasonTicketHistory(token).enqueue(new Callback<List<SeasonTicketHistory>>() {
+            @Override
+            public void onResponse(Call<List<SeasonTicketHistory>> call, Response<List<SeasonTicketHistory>> response) {
+                System.out.println(response.toString());
+                if (response.isSuccessful()) {
+                    seasonTicketHistoryList = response.body();
+                    observer.notifyAllObservers(3);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SeasonTicketHistory>> call, Throwable t) {
+            }
+        });
+
     }
 
+    public List<SeasonTicketHistory> getSeasonTicketHistoryList() {
+        return seasonTicketHistoryList;
+    }
 
-    public void getUserHistory(String userId) {
-        httpController.getUserHistory(userId).enqueue(new Callback<ArrayList<History>>() {
+    public void getUserHistory() {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        httpController.getUserHistory(token).enqueue(new Callback<List<History>>() {
             @Override
-            public void onResponse(Call<ArrayList<History>> call, Response<ArrayList<History>> response) {
+            public void onResponse(Call<List<History>> call, Response<List<History>> response) {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
                     historyArrayList = response.body();
@@ -131,17 +155,13 @@ public class RetrofitClient {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<History>> call, Throwable t) {
+            public void onFailure(Call<List<History>> call, Throwable t) {
             }
         });
     }
 
-    public ArrayList<History> getHistoryArrayList() {
+    public List<History> getHistoryArrayList() {
         return historyArrayList;
-    }
-
-    public void setHistoryArrayList(ArrayList<History> historyArrayList) {
-        this.historyArrayList = historyArrayList;
     }
 
     public void deleteHistory(String userId, String idHistory) {
@@ -149,7 +169,7 @@ public class RetrofitClient {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    getUserHistory(userId);
+                 //   getUserHistory(userId);
                 }
             }
 

@@ -1,5 +1,8 @@
 package com.wakeparkby.Activity.Booking;
 
+import lombok.Data;
+
+@Data
 public class newChooseTimeItem {
     String startHours;
     String startMinutes;
@@ -16,24 +19,4 @@ public class newChooseTimeItem {
         this.status = status;
     }
 
-    public String getStartHours() {
-        return startHours;
-    }
-
-
-    public String getStartMinutes() {
-        return startMinutes;
-    }
-
-
-    public String getEndHours() {
-        return endHours;
-    }
-
-
-    public String getEndMinutes() {
-        return endMinutes;
-    }
-
-    public String getStatus() { return status; }
 }
