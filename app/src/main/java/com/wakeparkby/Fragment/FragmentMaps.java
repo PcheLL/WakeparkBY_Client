@@ -29,13 +29,16 @@ import com.wakeparkby.R;
 /**
  * класс для работы с объектом интерфейса карты
  */
-public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.OnClickListener {
+public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.OnClickListener, GoogleMap.OnMarkerClickListener {
     Button buttonAddCoordinates;
     private MapView mapView;
     private GoogleMap mMap;
     private Marker marker;
     private LatLng latLng;
     private String coordinates;
+    private FloatingActionsMenu rightLabels;
+    private Marker marker_logoysk;
+    private Marker marker_drozdy;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +57,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.O
         fragmentTransaction.commit();
         mMapFragment.getMapAsync(this);
 
-        FloatingActionsMenu rightLabels = (FloatingActionsMenu) rootView.findViewById(R.id.right_labels);
+        rightLabels = (FloatingActionsMenu) rootView.findViewById(R.id.right_labels);
         FloatingActionButton fab_drozdy = rootView.findViewById(R.id.fab_drozdy);
         FloatingActionButton fab_logoysk = rootView.findViewById(R.id.fab_logoysk);
         fab_drozdy.setOnClickListener(this);
@@ -86,39 +89,25 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.O
         mMap.moveCamera(centre);
         mMap.animateCamera(zoom);
 
-        LatLng logoysk = new LatLng(54.181223, 27.810689);
-        googleMap.addMarker(new MarkerOptions().position(logoysk)
-                .title("Логойск"));
+        LatLng logoysk = new LatLng(54.181522, 27.810342);
+        marker_logoysk= mMap.addMarker(new MarkerOptions().position(logoysk).title("Логойск"));
         LatLng drozdy = new LatLng(53.956229, 27.448999);
-        googleMap.addMarker(new MarkerOptions().position(drozdy)
-                .title("Дрозды"));
+        marker_drozdy = mMap.addMarker(new MarkerOptions().position(drozdy).title("Дрозды"));
 
         //}
-       /* mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                if (marker == null){
-                    marker = mMap.addMarker(new MarkerOptions().position(latLng).title("Место встречи"));
-                    setLatLng(latLng);
-                }
-                else {
-                    mMap.clear();
-                    marker = null;
-                }
+                rightLabels.animate().translationY(0);
             }
-        });*/
+        });
+
+        mMap.setOnMarkerClickListener(this);
     }
 
 
     public boolean onMarkerClick(Marker marker) {
-        Integer clickCount = (Integer) marker.getTag();
-
-        // Check if a click count was set, then display the click count.
-        if (clickCount != null) {
-            clickCount = clickCount + 1;
-            marker.setTag(clickCount);
-            Toast.makeText(getContext(), marker.getTitle() + " has been clicked " + clickCount + " times.", Toast.LENGTH_SHORT).show();
-        }
+        rightLabels.animate().translationY(-100);
         return false;
     }
 
@@ -149,10 +138,3 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.O
     }
 }
 
-/*
-mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
-            CameraUpdate centre = CameraUpdateFactory.newLatLng(latLng);
-            mMap.moveCamera(centre);
-            mMap.animateCamera(zoom);
- */

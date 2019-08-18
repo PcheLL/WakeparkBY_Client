@@ -48,5 +48,6 @@ dependencies {
     implementation 'zh.wang.android:yweathergetter4a:1.3.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
+    implementation 'com.scalified:viewmover:1.1.2'
 
 }
