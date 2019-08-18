@@ -9,7 +9,7 @@ public class History {
     @Expose
     private String id;
     @Expose
-    private String date;
+    private String bookingDate;
     @Expose
     private String location;
     @Expose

@@ -47,7 +47,9 @@
         <item name="android:backgroundTint">#E9CB09</item>
     </style>
 
-    <style name="CustomToolbarTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="CustomToolbarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <item name="colorPrimaryDark">@color/colorBlack</item>
     </style>
 

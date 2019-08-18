@@ -65,7 +65,7 @@ public class newHistoryAdapter  extends RecyclerView.Adapter<newHistoryAdapter.N
         holder.tv_endHours.setText(String.valueOf(endHours));
         holder.tv_endMinutes.setText(String.valueOf(historyList.get(position).getEndTime() - endHours * 60));
         holder.tv_place.setText(historyList.get(position).getLocation());
-        holder.tv_date.setText(historyList.get(position).getDate());
+        holder.tv_date.setText(historyList.get(position).getBookingDate());
         holder.tv_revers_number.setText(String.valueOf(historyList.get(position).getReversNumber()));
 
     }
