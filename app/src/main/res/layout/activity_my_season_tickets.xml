@@ -25,8 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/andy_bold"
-                android:text="53"
+                android:text="10"
                 android:textColor="#E9CB09"
                 android:textSize="70dp"
                 android:visibility="visible" />
@@ -34,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:text="мин"
                 android:textColor="#E9CB09"
                 android:textSize="20dp"
@@ -65,7 +64,7 @@
 
 
         <RelativeLayout
-            android:id="@+id/relativeLayoutProgressBar"
+            android:id="@+id/relativeLayoutProgressBarSeasonTicket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -86,7 +85,7 @@
                 android:layout_below="@+id/progressbar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:text="Уточняем время..."
+                android:text="Уточняем остаток времени..."
                 android:textColor="#ffff00"
                 android:textSize="15dp" />
         </RelativeLayout>

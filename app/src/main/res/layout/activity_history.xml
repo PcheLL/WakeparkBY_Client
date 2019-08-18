@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="2dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
@@ -23,9 +23,55 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="20dp">
+                android:layout_weight="1">
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
+        <RelativeLayout
+
+            android:id="@+id/relativeLayoutProgressBarHistory"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+
+            android:visibility="gone">
+
+            <ProgressBar
+
+                android:id="@+id/progressBarMainMenu"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:indeterminateDrawable="@drawable/progress_bar"
+
+                android:indeterminateOnly="true"
+
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+
+                android:layout_below="@+id/progressBarMainMenu"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:text="Уточняем вашу историю..."
+
+                android:textColor="#000000"
+
+                android:textSize="15dp"
+
+                android:layout_centerHorizontal="true"
+
+                android:layout_marginTop="5dp"/>
+
+        </RelativeLayout>
     </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

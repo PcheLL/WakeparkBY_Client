@@ -29,7 +29,7 @@ import java.util.List;
 public class FragmentSeasonTickets extends Fragment {
     private String number =  "375336416565";
     TextView textViewSeasonTicketsTime;
-    RelativeLayout relativeLayoutProgressBar;
+    RelativeLayout relativeLayoutProgressBarSeasonTicket;
     SeasonTicketController seasonTicketController;
     LinearLayout linearLayoutTimeSeasonTicket;
     RecyclerView recyclerViewSeasonTicketsHistory;
@@ -66,9 +66,9 @@ public class FragmentSeasonTickets extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_my_season_tickets, container, false);
         textViewSeasonTicketsTime = rootView.findViewById(R.id.textViewSeasonTicketsTime);
-        relativeLayoutProgressBar = rootView.findViewById(R.id.relativeLayoutProgressBar);
+        relativeLayoutProgressBarSeasonTicket = rootView.findViewById(R.id.relativeLayoutProgressBarSeasonTicket);
         linearLayoutTimeSeasonTicket = rootView.findViewById(R.id.linearLayoutTimeSeasonTicket);
-        relativeLayoutProgressBar.setVisibility(View.VISIBLE);
+        relativeLayoutProgressBarSeasonTicket.setVisibility(View.VISIBLE);
         linearLayoutTimeSeasonTicket.setVisibility(View.GONE);
         recyclerViewSeasonTicketsHistory = rootView.findViewById(R.id.recyclerViewSeasonTicketsHistory);
         recyclerViewSeasonTicketsHistory.setVisibility(View.GONE);
@@ -84,7 +84,7 @@ public class FragmentSeasonTickets extends Fragment {
         adapterSeasonTicketHistory = new newSeasonTicketsAdapter(getContext(),seasonTicketHistoryList);
         recyclerViewSeasonTicketsHistory.setAdapter(adapterSeasonTicketHistory);
         recyclerViewSeasonTicketsHistory.setLayoutManager(new LinearLayoutManager(getContext()));
-        relativeLayoutProgressBar.setVisibility(View.GONE);
+        relativeLayoutProgressBarSeasonTicket.setVisibility(View.GONE);
         linearLayoutTimeSeasonTicket.setVisibility(View.VISIBLE);
         recyclerViewSeasonTicketsHistory.setVisibility(View.VISIBLE);
     }

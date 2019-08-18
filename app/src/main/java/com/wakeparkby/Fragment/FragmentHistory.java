@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -35,12 +36,12 @@ import java.util.Date;
 import java.util.List;
 
 public class FragmentHistory extends Fragment implements AdapterView.OnItemClickListener {
-    RecyclerView NewsRecyclerView;
-    newHistoryAdapter newHistoryAdapter;
+    private LinearLayout linearLayoutHistory;
+    private RecyclerView NewsRecyclerView;
+    private newHistoryAdapter newHistoryAdapter;
     private List<History> historyList = new ArrayList<>();
-    ListView listView;
-    RelativeLayout relativeLayoutProgressBarHistory;
-    private String userId = "1";
+    private RelativeLayout relativeLayoutProgressBarHistory;
+
 
     Observer observer = new Observer("newChooseTimeActivity") {
         @Override
@@ -61,6 +62,8 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_history, container, false);
         NewsRecyclerView = rootView.findViewById(R.id.recyclerViewHistory);
+        relativeLayoutProgressBarHistory = rootView.findViewById(R.id.relativeLayoutProgressBarHistory);
+        linearLayoutHistory = rootView.findViewById(R.id.linearLayoutHistory);
         HistoryController historyController = new HistoryController();
         /*if (isNetworkAvailable(getContext())) {
         } else {
@@ -70,6 +73,8 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
         }*/
         ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         toolbar.setTitle("История");
+        linearLayoutHistory.setVisibility(View.GONE);
+        relativeLayoutProgressBarHistory.setVisibility(View.VISIBLE);
         return rootView;
     }
 
@@ -91,6 +96,8 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
         newHistoryAdapter = new newHistoryAdapter(getContext(), historyList);
         NewsRecyclerView.setAdapter(newHistoryAdapter);
         NewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        relativeLayoutProgressBarHistory.setVisibility(View.GONE);
+        linearLayoutHistory.setVisibility(View.VISIBLE);
     }
 
     public static boolean isNetworkAvailable(Context context) {

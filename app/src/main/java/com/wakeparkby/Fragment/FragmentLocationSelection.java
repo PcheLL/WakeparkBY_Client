@@ -16,17 +16,16 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
-import com.wakeparkby.Activity.Booking.ChooseTimeActivity;
 import com.wakeparkby.Activity.Booking.ReverseCableSelectionActivity;
 import com.wakeparkby.R;
 
 import java.util.Calendar;
 
 public class FragmentLocationSelection extends Fragment implements View.OnClickListener{
-    MaterialButton buttonDrozdy;
-    MaterialButton buttonLogoysk;
-    Calendar c;
-    DatePickerDialog datePicker;
+    private MaterialButton buttonDrozdy;
+    private MaterialButton buttonLogoysk;
+    private Calendar c;
+    private DatePickerDialog datePicker;
 
     public FragmentLocationSelection() {
     }

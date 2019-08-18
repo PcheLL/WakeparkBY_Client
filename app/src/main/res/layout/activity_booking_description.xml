@@ -169,7 +169,7 @@
         </LinearLayout>
         <RelativeLayout
 
-            android:id="@+id/relativeLayoutProgressBarMainMenu"
+            android:id="@+id/relativeLayoutProgressBarWeather"
 
             android:layout_width="wrap_content"
 
