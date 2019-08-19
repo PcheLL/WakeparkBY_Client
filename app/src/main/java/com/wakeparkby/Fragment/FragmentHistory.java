@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,26 +18,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
-import com.wakeparkby.Activity.History.newHistoryAdapter;
+import com.wakeparkby.Activity.History.HistoryAdapter;
 import com.wakeparkby.Controller.HistoryController;
 import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.Observer.Observer;
 import com.wakeparkby.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class FragmentHistory extends Fragment implements AdapterView.OnItemClickListener {
     private LinearLayout linearLayoutHistory;
     private RecyclerView NewsRecyclerView;
-    private newHistoryAdapter newHistoryAdapter;
+    private HistoryAdapter HistoryAdapter;
     private List<History> historyList = new ArrayList<>();
     private RelativeLayout relativeLayoutProgressBarHistory;
 
@@ -89,12 +85,12 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
         historyList = HistoryController.getListHistory();
 
        /* for (int i = 0; i < bookingController.getFinalTimeSpaceList().size();i++) {
-            mData.add(new newChooseTimeItem(bookingController.getFinalTimeSpaceList().get(i).getStartHours(), bookingController.getFinalTimeSpaceList().get(i).getStartMinutes(),
+            mData.add(new ChooseTimeItem(bookingController.getFinalTimeSpaceList().get(i).getStartHours(), bookingController.getFinalTimeSpaceList().get(i).getStartMinutes(),
                     bookingController.getFinalTimeSpaceList().get(i).getEndHours(), bookingController.getFinalTimeSpaceList().get(i).getEndMinutes(),
                     bookingController.getFinalTimeSpaceList().get(i).getStatus()));
         }*/
-        newHistoryAdapter = new newHistoryAdapter(getContext(), historyList);
-        NewsRecyclerView.setAdapter(newHistoryAdapter);
+        HistoryAdapter = new HistoryAdapter(getContext(), historyList);
+        NewsRecyclerView.setAdapter(HistoryAdapter);
         NewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         relativeLayoutProgressBarHistory.setVisibility(View.GONE);
         linearLayoutHistory.setVisibility(View.VISIBLE);

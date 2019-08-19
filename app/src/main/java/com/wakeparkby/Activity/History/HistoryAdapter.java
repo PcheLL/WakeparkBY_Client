@@ -14,14 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class newHistoryAdapter  extends RecyclerView.Adapter<newHistoryAdapter.NewsViewHolder>{
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsViewHolder>{
     Context mContext;
     List<History> historyList;
 
-    public newHistoryAdapter(Context context, List<History> historyList) {
+    public HistoryAdapter(Context context, List<History> historyList) {
         this.mContext = context;
         this.historyList = historyList;
     }
@@ -29,7 +28,7 @@ public class newHistoryAdapter  extends RecyclerView.Adapter<newHistoryAdapter.N
 
     @NonNull
     @Override
-    public newHistoryAdapter.NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HistoryAdapter.NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layout = null;
         switch (historyList.get(viewType).getStatus()) {
             case "BOOKED":
@@ -52,7 +51,7 @@ public class newHistoryAdapter  extends RecyclerView.Adapter<newHistoryAdapter.N
     }
 
     @Override
-    public void onBindViewHolder(@NonNull newHistoryAdapter.NewsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HistoryAdapter.NewsViewHolder holder, int position) {
 
         holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation));
         int startHours = historyList.get(position).getStartTime()/60;

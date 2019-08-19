@@ -15,10 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.wakeparkby.Activity.SeasonTickets.newSeasonTicketsAdapter;
-import com.wakeparkby.Activity.SeasonTickets.newSeasonTicketsItem;
+import com.wakeparkby.Activity.SeasonTickets.SeasonTicketsAdapter;
+import com.wakeparkby.Activity.SeasonTickets.SeasonTicketsItem;
 import com.wakeparkby.Controller.SeasonTicketController;
-import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.HTTPController.SeasonTicketHistory;
 import com.wakeparkby.Observer.Observer;
 import com.wakeparkby.R;
@@ -33,9 +32,9 @@ public class FragmentSeasonTickets extends Fragment {
     SeasonTicketController seasonTicketController;
     LinearLayout linearLayoutTimeSeasonTicket;
     RecyclerView recyclerViewSeasonTicketsHistory;
-    newSeasonTicketsAdapter adapterSeasonTicketHistory;
+    SeasonTicketsAdapter adapterSeasonTicketHistory;
     private List<SeasonTicketHistory> seasonTicketHistoryList = new ArrayList<>();
-    List<newSeasonTicketsItem> mData;
+    List<SeasonTicketsItem> mData;
     Observer observer = new Observer("SeasonTicket") {
 
         /**
@@ -81,7 +80,7 @@ public class FragmentSeasonTickets extends Fragment {
     private void updateSeasonTicket() {
         textViewSeasonTicketsTime.setText(seasonTicketController.getSeasonTicket());
         seasonTicketHistoryList = SeasonTicketController.getSeasonTicketHistoryList();
-        adapterSeasonTicketHistory = new newSeasonTicketsAdapter(getContext(),seasonTicketHistoryList);
+        adapterSeasonTicketHistory = new SeasonTicketsAdapter(getContext(),seasonTicketHistoryList);
         recyclerViewSeasonTicketsHistory.setAdapter(adapterSeasonTicketHistory);
         recyclerViewSeasonTicketsHistory.setLayoutManager(new LinearLayoutManager(getContext()));
         relativeLayoutProgressBarSeasonTicket.setVisibility(View.GONE);

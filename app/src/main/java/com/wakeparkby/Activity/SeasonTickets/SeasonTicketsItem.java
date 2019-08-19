@@ -1,11 +1,11 @@
 package com.wakeparkby.Activity.SeasonTickets;
 
-public class newSeasonTicketsItem {
+public class SeasonTicketsItem {
     String date;
     String time;
     String status;
 
-    public newSeasonTicketsItem(String date, String time, String status) {
+    public SeasonTicketsItem(String date, String time, String status) {
         this.date = date;
         this.time = time;
         this.status = status;

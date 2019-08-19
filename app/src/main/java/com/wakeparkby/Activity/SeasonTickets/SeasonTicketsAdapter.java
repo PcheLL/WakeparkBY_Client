@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,13 +15,12 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class newSeasonTicketsAdapter extends RecyclerView.Adapter<newSeasonTicketsAdapter.NewsViewHolder> {
+public class SeasonTicketsAdapter extends RecyclerView.Adapter<SeasonTicketsAdapter.NewsViewHolder> {
 
     Context mContext;
     List<SeasonTicketHistory> mData;
-    int positionDataSize = 0;
 
-    public newSeasonTicketsAdapter(Context mContext, List<SeasonTicketHistory> mData) {
+    public SeasonTicketsAdapter(Context mContext, List<SeasonTicketHistory> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -31,13 +29,12 @@ public class newSeasonTicketsAdapter extends RecyclerView.Adapter<newSeasonTicke
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layout;
-        if (mData.get(positionDataSize).getStatus().equals("ADDED")){
+        if (mData.get(viewType).getStatus().equals("ADDED")){
             layout = LayoutInflater.from(mContext).inflate(R.layout.item_season_ticket_card_added,parent,false);
         }
         else {
             layout = LayoutInflater.from(mContext).inflate(R.layout.item_season_ticket_card_wrote_off,parent,false);
         }
-        positionDataSize ++;
         return new NewsViewHolder(layout);
     }
 

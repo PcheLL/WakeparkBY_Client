@@ -1,37 +1,29 @@
 package com.wakeparkby.Activity.Booking;
 
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wakeparkby.Controller.BookingController;
-import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.R;
 
-import java.io.IOException;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-public class newChooseTimeAdapter extends RecyclerView.Adapter<newChooseTimeAdapter.NewsViewHolder> {
+public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.NewsViewHolder> {
 
     Context mContext;
-    List<newChooseTimeItem> mData;
+    List<ChooseTimeItem> mData;
     String place;
     String date;
     int reverseCableNumber;
 
-    public newChooseTimeAdapter(Context mContext, List<newChooseTimeItem> mData, String place, String date, int reverseCableNumber) {
+    public ChooseTimeAdapter(Context mContext, List<ChooseTimeItem> mData, String place, String date, int reverseCableNumber) {
         this.mContext = mContext;
         this.mData = mData;
         this.place = place;

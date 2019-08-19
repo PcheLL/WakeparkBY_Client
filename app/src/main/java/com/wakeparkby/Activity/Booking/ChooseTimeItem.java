@@ -3,7 +3,7 @@ package com.wakeparkby.Activity.Booking;
 import lombok.Data;
 
 @Data
-public class newChooseTimeItem {
+public class ChooseTimeItem {
     String startHours;
     String startMinutes;
     String endHours;
@@ -11,7 +11,7 @@ public class newChooseTimeItem {
     String status;
 
 
-    public newChooseTimeItem(String startHours, String startMinutes, String endHours, String endMinutes, String status) {
+    public ChooseTimeItem(String startHours, String startMinutes, String endHours, String endMinutes, String status) {
         this.startHours = startHours;
         this.startMinutes = startMinutes;
         this.endHours = endHours;
