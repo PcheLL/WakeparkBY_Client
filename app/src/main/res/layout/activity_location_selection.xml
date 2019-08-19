@@ -27,13 +27,13 @@
                 android:hint="Водохранилище Дрозды"
                 android:textColorHint="#ffffff"
                 android:textSize="14dp"
-                app:cornerRadius="20dp" />
+                app:cornerRadius="30dp" />
 
 
 
             <com.google.android.material.button.MaterialButton
                 android:theme="@style/Theme.Custom"
-                app:cornerRadius="20dp"
+                app:cornerRadius="30dp"
                 android:id="@+id/buttonLogoysk"
                 android:layout_width="250dp"
                 android:layout_height="60dp"
