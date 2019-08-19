@@ -7,11 +7,11 @@ import lombok.Data;
 @Data
 public class NewUser {
     @Expose
-    String phone;
+    private String phone;
     @Expose
-    String userName;
+    private String userName;
     @Expose
-    String password;
+    private String password;
 
     public NewUser(String phone, String userName, String password) {
         this.phone = phone;

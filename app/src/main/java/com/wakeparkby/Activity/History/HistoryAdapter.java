@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.wakeparkby.Controller.HistoryController;
 import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.R;
 
@@ -21,9 +22,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsViewHolder>{
-    Context mContext;
-    List<History> historyList;
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsViewHolder> {
+    private Context mContext;
+    private List<History> historyList;
 
     public HistoryAdapter(Context context, List<History> historyList) {
         this.mContext = context;
@@ -58,11 +59,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsView
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.NewsViewHolder holder, int position) {
 
-        holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation));
-        int startHours = historyList.get(position).getStartTime()/60;
+        holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
+        int startHours = historyList.get(position).getStartTime() / 60;
         holder.tv_startHours.setText(String.valueOf(startHours));
         holder.tv_startMinutes.setText(String.valueOf(historyList.get(position).getStartTime() - startHours * 60));
-        int endHours = historyList.get(position).getEndTime()/60;
+        int endHours = historyList.get(position).getEndTime() / 60;
         holder.tv_endHours.setText(String.valueOf(endHours));
         holder.tv_endMinutes.setText(String.valueOf(historyList.get(position).getEndTime() - endHours * 60));
         holder.tv_place.setText(historyList.get(position).getLocation());
@@ -127,7 +128,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsView
                     if (timeNow > Integer.valueOf(historyList.get(pos).getStartTime()) - 120) {
                         Toast.makeText(mContext, "Отмена невозможна" + System.lineSeparator() + "Осталось меньше 2-x часов", Toast.LENGTH_LONG).show();
                     } else {
-                        String idHistory = historyList.get(pos).getId();
+                        String idHistory = String.valueOf(pos);
                         String location = historyList.get(pos).getLocation();
                         int reversNumber = historyList.get(pos).getReversNumber();
                         System.out.print(idHistory);
@@ -151,6 +152,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsView
                 Toast.makeText(mContext, "Вы уже посетили вейкпарк", Toast.LENGTH_LONG).show();
             }
         }
+
         private void createTwoButtonsAlertDialog(String title, String content, String idHistory) {
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setTitle(title);
@@ -166,7 +168,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsView
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog,
                                             int which) {
-                           //  historyController.deleteHistory(userId, idHistory);
+                            HistoryController historyController = new HistoryController(idHistory);
                             Toast.makeText(mContext, "Вы отменили бронирование", Toast.LENGTH_LONG).show();
                             dialog.dismiss();
                         }

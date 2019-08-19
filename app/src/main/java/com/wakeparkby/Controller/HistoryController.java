@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryController {
-
     private RetrofitClient retrofitClient = RetrofitClient.getRetrofitClient();
     private static List<History> listHistory = new ArrayList<>();
-    Observer observer = new Observer("HistoryController") {
+    private Observer observer = new Observer("HistoryController") {
         @Override
         public void update() {
             if (observer.getStatus() == 10) {
@@ -28,7 +27,11 @@ public class HistoryController {
     };
 
     public HistoryController() {
-       retrofitClient.getUserHistory();
+        retrofitClient.getUserHistory();
+    }
+
+    public HistoryController(String idHistory) {
+        retrofitClient.deleteHistory(idHistory);
     }
 
     public static void setListHistory(List<History> listHistory) {
@@ -37,9 +40,5 @@ public class HistoryController {
 
     public static List<History> getListHistory() {
         return listHistory;
-    }
-
-    public void deleteHistory(String userId, String idHistory) {
-        retrofitClient.deleteHistory(userId,idHistory);
     }
 }

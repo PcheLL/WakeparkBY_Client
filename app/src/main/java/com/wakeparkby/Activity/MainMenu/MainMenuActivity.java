@@ -1,10 +1,9 @@
 package com.wakeparkby.Activity.MainMenu;
 
-
-
-import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -15,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.widget.Toast;
 
 import com.wakeparkby.Database.App;
 import com.wakeparkby.Database.DatabaseHelper;
@@ -29,59 +28,46 @@ import com.wakeparkby.R;
 import java.util.HashMap;
 import java.util.Stack;
 
-public class MainMenuActivity extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private HashMap<String, Stack<Fragment>> mStacks;
-    public static final String TAB_HOME  = "tab_home";
-    private String mCurrentTab;
+    public static final String TAB_HOME = "tab_home";
+    // private String mCurrentTab;
+    private int fl_exit = 0;
     private DatabaseHelper databaseHelper;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private BottomNavigationView navigation;
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.nav_choosePl:
-                    selectedTab(TAB_HOME);
-                    return true;
-                case R.id.nav_mySeasonTickets:
-                    loadFragment(FragmentSeasonTickets.newInstance());
-                    return true;
-                case R.id.nav_maps:
-                    loadFragment(FragmentMaps.newInstance());
-                    return true;
-                case R.id.nav_history:
-                    loadFragment(FragmentHistory.newInstance());
-                    return true;
-                case R.id.nav_weather:
-                    loadFragment(FragmentWeather.newInstance());
-                    return true;
-            }
-            return false;
-        }
-    };
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_menu);
+
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(this);
+        navigation.getMenu().findItem(R.id.nav_choosePl).setChecked(true);
+        loadFragment(FragmentLocationSelection.newInstance());
+        mStacks = new HashMap<String, Stack<Fragment>>();
+        mStacks.put(TAB_HOME, new Stack<Fragment>());
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Fragment fragment_locationSelection = new FragmentLocationSelection();
+        mStacks.get("tab_home").push(fragment_locationSelection);
+    }
 
     private void selectedTab(String tabId) {
-        mCurrentTab = tabId;
-
-        if(mStacks.get(tabId).size() == 0){
-            /*
-             *    First time this tab is selected. So add first fragment of that tab.
-             *    Dont need animation, so that argument is false.
-             *    We are adding a new fragment which is not present in stack. So add to stack is true.
-             */
+        //mCurrentTab = tabId; - Если создавать несколько стеков фрагментов
+        pushFragments(tabId, new FragmentLocationSelection(), true); // для запуска последнего фрагмента УДАЛИТЬ
+        /*if(mStacks.get(tabId).size() == 0){
             if(tabId.equals(TAB_HOME)){
                 pushFragments(tabId, new FragmentLocationSelection(),true);
             }
         }else {
-            /*
-             *    We are switching tabs, and target tab is already has atleast one fragment.
-             *    No need of animation, no need of stack pushing. Just show the target fragment
-             */
-            pushFragments(tabId, mStacks.get(tabId).lastElement(),false);
-        }
+            pushFragments(tabId, mStacks.get(tabId).lastElement(),false); // для запуска последнего фрагмента
+        }*/
     }
-    public void pushFragments(String tag, Fragment fragment, boolean shouldAdd){
-        if(shouldAdd)
+
+    public void pushFragments(String tag, Fragment fragment, boolean shouldAdd) {
+        fl_exit = 0;
+        if (shouldAdd)
             mStacks.get(tag).push(fragment);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
@@ -89,21 +75,35 @@ public class MainMenuActivity extends AppCompatActivity {
         ft.commit();
     }
 
-    public void popFragments(){
+    public void popFragments() {
         /*
          *    Select the second last fragment in current tab's stack..
          *    which will be shown after the fragment transaction given below
          */
-        Fragment fragment = mStacks.get(mCurrentTab).elementAt(mStacks.get(mCurrentTab).size() - 2);
+        if (mStacks.get(TAB_HOME).size() == 1) {
+            if (fl_exit == 1)
+            {
+           //     databaseHelper = App.getInstance().getDatabaseInstance();
+           //     databaseHelper.clearAllTables();
+           //     onBackPressed();
+                Toast.makeText(this, "Выход", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, "Нажмите еще раз чтобы выйти", Toast.LENGTH_SHORT).show();
+                fl_exit = 1;
+            }
+        } else {
+            Fragment fragment = mStacks.get(TAB_HOME).elementAt(mStacks.get(TAB_HOME).size() - 2);
 
-        /*pop current fragment from stack.. */
-        mStacks.get(mCurrentTab).pop();
+            /*pop current fragment from stack.. */
+            mStacks.get(TAB_HOME).pop();
 
-        /* We have the target fragment in hand.. Just show it.. Show a standard navigation animation*/
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction ft = manager.beginTransaction();
-        ft.replace(R.id.content, fragment);
-        ft.commit();
+            /* We have the target fragment in hand.. Just show it.. Show a standard navigation animation*/
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.replace(R.id.fl_content, fragment);
+            ft.commit();
+        }
     }
 
     private void loadFragment(Fragment fragment) {
@@ -112,20 +112,6 @@ public class MainMenuActivity extends AppCompatActivity {
         ft.commit();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.getMenu().findItem(R.id.nav_choosePl).setChecked(true);
-        loadFragment(FragmentLocationSelection.newInstance());
-        mStacks = new HashMap<String, Stack<Fragment>>();
-        mStacks.put(TAB_HOME, new Stack<Fragment>());
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -152,4 +138,39 @@ public class MainMenuActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_choosePl:
+                fl_exit = 0;
+                selectedTab(TAB_HOME);
+                return true;
+            case R.id.nav_mySeasonTickets:
+                fl_exit = 0;
+                loadFragment(FragmentSeasonTickets.newInstance());
+                return true;
+            case R.id.nav_maps:
+                fl_exit = 0;
+                loadFragment(FragmentMaps.newInstance());
+                return true;
+            case R.id.nav_history:
+                fl_exit = 0;
+                loadFragment(FragmentHistory.newInstance());
+                return true;
+            case R.id.nav_weather:
+                fl_exit = 0;
+                loadFragment(FragmentWeather.newInstance());
+                return true;
+        }
+        return false;
+    }
+
+    public interface OnBackPressedListner {
+        boolean onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        popFragments();
+    }
 }

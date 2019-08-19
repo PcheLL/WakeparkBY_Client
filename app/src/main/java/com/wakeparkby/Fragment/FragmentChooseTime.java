@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
@@ -12,6 +14,7 @@ import com.stomped.stomped.component.StompedFrame;
 import com.stomped.stomped.listener.StompedListener;
 import com.wakeparkby.Activity.Booking.ChooseTimeAdapter;
 import com.wakeparkby.Activity.Booking.ChooseTimeItem;
+import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.HTTPController.TimeSpace;
 import com.wakeparkby.HTTPController.WsEventDto;
@@ -27,15 +30,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class FragmentChooseTime extends Fragment implements View.OnClickListener {
-    RecyclerView NewsRecyclerView;
-    ChooseTimeAdapter newChooseTimeAdapter;
-    final StompedClient client = new StompedClient.StompedClientBuilder().build("http://18.196.191.127:8080/jwtappdemo-0.0.1-SNAPSHOT/gs-guide-websocket/websocket");
+public class FragmentChooseTime extends Fragment implements View.OnClickListener, MainMenuActivity.OnBackPressedListner {
+    private LinearLayout linearLayoutChooseTime;
+    private RelativeLayout relativeLayoutProgressBarChooseTime;
+    private RecyclerView NewsRecyclerView;
+    private ChooseTimeAdapter chooseTimeAdapter;
+    private final StompedClient client = new StompedClient.StompedClientBuilder().build("http://18.196.191.127:8080/jwtappdemo-0.0.1-SNAPSHOT/gs-guide-websocket/websocket");
     private List<ChooseTimeItem> mData;
-    MaterialButton buttonChooseTime;
-    BookingController bookingController = new BookingController();
+    private MaterialButton buttonChooseTime;
+    private BookingController bookingController = new BookingController();
     private List<TimeSpace> responseTimeSpaceList = new ArrayList<>();
-    Observer observer = new Observer("Time") {
+    private Observer observer = new Observer("Time") {
         @Override
         public void update() {
             int n = observer.getStatus();
@@ -55,19 +60,24 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
         View rootView = inflater.inflate(R.layout.activity_choose_time, container, false);
         NewsRecyclerView = rootView.findViewById(R.id.recyclerViewTime);
         buttonChooseTime = rootView.findViewById(R.id.buttonChooseTime);
+        linearLayoutChooseTime = rootView.findViewById(R.id.linearLayoutChooseTime);
+        relativeLayoutProgressBarChooseTime = rootView.findViewById(R.id.relativeLayoutProgressBarChooseTime);
         buttonChooseTime.setOnClickListener(this);
         mData = new ArrayList<>();
         ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         toolbar.setTitle("Выберите время");
+        linearLayoutChooseTime.setVisibility(View.GONE);
+        relativeLayoutProgressBarChooseTime.setVisibility(View.VISIBLE);
         openConnect();
+
         return rootView;
     }
 
     public static FragmentChooseTime newInstance() {
         return new FragmentChooseTime();
     }
+
     private void openConnect() {
-       // final StompedClient client = new StompedClient.StompedClientBuilder().build("http://18.196.191.127:8080/jwtappdemo-0.0.1-SNAPSHOT/gs-guide-websocket/websocket");
         client.subscribe("/topic/activity", new StompedListener() {
 
             @Override
@@ -76,23 +86,16 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
                     @Override
                     public void run() {
                         System.out.println(frame.getStompedBody());
-                        String response = frame.getStompedBody().toString().substring(0,frame.getStompedBody().length() - 1);
+                        String response = frame.getStompedBody().toString().substring(0, frame.getStompedBody().length() - 1);
                         Gson gson = new Gson();
-                        WsEventDto wsEventDto = gson.fromJson(response,WsEventDto.class);
-                        for (int i = 0 ; i < mData.size();i++){
+                        WsEventDto wsEventDto = gson.fromJson(response, WsEventDto.class);
+                        for (int i = 0; i < mData.size(); i++) {
                             int startTime = Integer.valueOf(mData.get(i).getStartHours()) * 60 + Integer.valueOf(mData.get(i).getStartMinutes());
-                            if (startTime == wsEventDto.getBody().getStartTime()){
+                            if (startTime == wsEventDto.getBody().getStartTime()) {
                                 mData.get(i).setStatus("BOOKED_NO_ACCEPTED");
-                                newChooseTimeAdapter.notifyItemChanged(i);
+                                chooseTimeAdapter.notifyItemChanged(i);
                             }
-                            }
-                        //   WsEventDto wsEventDto = frame.getStompedBody();
-                        //TimeSpace timeSpace = new TimeSpace(frame.getStompedBody());
-                        // TimeSpace timeSpace = frame.getStompedBody();
-                      //  responseTimeSpaceList = frame.getStompedBody();
-
-                        //  output.setText(frame.getStompedBody());
-                        //  client.disconnect();
+                        }
                     }
                 });
             }
@@ -103,32 +106,23 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
 
         mData.clear();
         bookingController.refreshFinalTimeSpaceList();
-        for (int i = 0; i < bookingController.getFinalTimeSpaceList().size();i++) {
+        for (int i = 0; i < bookingController.getFinalTimeSpaceList().size(); i++) {
             mData.add(new ChooseTimeItem(bookingController.getFinalTimeSpaceList().get(i).getStartHours(), bookingController.getFinalTimeSpaceList().get(i).getStartMinutes(),
                     bookingController.getFinalTimeSpaceList().get(i).getEndHours(), bookingController.getFinalTimeSpaceList().get(i).getEndMinutes(),
                     bookingController.getFinalTimeSpaceList().get(i).getStatus()));
         }
-        newChooseTimeAdapter = new ChooseTimeAdapter(getContext(),mData, getArguments().getString("place"),getArguments().getString("date"),getArguments().getInt("reverseCableNumber",10));
-        NewsRecyclerView.setAdapter(newChooseTimeAdapter);
+        chooseTimeAdapter = new ChooseTimeAdapter(getContext(), mData, getArguments().getString("place"), getArguments().getString("date"), getArguments().getInt("reverseCableNumber", 10));
+        NewsRecyclerView.setAdapter(chooseTimeAdapter);
         NewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-      /*  if (timeSpaceList.size() == 0) {
-            // relativeLayoutProgressBar.setVisibility(View.VISIBLE);
-        } else {
-            timeAdapter = new ArrayAdapter<>(ChooseTimeActivity.this,
-                    R.layout.text_view,
-                    timeSpaceList.toArray(new String[timeSpaceList.size()]));
-            //  relativeLayoutProgressBar.setVisibility(View.GONE);
-            listViewTime.setAdapter(timeAdapter);
-        }
-        relativeLayoutProgressBar.setVisibility(View.GONE);
-        linearLayoutChooseTime.setVisibility(View.VISIBLE);*/
+        relativeLayoutProgressBarChooseTime.setVisibility(View.GONE);
+        linearLayoutChooseTime.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onClick(View view) {
-      //  Intent intent_description = new Intent(this, BookingDescriptionActivity.class);
-      //  startActivity(intent_description);
+        //  Intent intent_description = new Intent(this, BookingDescriptionActivity.class);
+        //  startActivity(intent_description);
       /*  mData.add(2,new ChooseTimeItem("9","10",
                "9","40",
                 "FREE"));
@@ -141,4 +135,10 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
         client.disconnect();
         super.onBackPressed();
     }*/
+
+    @Override
+    public boolean onBackPressed() {
+        System.out.println();
+        return false;
+    }
 }

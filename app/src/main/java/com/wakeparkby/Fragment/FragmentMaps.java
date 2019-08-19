@@ -30,7 +30,6 @@ import com.wakeparkby.R;
  * класс для работы с объектом интерфейса карты
  */
 public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.OnClickListener, GoogleMap.OnMarkerClickListener {
-    Button buttonAddCoordinates;
     private MapView mapView;
     private GoogleMap mMap;
     private Marker marker;
@@ -44,10 +43,6 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_maps, container, false);
-        //    SupportMapFragment mapFragment = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
-        //   mapFragment.getMapAsync(this);
-        //   latLng = new LatLng(,)
-
         ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         toolbar.setTitle("Карта");
         SupportMapFragment mMapFragment = SupportMapFragment.newInstance();
@@ -56,9 +51,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.O
         fragmentTransaction.add(R.id.map, mMapFragment);
         fragmentTransaction.commit();
         mMapFragment.getMapAsync(this);
-
         rightLabels = (FloatingActionsMenu) rootView.findViewById(R.id.right_labels);
-
         FloatingActionButton fab_drozdy = rootView.findViewById(R.id.fab_drozdy);
         fab_drozdy.setIcon(R.drawable.ic_map_spot);
         FloatingActionButton fab_logoysk = rootView.findViewById(R.id.fab_logoysk);
@@ -79,16 +72,6 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.O
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-   /*     if (latLng!=null){
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Место встречи"));
-          //  mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
-            CameraUpdate centre = CameraUpdateFactory.newLatLng(latLng);
-            mMap.moveCamera(centre);
-            mMap.animateCamera(zoom);
-        }
-        else {*/
         LatLng minsk = new LatLng(53.907211, 27.558678);
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(11);
         CameraUpdate centre = CameraUpdateFactory.newLatLng(minsk);
@@ -96,7 +79,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.O
         mMap.animateCamera(zoom);
 
         LatLng logoysk = new LatLng(54.181522, 27.810342);
-        marker_logoysk= mMap.addMarker(new MarkerOptions().position(logoysk).title("Логойск/WakeShop"));
+        marker_logoysk = mMap.addMarker(new MarkerOptions().position(logoysk).title("Логойск/WakeShop"));
         LatLng drozdy = new LatLng(53.956229, 27.448999);
         marker_drozdy = mMap.addMarker(new MarkerOptions().position(drozdy).title("Дрозды"));
 
@@ -127,7 +110,6 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.O
         switch (view.getId()) {
             case R.id.fab_drozdy:
                 setLatLng(new LatLng(53.956229, 27.448999));
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                 zoom = CameraUpdateFactory.zoomTo(15);
                 CameraUpdate centre = CameraUpdateFactory.newLatLng(latLng);
                 mMap.moveCamera(centre);

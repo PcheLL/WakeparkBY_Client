@@ -21,12 +21,12 @@ public class History {
     @Expose
     private String status;
 
-    public History() {}
+    public History() {
+    }
 
 
-
-    public String getTime(){
-        return String.valueOf((startTime/60)) + ":" + String.valueOf(startTime - (startTime /60 *60)) + " - "
-                + String.valueOf((endTime/60)) + ":" + String.valueOf(endTime - (endTime /60 *60));
+    public String getTime() {
+        return String.valueOf((startTime / 60)) + ":" + String.valueOf(startTime - (startTime / 60 * 60)) + " - "
+                + String.valueOf((endTime / 60)) + ":" + String.valueOf(endTime - (endTime / 60 * 60));
     }
 }

@@ -60,7 +60,6 @@ public class RetrofitClient {
                 if (response.isSuccessful()) {
                     listTimeSpace = response.body();
                     setListTimeSpace(listTimeSpace);
-                    //BookingController bookingController = new BookingController(place,date,reverseCableNumber);
                     observer.notifyAllObservers(1);
                 }
             }
@@ -73,7 +72,7 @@ public class RetrofitClient {
 
     public void postBooking(Booking booking) {
         String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
-        Call<Booking> call = httpController.postBooking(token,booking);
+        Call<Booking> call = httpController.postBooking(token, booking);
         call.enqueue(new Callback<Booking>() {
             @Override
             public void onResponse(Call<Booking> call, Response<Booking> response) {
@@ -108,7 +107,7 @@ public class RetrofitClient {
                 if (response.isSuccessful()) {
                     String seasonTicket = response.body();
                     SeasonTicketController seasonTicketController = new SeasonTicketController(seasonTicket);
-                 //   observer.notifyAllObservers(3);
+                    //   observer.notifyAllObservers(3);
                 }
             }
 
@@ -124,7 +123,7 @@ public class RetrofitClient {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
                     seasonTicketHistoryList = response.body();
-           //         observer.notifyAllObservers(3);
+                    //         observer.notifyAllObservers(3);
                 }
             }
 
@@ -148,8 +147,6 @@ public class RetrofitClient {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
                     historyArrayList = response.body();
-                    //   setListTimeSpace(listTimeSpace);
-                    //BookingController bookingController = new BookingController(place,date,reverseCableNumber);
                     observer.notifyAllObservers(4);
                 }
             }
@@ -164,12 +161,14 @@ public class RetrofitClient {
         return historyArrayList;
     }
 
-    public void deleteHistory(String userId, String idHistory) {
-        httpController.deleteHistory(userId, idHistory).enqueue(new Callback<ResponseBody>() {
+    public void deleteHistory(String idHistory) {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        httpController.deleteHistory(token, idHistory).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                 //   getUserHistory(userId);
+                    getUserHistory();
                 }
             }
 

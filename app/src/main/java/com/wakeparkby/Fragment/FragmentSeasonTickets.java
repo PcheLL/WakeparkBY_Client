@@ -26,16 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentSeasonTickets extends Fragment {
-    private String number =  "375336416565";
-    TextView textViewSeasonTicketsTime;
-    RelativeLayout relativeLayoutProgressBarSeasonTicket;
-    SeasonTicketController seasonTicketController;
-    LinearLayout linearLayoutTimeSeasonTicket;
-    RecyclerView recyclerViewSeasonTicketsHistory;
-    SeasonTicketsAdapter adapterSeasonTicketHistory;
+    private String number = "375336416565";
+    private TextView textViewSeasonTicketsTime;
+    private RelativeLayout relativeLayoutProgressBarSeasonTicket;
+    private SeasonTicketController seasonTicketController;
+    private LinearLayout linearLayoutTimeSeasonTicket;
+    private RecyclerView recyclerViewSeasonTicketsHistory;
+    private SeasonTicketsAdapter adapterSeasonTicketHistory;
     private List<SeasonTicketHistory> seasonTicketHistoryList = new ArrayList<>();
-    List<SeasonTicketsItem> mData;
-    Observer observer = new Observer("SeasonTicket") {
+    private Observer observer = new Observer("SeasonTicket") {
 
         /**
          * override method of Observer class with new reaction for notify observers
@@ -54,12 +53,6 @@ public class FragmentSeasonTickets extends Fragment {
         }
     };
 
-    public FragmentSeasonTickets() {
-    }
-
-    public static FragmentSeasonTickets newInstance() {
-        return new FragmentSeasonTickets();
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,10 +70,17 @@ public class FragmentSeasonTickets extends Fragment {
         return rootView;
     }
 
+    public FragmentSeasonTickets() {
+    }
+
+    public static FragmentSeasonTickets newInstance() {
+        return new FragmentSeasonTickets();
+    }
+
     private void updateSeasonTicket() {
         textViewSeasonTicketsTime.setText(seasonTicketController.getSeasonTicket());
         seasonTicketHistoryList = SeasonTicketController.getSeasonTicketHistoryList();
-        adapterSeasonTicketHistory = new SeasonTicketsAdapter(getContext(),seasonTicketHistoryList);
+        adapterSeasonTicketHistory = new SeasonTicketsAdapter(getContext(), seasonTicketHistoryList);
         recyclerViewSeasonTicketsHistory.setAdapter(adapterSeasonTicketHistory);
         recyclerViewSeasonTicketsHistory.setLayoutManager(new LinearLayoutManager(getContext()));
         relativeLayoutProgressBarSeasonTicket.setVisibility(View.GONE);

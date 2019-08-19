@@ -19,7 +19,7 @@ import com.wakeparkby.R;
 
 import java.util.Calendar;
 
-public class FragmentLocationSelection extends Fragment implements View.OnClickListener{
+public class FragmentLocationSelection extends Fragment implements View.OnClickListener {
     private MaterialButton buttonDrozdy;
     private MaterialButton buttonLogoysk;
     private Calendar c;
@@ -61,7 +61,7 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
         }
     }
 
-    public void showDatePicker(String place){
+    public void showDatePicker(String place) {
         c = Calendar.getInstance();
         int day = c.get(Calendar.DAY_OF_MONTH);
         int month = c.get(Calendar.MONTH);
@@ -69,30 +69,26 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
         datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month ++;
+                month++;
                 String monthOfYear = String.valueOf(month);
                 String day = String.valueOf(dayOfMonth);
-                if (dayOfMonth < 10 )
-                {
+                if (dayOfMonth < 10) {
                     day = "0" + String.valueOf(dayOfMonth);
                 }
-                if (month < 10 )
-                {
+                if (month < 10) {
                     monthOfYear = "0" + String.valueOf(month);
                 }
                 String date = day + "." + monthOfYear + "." + String.valueOf(year);
-             //   intent_reverseCableSelection.putExtra("date",date);
-              //  startActivity(intent_reverseCableSelection);
                 Bundle args_fragment = new Bundle();
-                args_fragment.putString("place",place);
-                args_fragment.putString("date",date);
+                args_fragment.putString("place", place);
+                args_fragment.putString("date", date);
                 Fragment fragment = new FragmentReverseCableSelection();
                 fragment.setArguments(args_fragment);
-                ((MainMenuActivity)getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment,true);
+                ((MainMenuActivity) getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment, true);
             }
         }, day, month, year);
         datePicker.getDatePicker().setMinDate(c.getTimeInMillis());
-        datePicker.getDatePicker().setMaxDate(c.getTimeInMillis()+1000 * 60 * 60 * 24 * 5);
+        datePicker.getDatePicker().setMaxDate(c.getTimeInMillis() + 1000 * 60 * 60 * 24 * 5);
         datePicker.show();
     }
 }

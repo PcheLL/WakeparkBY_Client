@@ -18,18 +18,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.NewsViewHolder> {
 
-    Context mContext;
-    List<ChooseTimeItem> mData;
-    String place;
-    String date;
-    int reverseCableNumber;
+    private Context mContext;
+    private List<ChooseTimeItem> mData;
+    private String place;
+    private String date;
+    private int reverseCableNumber;
 
     public ChooseTimeAdapter(Context mContext, List<ChooseTimeItem> mData, String place, String date, int reverseCableNumber) {
         this.mContext = mContext;
         this.mData = mData;
         this.place = place;
         this.date = date;
-        this.reverseCableNumber =  reverseCableNumber;
+        this.reverseCableNumber = reverseCableNumber;
         System.out.println("");
     }
 
@@ -37,11 +37,10 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layout;
-        if (mData.get(viewType).getStatus().equals("FREE")){
-            layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_free,parent,false);
-        }
-        else {
-            layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_waiting_booked,parent,false);
+        if (mData.get(viewType).getStatus().equals("FREE")) {
+            layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_free, parent, false);
+        } else {
+            layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_waiting_booked, parent, false);
         }
         return new NewsViewHolder(layout);
     }
@@ -49,7 +48,7 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
 
-        holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation));
+        holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
 
         holder.tv_startHours.setText(mData.get(position).getStartHours());
         holder.tv_startMinutes.setText(mData.get(position).getStartMinutes());
@@ -90,10 +89,10 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
         public void onClick(View v) {
             int pos = getLayoutPosition();
             int startTime = (Integer.valueOf(mData.get(pos).getStartHours()) * 60 + Integer.valueOf(mData.get(pos).getStartMinutes()));
-            int endTime = (Integer.valueOf(mData.get(pos).getEndHours()) *60 + Integer.valueOf(mData.get(pos).getEndMinutes()));
+            int endTime = (Integer.valueOf(mData.get(pos).getEndHours()) * 60 + Integer.valueOf(mData.get(pos).getEndMinutes()));
             Thread newThread = new Thread() {
                 public void run() {
-                    BookingController bookingController = new BookingController(place,date,reverseCableNumber,startTime,endTime);
+                    BookingController bookingController = new BookingController(place, date, reverseCableNumber, startTime, endTime);
 
                 }
             };

@@ -29,11 +29,10 @@ public class SeasonTicketsAdapter extends RecyclerView.Adapter<SeasonTicketsAdap
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layout;
-        if (mData.get(viewType).getStatus().equals("ADDED")){
-            layout = LayoutInflater.from(mContext).inflate(R.layout.item_season_ticket_card_added,parent,false);
-        }
-        else {
-            layout = LayoutInflater.from(mContext).inflate(R.layout.item_season_ticket_card_wrote_off,parent,false);
+        if (mData.get(viewType).getStatus().equals("ADDED")) {
+            layout = LayoutInflater.from(mContext).inflate(R.layout.item_season_ticket_card_added, parent, false);
+        } else {
+            layout = LayoutInflater.from(mContext).inflate(R.layout.item_season_ticket_card_wrote_off, parent, false);
         }
         return new NewsViewHolder(layout);
     }
@@ -55,7 +54,7 @@ public class SeasonTicketsAdapter extends RecyclerView.Adapter<SeasonTicketsAdap
         return position;
     }
 
-    public class NewsViewHolder extends RecyclerView.ViewHolder{
+    public class NewsViewHolder extends RecyclerView.ViewHolder {
         TextView tv_date;
         TextView tv_time;
         RelativeLayout relativeLayoutCardView;

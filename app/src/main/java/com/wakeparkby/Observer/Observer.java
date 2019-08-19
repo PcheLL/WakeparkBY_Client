@@ -54,16 +54,6 @@ public class Observer {
         return status;
     }
 
-    /**
-     * this func notify all observers about changing
-     */
-
-    public void notifyAllObservers() {
-        for (Observer observer : observers) {
-            observer.update();
-        }
-
-    }
 
     /**
      * this func notify observers by id

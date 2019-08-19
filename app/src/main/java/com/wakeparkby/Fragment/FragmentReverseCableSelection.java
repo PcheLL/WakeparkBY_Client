@@ -16,12 +16,11 @@ import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.R;
 
-public class FragmentReverseCableSelection extends Fragment implements View.OnClickListener {
-    Button firstCable;
-    Button secondCable;
-    Button thirdCable;
-    BookingController bookingController;
-    private float fromPosition;
+public class FragmentReverseCableSelection extends Fragment implements View.OnClickListener, MainMenuActivity.OnBackPressedListner {
+    private Button firstCable;
+    private Button secondCable;
+    private Button thirdCable;
+    private BookingController bookingController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,11 +37,11 @@ public class FragmentReverseCableSelection extends Fragment implements View.OnCl
             thirdCable.setVisibility(View.GONE);
         }
         RelativeLayout relativeLayoutCalendar = rootView.findViewById(R.id.relativeLayoutReversSelection);
-       // relativeLayoutCalendar.setOnTouchListener(this);
         ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         toolbar.setTitle("Выберите реверс");
         return rootView;
     }
+
     public static FragmentReverseCableSelection newInstance() {
         return new FragmentReverseCableSelection();
     }
@@ -52,29 +51,36 @@ public class FragmentReverseCableSelection extends Fragment implements View.OnCl
         BookingController bookingController;
         Fragment fragment = new FragmentChooseTime();
         Bundle args_fragment = new Bundle();
-        args_fragment.putString("place",getArguments().getString("place"));
-        args_fragment.putString("date",getArguments().getString("date"));
+        args_fragment.putString("place", getArguments().getString("place"));
+        args_fragment.putString("date", getArguments().getString("date"));
 
         switch (v.getId()) {
             case R.id.buttonFirstReverse:
                 this.bookingController = new BookingController(getArguments().getString("place"), getArguments().getString("date"),
                         1);
-                args_fragment.putInt("reverseCableNumber",1);
+                args_fragment.putInt("reverseCableNumber", 1);
                 fragment.setArguments(args_fragment);
-                ((MainMenuActivity)getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment,true);
+                ((MainMenuActivity) getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment, true);
                 break;
             case R.id.buttonSecondtReverse:
                 this.bookingController = new BookingController(getArguments().getString("place"), getArguments().getString("date"),
                         2);
-                args_fragment.putInt("reverseCableNumber",2);
-                ((MainMenuActivity)getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment,true);
+                args_fragment.putInt("reverseCableNumber", 2);
+                ((MainMenuActivity) getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment, true);
                 break;
             case R.id.buttonThirdReverse:
                 this.bookingController = new BookingController(getArguments().getString("place"), getArguments().getString("date"),
                         3);
-                args_fragment.putInt("reverseCableNumber",3);
-                ((MainMenuActivity)getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment,true);
+                args_fragment.putInt("reverseCableNumber", 3);
+                ((MainMenuActivity) getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment, true);
                 break;
         }
+    }
+
+
+    @Override
+    public boolean onBackPressed() {
+        System.out.println();
+        return false;
     }
 }

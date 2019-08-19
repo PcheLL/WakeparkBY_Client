@@ -22,34 +22,22 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-import zh.wang.android.yweathergetter4a.YahooWeather;
-
 public class FragmentWeather extends Fragment {
-    TextView textView_Air_Temperature_Logoysk;
-    TextView textView_Wind_Speed_Logoysk;
-    TextView textView_Weather_Logoysk;
-    TextView textViewNameLogoysk;
-    TextView textViewNameDrozdy;
-    TextView textView_Air_Temperature_Drozdy;
-    TextView textView_Wind_Speed_Drozdy;
-    TextView textView_Weather_Drozdy;
-    LinearLayout linearLayoutWeather;
-    RelativeLayout relativeLayoutProgressBarWeather;
-    private YahooWeather mYahooWeather = YahooWeather.getInstance(5000, true);
-
+    private TextView textView_Air_Temperature_Logoysk;
+    private TextView textView_Wind_Speed_Logoysk;
+    private TextView textView_Weather_Logoysk;
+    private TextView textViewNameLogoysk;
+    private TextView textViewNameDrozdy;
+    private TextView textView_Air_Temperature_Drozdy;
+    private TextView textView_Wind_Speed_Drozdy;
+    private TextView textView_Weather_Drozdy;
+    private LinearLayout linearLayoutWeather;
+    private RelativeLayout relativeLayoutProgressBarWeather;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_weather, container, false);
-        // SharedPreferences preferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
-        // if (!preferences.getBoolean("onboarding_complete", false)) {
-           /* Intent onboarding = new Intent(getActivity(), OnboardingActivity.class);
-            startActivity(onboarding);
-            rootView.finish();
-            return rootView;*/
-        // } else
-        //    {
         linearLayoutWeather = rootView.findViewById(R.id.linearLayoutWeather);
         relativeLayoutProgressBarWeather = rootView.findViewById(R.id.relativeLayoutProgressBarWeather);
         textView_Air_Temperature_Logoysk = rootView.findViewById(R.id.textView_Air_Temperature_Logoysk);
@@ -60,7 +48,6 @@ public class FragmentWeather extends Fragment {
         textView_Weather_Drozdy = rootView.findViewById(R.id.textView_Weather_Drozdy);
         textViewNameLogoysk = rootView.findViewById(R.id.textViewNameLogoysk);
         textViewNameDrozdy = rootView.findViewById(R.id.textViewNameDrozdy);
-        //appBarLayout.setVisibility(View.GONE);
         linearLayoutWeather.setVisibility(View.GONE);
         relativeLayoutProgressBarWeather.setVisibility(View.VISIBLE);
         refreshWeather();
@@ -121,7 +108,7 @@ public class FragmentWeather extends Fragment {
                             }
 
                         });
-                    } catch (NullPointerException exNPE){
+                    } catch (NullPointerException exNPE) {
 
                     }
 

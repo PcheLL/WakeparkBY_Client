@@ -24,13 +24,13 @@ import com.wakeparkby.R;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseUser firebaseAuth = FirebaseAuth.getInstance().getCurrentUser();
-    TextView textViewNewAccount;
-    TextView textViewNewPassword;
-    EditText editTextNumberPhoneSI;
-    EditText editTextPasswordSI;
-    MaterialButton buttonEnter;
+    private TextView textViewNewAccount;
+    private TextView textViewNewPassword;
+    private EditText editTextNumberPhoneSI;
+    private EditText editTextPasswordSI;
+    private MaterialButton buttonEnter;
     private DatabaseHelper databaseHelper;
-    Observer observer = new Observer("SignIn") {
+    private Observer observer = new Observer("SignIn") {
 
         /**
          * override method of Observer class with new reaction for notify observers
@@ -52,7 +52,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     };
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +65,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         textViewNewAccount.setOnClickListener(this);
         databaseHelper = App.getInstance().getDatabaseInstance();
 
-        if (databaseHelper.getDataDao().getByTitle("UserToken").size() != 0){
+        if (databaseHelper.getDataDao().getByTitle("UserToken").size() != 0) {
             Intent intent_MainMenu = new Intent(SignInActivity.this, MainMenuActivity.class);
             startActivity(intent_MainMenu);
         }
@@ -89,11 +88,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     public void signInAnswerTrue() {
         databaseHelper = App.getInstance().getDatabaseInstance();
         String token = databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
-        Intent intent_MainMenu = new Intent(this,MainMenuActivity.class);
+        Intent intent_MainMenu = new Intent(this, MainMenuActivity.class);
         startActivity(intent_MainMenu);
         editTextNumberPhoneSI.setText("");
         editTextPasswordSI.setText("");
     }
+
     private void signInAnswerFalse() {
         Toast.makeText(this, "Неправильный логин/пароль", Toast.LENGTH_SHORT).show();
     }

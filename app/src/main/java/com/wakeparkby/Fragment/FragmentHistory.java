@@ -31,15 +31,15 @@ import com.wakeparkby.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentHistory extends Fragment implements AdapterView.OnItemClickListener {
+public class FragmentHistory extends Fragment {
     private LinearLayout linearLayoutHistory;
     private RecyclerView NewsRecyclerView;
-    private HistoryAdapter HistoryAdapter;
+    private HistoryAdapter historyAdapter;
     private List<History> historyList = new ArrayList<>();
     private RelativeLayout relativeLayoutProgressBarHistory;
 
 
-    Observer observer = new Observer("FragmentChooseTime") {
+    private Observer observer = new Observer("FragmentChooseTime") {
         @Override
         public void update() {
             int n = observer.getStatus();
@@ -48,6 +48,7 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
                     updateHistoryList();
                     observer.setId(0);
                 } else {
+
                 }
             }
         }
@@ -83,14 +84,8 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
 
     private void updateHistoryList() {
         historyList = HistoryController.getListHistory();
-
-       /* for (int i = 0; i < bookingController.getFinalTimeSpaceList().size();i++) {
-            mData.add(new ChooseTimeItem(bookingController.getFinalTimeSpaceList().get(i).getStartHours(), bookingController.getFinalTimeSpaceList().get(i).getStartMinutes(),
-                    bookingController.getFinalTimeSpaceList().get(i).getEndHours(), bookingController.getFinalTimeSpaceList().get(i).getEndMinutes(),
-                    bookingController.getFinalTimeSpaceList().get(i).getStatus()));
-        }*/
-        HistoryAdapter = new HistoryAdapter(getContext(), historyList);
-        NewsRecyclerView.setAdapter(HistoryAdapter);
+        historyAdapter = new HistoryAdapter(getContext(), historyList);
+        NewsRecyclerView.setAdapter(historyAdapter);
         NewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         relativeLayoutProgressBarHistory.setVisibility(View.GONE);
         linearLayoutHistory.setVisibility(View.VISIBLE);
@@ -104,80 +99,6 @@ public class FragmentHistory extends Fragment implements AdapterView.OnItemClick
         } else {
             return false;
         }
-    }
-
-
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-      /*  History history = historyList.get(position);
-        AdapterHistory adapterHistory = new AdapterHistory(history);
-        String status = adapterHistory.getStatus();
-        if (status.equals("BOOKED")) {
-            String data = adapterHistory.getData();
-            String time = adapterHistory.getTime();
-            long yourmilliseconds = System.currentTimeMillis();
-            SimpleDateFormat dataFormat = new SimpleDateFormat("dd.MM.yyyy");
-            Date resultDate = new Date(yourmilliseconds);
-            String dataNow = dataFormat.format(resultDate);
-            if (dataNow.equals(data)) {
-                long milliseconds = System.currentTimeMillis();
-                SimpleDateFormat timeHoursFormat = new SimpleDateFormat("HH");
-                SimpleDateFormat timeMinutesFormat = new SimpleDateFormat("mm");
-                Date resultTime = new Date(milliseconds);
-                String hoursNow = timeHoursFormat.format(resultTime);
-                String minutesNow = timeMinutesFormat.format(resultTime);
-                int timeNow = Integer.valueOf(hoursNow) * 60 + Integer.valueOf(minutesNow);
-                if (timeNow > Integer.valueOf(adapterHistory.getStartTime()) - 120) {
-                    Toast.makeText(getContext(), "Отмена невозможна" + System.lineSeparator() + "Осталось меньше 2-x часов", Toast.LENGTH_LONG).show();
-                } else {
-                    String idHistory = adapterHistory.getHistoryId();
-                    String location = adapterHistory.getLocationName();
-                    String reversNumber = adapterHistory.getReversNumber();
-                    System.out.print(idHistory);
-                    createTwoButtonsAlertDialog("Отмена бронирования", "Отменить броинрование ?" + System.lineSeparator() + System.lineSeparator() + "Место: " + location + " ( " +
-                            reversNumber + " реверс )" + System.lineSeparator() + "Дата: " + data + System.lineSeparator() + "Время: " + time, idHistory);
-                }
-            } else {
-                String idHistory = adapterHistory.getHistoryId();
-                String location = adapterHistory.getLocationName();
-                String reversNumber = adapterHistory.getReversNumber();
-                System.out.print(idHistory);
-                createTwoButtonsAlertDialog("Отмена бронирования", "Отменить броинрование ?" + System.lineSeparator() + System.lineSeparator() + "Место: " + location + " ( " +
-                        reversNumber + " реверс )" + System.lineSeparator() + "Дата: " + data + System.lineSeparator() + "Время: " + time, idHistory);
-            }
-
-        } else if (status.equals("MISSED")) {
-            Toast.makeText(getContext(), "Вы уже оменили бронирование", Toast.LENGTH_LONG).show();
-        } else if (status.equals("VISITED")) {
-            Toast.makeText(getContext(), "Вы уже посетили вейкпарк", Toast.LENGTH_LONG).show();
-
-        }
-
-*/
-    }
-
-    private void createTwoButtonsAlertDialog(String title, String content, String idHistory) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(title);
-        builder.setMessage(content);
-        builder.setNegativeButton("Вернуться",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int which) {
-                        dialog.dismiss();
-                    }
-                });
-        builder.setPositiveButton("Отменить",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int which) {
-                       // historyController.deleteHistory(userId, idHistory);
-                        Toast.makeText(getContext(), "Вы отменили бронирование", Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
-                    }
-                });
-        builder.show();
     }
 
     @Override

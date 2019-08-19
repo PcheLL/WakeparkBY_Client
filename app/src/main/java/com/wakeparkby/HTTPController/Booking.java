@@ -17,8 +17,7 @@ public class Booking {
     @Expose
     private int endTime;
 
-    public Booking(){}
-    public Booking(String data, String place, int reversNumber, int startTime, int endTime){
+    public Booking(String data, String place, int reversNumber, int startTime, int endTime) {
         this.bookingDate = data;
         this.location = place;
         this.reversNumber = reversNumber;

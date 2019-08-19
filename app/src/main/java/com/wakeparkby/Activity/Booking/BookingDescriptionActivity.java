@@ -2,7 +2,9 @@ package com.wakeparkby.Activity.Booking;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ public class BookingDescriptionActivity extends AppCompatActivity implements Vie
     TextView textViewInfoDate;
     TextView textViewInfoTime;
     TextView textViewCableNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +36,15 @@ public class BookingDescriptionActivity extends AppCompatActivity implements Vie
         textViewInfoTime.setText(getIntent().getStringExtra("finalTimeInterval"));
         textViewCableNumber.setText(String.valueOf(getIntent().getIntExtra("reverseCableNumber",0)));*/
     }
+
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
     }
 
     @Override
     public void onClick(View v) {
         Intent intent_MainMenu = new Intent(this, MainMenuActivity.class);
-        BookingController.start(this,intent_MainMenu);
+        BookingController.start(this, intent_MainMenu);
     }
 }

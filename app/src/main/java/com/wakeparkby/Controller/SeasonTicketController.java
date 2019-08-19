@@ -1,9 +1,8 @@
 package com.wakeparkby.Controller;
 
-import android.widget.RelativeLayout;
 
 import com.wakeparkby.Client.RetrofitClient;
-import com.wakeparkby.HTTPController.History;
+
 import com.wakeparkby.HTTPController.SeasonTicketHistory;
 import com.wakeparkby.Observer.Observer;
 
@@ -14,7 +13,7 @@ public class SeasonTicketController {
     private static String seasonTicket;
     private static List<SeasonTicketHistory> seasonTicketHistoryList = new ArrayList<>();
     private RetrofitClient retrofitClient = RetrofitClient.getRetrofitClient();
-    Observer observer = new Observer("SeasonTicketController") {
+    private Observer observer = new Observer("SeasonTicketController") {
         @Override
         public void update() {
             if (observer.getStatus() == 10) {
@@ -27,12 +26,13 @@ public class SeasonTicketController {
             }
         }
     };
+
     public SeasonTicketController() {
         retrofitClient.getSeasonTicket();
     }
 
     public SeasonTicketController(String seasonTicket) {
-        SeasonTicketController.seasonTicket =  seasonTicket;
+        SeasonTicketController.seasonTicket = seasonTicket;
     }
 
     public static List<SeasonTicketHistory> getSeasonTicketHistoryList() {
