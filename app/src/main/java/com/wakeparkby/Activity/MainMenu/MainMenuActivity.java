@@ -80,7 +80,7 @@ public class MainMenuActivity extends AppCompatActivity implements BottomNavigat
          *    Select the second last fragment in current tab's stack..
          *    which will be shown after the fragment transaction given below
          */
-        if (mStacks.get(TAB_HOME).size() == 1) {
+        if (mStacks.get(TAB_HOME).size() == 1) { // РЕШИТЬ ПРОБЛЕМУ С ОДИНАКОВЫМИ ФРАГМЕНТАМИ
             if (fl_exit == 1)
             {
            //     databaseHelper = App.getInstance().getDatabaseInstance();
