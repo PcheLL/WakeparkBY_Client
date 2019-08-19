@@ -12,4 +12,6 @@ public class SeasonTicketHistory {
     private int time;
     @Expose
     private String status;
+    @Expose
+    private String client_id;
 }

@@ -100,7 +100,7 @@ public class RetrofitClient {
     public void getSeasonTicket() {
         databaseHelper = App.getInstance().getDatabaseInstance();
         String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
-        httpController
+       /* httpController
                 .getSeasonTicket(token).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -115,7 +115,7 @@ public class RetrofitClient {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
             }
-        });
+        });*/
 
         httpController
                 .getSeasonTicketHistory(token).enqueue(new Callback<List<SeasonTicketHistory>>() {
@@ -124,7 +124,7 @@ public class RetrofitClient {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
                     seasonTicketHistoryList = response.body();
-                    observer.notifyAllObservers(3);
+           //         observer.notifyAllObservers(3);
                 }
             }
 

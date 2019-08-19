@@ -30,7 +30,6 @@ public class newChooseTimeAdapter extends RecyclerView.Adapter<newChooseTimeAdap
     String place;
     String date;
     int reverseCableNumber;
-    int positionDataSize = 0;
 
     public newChooseTimeAdapter(Context mContext, List<newChooseTimeItem> mData, String place, String date, int reverseCableNumber) {
         this.mContext = mContext;
@@ -44,15 +43,13 @@ public class newChooseTimeAdapter extends RecyclerView.Adapter<newChooseTimeAdap
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       // positionDataSize = 0; // -решить проблему
         View layout;
-        if (mData.get(positionDataSize).getStatus().equals("FREE")){
+        if (mData.get(viewType).getStatus().equals("FREE")){
             layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_free,parent,false);
         }
         else {
             layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_waiting_booked,parent,false);
         }
-        positionDataSize ++;
         return new NewsViewHolder(layout);
     }
 

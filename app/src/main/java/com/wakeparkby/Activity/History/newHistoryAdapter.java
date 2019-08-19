@@ -20,7 +20,6 @@ import java.util.List;
 public class newHistoryAdapter  extends RecyclerView.Adapter<newHistoryAdapter.NewsViewHolder>{
     Context mContext;
     List<History> historyList;
-    int positionDataSize = 0;
 
     public newHistoryAdapter(Context context, List<History> historyList) {
         this.mContext = context;
@@ -31,9 +30,8 @@ public class newHistoryAdapter  extends RecyclerView.Adapter<newHistoryAdapter.N
     @NonNull
     @Override
     public newHistoryAdapter.NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // positionDataSize = 0; // -решить проблему
         View layout = null;
-        switch (historyList.get(positionDataSize).getStatus()) {
+        switch (historyList.get(viewType).getStatus()) {
             case "BOOKED":
                 layout = LayoutInflater.from(mContext).inflate(R.layout.item_history_card_booked, parent, false);
                 break;
@@ -50,7 +48,6 @@ public class newHistoryAdapter  extends RecyclerView.Adapter<newHistoryAdapter.N
                 layout = LayoutInflater.from(mContext).inflate(R.layout.item_history_card_visited, parent, false);
                 break;
         }
-        positionDataSize ++;
         return new NewsViewHolder(layout);
     }
 
