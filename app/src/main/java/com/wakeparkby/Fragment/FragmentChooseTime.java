@@ -1,8 +1,10 @@
-package com.wakeparkby.Activity.Booking;
+package com.wakeparkby.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.google.android.material.button.MaterialButton;
@@ -10,6 +12,8 @@ import com.google.gson.Gson;
 import com.stomped.stomped.client.StompedClient;
 import com.stomped.stomped.component.StompedFrame;
 import com.stomped.stomped.listener.StompedListener;
+import com.wakeparkby.Activity.Booking.newChooseTimeAdapter;
+import com.wakeparkby.Activity.Booking.newChooseTimeItem;
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.HTTPController.Time;
 import com.wakeparkby.HTTPController.TimeSpace;
@@ -20,13 +24,15 @@ import com.wakeparkby.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class newChooseTimeActivity extends AppCompatActivity implements View.OnClickListener {
+public class FragmentChooseTime extends Fragment implements View.OnClickListener {
     RecyclerView NewsRecyclerView;
-    newChooseTimeAdapter newChooseTimeAdapter;
+    com.wakeparkby.Activity.Booking.newChooseTimeAdapter newChooseTimeAdapter;
     final StompedClient client = new StompedClient.StompedClientBuilder().build("http://18.196.191.127:8080/jwtappdemo-0.0.1-SNAPSHOT/gs-guide-websocket/websocket");
     private List<newChooseTimeItem> mData;
     MaterialButton buttonChooseTime;
@@ -47,23 +53,29 @@ public class newChooseTimeActivity extends AppCompatActivity implements View.OnC
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_time);
-        NewsRecyclerView = findViewById(R.id.recyclerViewTime);
-        buttonChooseTime = findViewById(R.id.buttonChooseTime);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_choose_time, container, false);
+        NewsRecyclerView = rootView.findViewById(R.id.recyclerViewTime);
+        buttonChooseTime = rootView.findViewById(R.id.buttonChooseTime);
         buttonChooseTime.setOnClickListener(this);
         mData = new ArrayList<>();
+        ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        toolbar.setTitle("Выберите время");
         openConnect();
+        return rootView;
     }
 
+    public static FragmentChooseTime newInstance() {
+        return new FragmentChooseTime();
+    }
     private void openConnect() {
        // final StompedClient client = new StompedClient.StompedClientBuilder().build("http://18.196.191.127:8080/jwtappdemo-0.0.1-SNAPSHOT/gs-guide-websocket/websocket");
         client.subscribe("/topic/activity", new StompedListener() {
 
             @Override
             public void onNotify(final StompedFrame frame) {
-                runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         System.out.println(frame.getStompedBody());
@@ -99,9 +111,9 @@ public class newChooseTimeActivity extends AppCompatActivity implements View.OnC
                     bookingController.getFinalTimeSpaceList().get(i).getEndHours(), bookingController.getFinalTimeSpaceList().get(i).getEndMinutes(),
                     bookingController.getFinalTimeSpaceList().get(i).getStatus()));
         }
-        newChooseTimeAdapter = new newChooseTimeAdapter(this,mData, getIntent().getStringExtra("place"),getIntent().getStringExtra("date"),getIntent().getIntExtra("reverseCableNumber",10));
+        newChooseTimeAdapter = new newChooseTimeAdapter(getContext(),mData, getArguments().getString("place"),getArguments().getString("date"),getArguments().getInt("reverseCableNumber",10));
         NewsRecyclerView.setAdapter(newChooseTimeAdapter);
-        NewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        NewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
       /*  if (timeSpaceList.size() == 0) {
             // relativeLayoutProgressBar.setVisibility(View.VISIBLE);
@@ -126,10 +138,10 @@ public class newChooseTimeActivity extends AppCompatActivity implements View.OnC
         newChooseTimeAdapter.notifyItemInserted(2);*/
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         observer.removeFromList(observer);
         client.disconnect();
         super.onBackPressed();
-    }
+    }*/
 }

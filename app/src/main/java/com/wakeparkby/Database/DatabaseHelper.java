@@ -24,4 +24,5 @@ public abstract class DatabaseHelper extends RoomDatabase {
     protected InvalidationTracker createInvalidationTracker() {
         return null;
     }
+
 }

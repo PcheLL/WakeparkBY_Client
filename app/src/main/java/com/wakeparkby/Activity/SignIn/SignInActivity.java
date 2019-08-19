@@ -70,15 +70,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             Intent intent_MainMenu = new Intent(SignInActivity.this, MainMenuActivity.class);
             startActivity(intent_MainMenu);
         }
-        /*if (!databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString().equals("-")) {
-
-        }*/
-       /* if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            Intent intent_MainMenu = new Intent(SignInActivity.this, MainMenuActivity.class);
-            startActivity(intent_MainMenu);
-        }*/
-
-
     }
 
     @Override
@@ -89,7 +80,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent_CreateAccount);
                 break;
             case R.id.buttonEnter:
-
                 SignInController signInController = new SignInController(editTextNumberPhoneSI.getText().toString(), editTextPasswordSI.getText().toString());
                 break;
         }
@@ -101,6 +91,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         String token = databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
         Intent intent_MainMenu = new Intent(this,MainMenuActivity.class);
         startActivity(intent_MainMenu);
+        editTextNumberPhoneSI.setText("");
+        editTextPasswordSI.setText("");
     }
     private void signInAnswerFalse() {
         Toast.makeText(this, "Неправильный логин/пароль", Toast.LENGTH_SHORT).show();

@@ -6,17 +6,15 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
-import com.wakeparkby.Activity.Booking.ReverseCableSelectionActivity;
+import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
 import com.wakeparkby.R;
 
 import java.util.Calendar;
@@ -26,6 +24,7 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
     private MaterialButton buttonLogoysk;
     private Calendar c;
     private DatePickerDialog datePicker;
+    private Fragment fragment;
 
     public FragmentLocationSelection() {
     }
@@ -42,7 +41,7 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
         buttonDrozdy.setOnClickListener(this);
         buttonLogoysk = rootView.findViewById(R.id.buttonLogoysk);
         buttonLogoysk.setOnClickListener(this);
-
+        fragment = new FragmentReverseCableSelection();
         ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         toolbar.setTitle("Выберите место");
         return rootView;
@@ -51,21 +50,18 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
     @Override
     public void onClick(View v) {
 
-        Intent intent_reverseCableSelection = new Intent(getActivity(), ReverseCableSelectionActivity.class);
         switch (v.getId()) {
             case R.id.buttonDrozdy:
-                intent_reverseCableSelection.putExtra("place", "DROZDI");
-                showDatePicker(intent_reverseCableSelection,"Дрозды");
+                showDatePicker("DROZDI");
                 break;
 
             case R.id.buttonLogoysk:
-                intent_reverseCableSelection.putExtra("place", "LOGOISK");
-                showDatePicker(intent_reverseCableSelection,"ГСОК Логойск");
+                showDatePicker("LOGOISK");
                 break;
         }
     }
 
-    public void showDatePicker(Intent intent_reverseCableSelection, String place){
+    public void showDatePicker(String place){
         c = Calendar.getInstance();
         int day = c.get(Calendar.DAY_OF_MONTH);
         int month = c.get(Calendar.MONTH);
@@ -85,8 +81,14 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
                     monthOfYear = "0" + String.valueOf(month);
                 }
                 String date = day + "." + monthOfYear + "." + String.valueOf(year);
-                intent_reverseCableSelection.putExtra("date",date);
-                startActivity(intent_reverseCableSelection);
+             //   intent_reverseCableSelection.putExtra("date",date);
+              //  startActivity(intent_reverseCableSelection);
+                Bundle args_fragment = new Bundle();
+                args_fragment.putString("place",place);
+                args_fragment.putString("date",date);
+                Fragment fragment = new FragmentReverseCableSelection();
+                fragment.setArguments(args_fragment);
+                ((MainMenuActivity)getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment,true);
             }
         }, day, month, year);
         datePicker.getDatePicker().setMinDate(c.getTimeInMillis());

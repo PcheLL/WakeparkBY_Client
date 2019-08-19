@@ -32,6 +32,6 @@ public interface HTTPController {
     Call<String> postCreateAccountUser(@Body NewUser newUser);
     @POST("/jwtappdemo-0.0.1-SNAPSHOT/login")
     Call<UserResponse> postSignInUser(@Body User user);
-    @GET("/jwtappdemo-0.0.1-SNAPSHOT/user/historySeasonTicket")
+    @GET("/jwtappdemo-0.0.1-SNAPSHOT/user/seasonTicketHistory")
     Call<List<SeasonTicketHistory>> getSeasonTicketHistory(@Header("Authorization") String token);
 }

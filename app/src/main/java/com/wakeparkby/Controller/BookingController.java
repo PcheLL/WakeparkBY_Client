@@ -42,11 +42,8 @@ public class BookingController {
         }
     };
 
-    public BookingController(String place, String date, int reverseCableNumber, Intent intent_time, Context context) {
-        intent_time.putExtra("place", place);
-        intent_time.putExtra("date", date);
-        intent_time.putExtra("reverseCableNumber", reverseCableNumber);
-        start(context, intent_time);
+    public BookingController(String place, String date, int reverseCableNumber) {
+       // start(context, intent_time);
         setFreeTimeList();
         retrofitClient.getTimeSpace(place, date, reverseCableNumber);
     }

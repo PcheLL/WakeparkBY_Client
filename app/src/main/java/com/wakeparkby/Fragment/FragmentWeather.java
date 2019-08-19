@@ -107,19 +107,24 @@ public class FragmentWeather extends Fragment {
 
                     textView_Weather_Drozdy.setText(String.valueOf(docDrozdy.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.link__feelings.fact__feelings > div").first().childNode(0)).substring(1));
 
-                    getActivity().runOnUiThread(new Runnable() {
+                    try {
+                        getActivity().runOnUiThread(new Runnable() {
 
-                        @Override
+                            @Override
 
-                        public void run() {
+                            public void run() {
 
-                            relativeLayoutProgressBarWeather.setVisibility(View.GONE);
+                                relativeLayoutProgressBarWeather.setVisibility(View.GONE);
 
-                            linearLayoutWeather.setVisibility(View.VISIBLE);
+                                linearLayoutWeather.setVisibility(View.VISIBLE);
 
-                        }
+                            }
 
-                    });
+                        });
+                    } catch (NullPointerException exNPE){
+
+                    }
+
 
                 } catch (IOException e) {
 
