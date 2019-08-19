@@ -24,6 +24,14 @@
         fab:fab_labelsPosition="left">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_wakeshop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorWhite"
+            fab:fab_size="mini"
+            fab:fab_title="WakeShop"
+            fab:fab_colorPressed="@color/colorWhite"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_drozdy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

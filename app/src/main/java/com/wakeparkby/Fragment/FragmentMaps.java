@@ -58,10 +58,16 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.O
         mMapFragment.getMapAsync(this);
 
         rightLabels = (FloatingActionsMenu) rootView.findViewById(R.id.right_labels);
+
         FloatingActionButton fab_drozdy = rootView.findViewById(R.id.fab_drozdy);
+        fab_drozdy.setIcon(R.drawable.ic_map_spot);
         FloatingActionButton fab_logoysk = rootView.findViewById(R.id.fab_logoysk);
+        fab_logoysk.setIcon(R.drawable.ic_map_spot);
+        FloatingActionButton fab_wakeshop = rootView.findViewById(R.id.fab_wakeshop);
+        fab_wakeshop.setIcon(R.drawable.ic_map_shop);
         fab_drozdy.setOnClickListener(this);
         fab_logoysk.setOnClickListener(this);
+        fab_wakeshop.setOnClickListener(this);
         return rootView;
 
     }
@@ -90,7 +96,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.O
         mMap.animateCamera(zoom);
 
         LatLng logoysk = new LatLng(54.181522, 27.810342);
-        marker_logoysk= mMap.addMarker(new MarkerOptions().position(logoysk).title("Логойск"));
+        marker_logoysk= mMap.addMarker(new MarkerOptions().position(logoysk).title("Логойск/WakeShop"));
         LatLng drozdy = new LatLng(53.956229, 27.448999);
         marker_drozdy = mMap.addMarker(new MarkerOptions().position(drozdy).title("Дрозды"));
 
@@ -117,16 +123,24 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback, View.O
 
     @Override
     public void onClick(View view) {
+        CameraUpdate zoom;
         switch (view.getId()) {
             case R.id.fab_drozdy:
                 setLatLng(new LatLng(53.956229, 27.448999));
                 //mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+                zoom = CameraUpdateFactory.zoomTo(15);
                 CameraUpdate centre = CameraUpdateFactory.newLatLng(latLng);
                 mMap.moveCamera(centre);
                 mMap.animateCamera(zoom);
                 break;
             case R.id.fab_logoysk:
+                setLatLng(new LatLng(54.181223, 27.810689));
+                zoom = CameraUpdateFactory.zoomTo(15);
+                centre = CameraUpdateFactory.newLatLng(latLng);
+                mMap.moveCamera(centre);
+                mMap.animateCamera(zoom);
+                break;
+            case R.id.fab_wakeshop:
                 setLatLng(new LatLng(54.181223, 27.810689));
                 zoom = CameraUpdateFactory.zoomTo(15);
                 centre = CameraUpdateFactory.newLatLng(latLng);
