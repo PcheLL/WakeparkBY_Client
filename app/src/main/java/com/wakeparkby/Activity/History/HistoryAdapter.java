@@ -1,12 +1,15 @@
 package com.wakeparkby.Activity.History;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsViewHolder>{
@@ -102,16 +107,71 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsView
 
         @Override
         public void onClick(View v) {
-         /*   int pos = getLayoutPosition();
-            int startTime = (Integer.valueOf(mData.get(pos).getStartHours()) * 60 + Integer.valueOf(mData.get(pos).getStartMinutes()));
-            int endTime = (Integer.valueOf(mData.get(pos).getEndHours()) *60 + Integer.valueOf(mData.get(pos).getEndMinutes()));
-            Thread newThread = new Thread() {
-                public void run() {
-                    BookingController bookingController = new BookingController(place,date,reverseCableNumber,startTime,endTime);
-
+            int pos = getLayoutPosition();
+            String status = historyList.get(pos).getStatus();
+            if (status.equals("BOOKED") || status.equals("BOOKED_NO_ACCEPTED")) {
+                String data = historyList.get(pos).getBookingDate();
+                String time = historyList.get(pos).getTime();
+                long yourmilliseconds = System.currentTimeMillis();
+                SimpleDateFormat dataFormat = new SimpleDateFormat("dd.MM.yyyy");
+                Date resultDate = new Date(yourmilliseconds);
+                String dataNow = dataFormat.format(resultDate);
+                if (dataNow.equals(data)) {
+                    long milliseconds = System.currentTimeMillis();
+                    SimpleDateFormat timeHoursFormat = new SimpleDateFormat("HH");
+                    SimpleDateFormat timeMinutesFormat = new SimpleDateFormat("mm");
+                    Date resultTime = new Date(milliseconds);
+                    String hoursNow = timeHoursFormat.format(resultTime);
+                    String minutesNow = timeMinutesFormat.format(resultTime);
+                    int timeNow = Integer.valueOf(hoursNow) * 60 + Integer.valueOf(minutesNow);
+                    if (timeNow > Integer.valueOf(historyList.get(pos).getStartTime()) - 120) {
+                        Toast.makeText(mContext, "Отмена невозможна" + System.lineSeparator() + "Осталось меньше 2-x часов", Toast.LENGTH_LONG).show();
+                    } else {
+                        String idHistory = historyList.get(pos).getId();
+                        String location = historyList.get(pos).getLocation();
+                        int reversNumber = historyList.get(pos).getReversNumber();
+                        System.out.print(idHistory);
+                        createTwoButtonsAlertDialog("Отмена бронирования", "Отменить броинрование ?" + System.lineSeparator() + System.lineSeparator() + "Место: " + location + " ( " +
+                                reversNumber + " реверс )" + System.lineSeparator() + "Дата: " + data + System.lineSeparator() + "Время: " + time, idHistory);
+                    }
+                } else {
+                    String idHistory = historyList.get(pos).getId();
+                    String location = historyList.get(pos).getLocation();
+                    int reversNumber = historyList.get(pos).getReversNumber();
+                    System.out.print(idHistory);
+                    createTwoButtonsAlertDialog("Отмена бронирования", "Отменить броинрование ?" + System.lineSeparator() + System.lineSeparator() + "Место: " + location + " ( " +
+                            reversNumber + " реверс )" + System.lineSeparator() + "Дата: " + data + System.lineSeparator() + "Время: " + time, idHistory);
                 }
-            };
-            newThread.start();*/
+
+            } else if (status.equals("MISSED")) {
+                Toast.makeText(mContext, "Вы уже отменили вашу бронь", Toast.LENGTH_LONG).show();
+            } else if (status.equals("MISSED_ADMIN")) {
+                Toast.makeText(mContext, "Ваша бронь была отменена администратором", Toast.LENGTH_LONG).show();
+            } else if (status.equals("VISITED")) {
+                Toast.makeText(mContext, "Вы уже посетили вейкпарк", Toast.LENGTH_LONG).show();
+            }
+        }
+        private void createTwoButtonsAlertDialog(String title, String content, String idHistory) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setTitle(title);
+            builder.setMessage(content);
+            builder.setNegativeButton("Вернуться",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            builder.setPositiveButton("Отменить",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                           //  historyController.deleteHistory(userId, idHistory);
+                            Toast.makeText(mContext, "Вы отменили бронирование", Toast.LENGTH_LONG).show();
+                            dialog.dismiss();
+                        }
+                    });
+            builder.show();
         }
     }
 }
