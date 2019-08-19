@@ -83,10 +83,9 @@ public class MainMenuActivity extends AppCompatActivity implements BottomNavigat
         if (mStacks.get(TAB_HOME).size() == 1) { // РЕШИТЬ ПРОБЛЕМУ С ОДИНАКОВЫМИ ФРАГМЕНТАМИ
             if (fl_exit == 1)
             {
-           //     databaseHelper = App.getInstance().getDatabaseInstance();
-           //     databaseHelper.clearAllTables();
-           //     onBackPressed();
-                Toast.makeText(this, "Выход", Toast.LENGTH_SHORT).show();
+               databaseHelper = App.getInstance().getDatabaseInstance();
+               databaseHelper.clearAllTables();
+               onBackPressed();
             }
             else {
                 Toast.makeText(this, "Нажмите еще раз чтобы выйти", Toast.LENGTH_SHORT).show();
