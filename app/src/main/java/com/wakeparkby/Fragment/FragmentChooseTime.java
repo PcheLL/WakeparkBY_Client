@@ -1,6 +1,8 @@
 package com.wakeparkby.Fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,7 +137,13 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
 
     @Override
     public boolean onBackPressed() {
-        observer.removeFromList(observer);
         return false;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        observer.removeFromList(observer);
+
     }
 }

@@ -1,5 +1,6 @@
 package com.wakeparkby.Activity.MainMenu;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.wakeparkby.Activity.Welcome.WelcomeActivity;
 import com.wakeparkby.Database.App;
 import com.wakeparkby.Database.DatabaseHelper;
 import com.wakeparkby.Fragment.FragmentHistory;
@@ -85,7 +87,7 @@ public class MainMenuActivity extends AppCompatActivity implements BottomNavigat
             {
                databaseHelper = App.getInstance().getDatabaseInstance();
                databaseHelper.clearAllTables();
-               onBackPressed();
+                finish();
             }
             else {
                 Toast.makeText(this, "Нажмите еще раз чтобы выйти", Toast.LENGTH_SHORT).show();
@@ -130,7 +132,7 @@ public class MainMenuActivity extends AppCompatActivity implements BottomNavigat
         if (id == R.id.action_exit) {
             databaseHelper = App.getInstance().getDatabaseInstance();
             databaseHelper.clearAllTables();
-            onBackPressed();
+            finish();
             return true;
         }
 
