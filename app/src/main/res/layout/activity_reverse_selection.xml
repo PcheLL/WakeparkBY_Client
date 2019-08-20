@@ -33,7 +33,7 @@
 
             <com.google.android.material.button.MaterialButton
                 app:cornerRadius="30dp"
-                android:id="@+id/buttonSecondtReverse"
+                android:id="@+id/buttonSecondReverse"
                 android:theme="@style/Theme.Custom"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"

@@ -30,7 +30,6 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
         this.place = place;
         this.date = date;
         this.reverseCableNumber = reverseCableNumber;
-        System.out.println("");
     }
 
     @NonNull

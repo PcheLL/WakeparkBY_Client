@@ -29,7 +29,7 @@ public class FragmentReverseCableSelection extends Fragment implements View.OnCl
         firstCable = rootView.findViewById(R.id.buttonFirstReverse);
         String myInt = getArguments().getString("date");
         firstCable.setOnClickListener(this);
-        secondCable = rootView.findViewById(R.id.buttonSecondtReverse);
+        secondCable = rootView.findViewById(R.id.buttonSecondReverse);
         secondCable.setOnClickListener(this);
         thirdCable = rootView.findViewById(R.id.buttonThirdReverse);
         thirdCable.setOnClickListener(this);
@@ -62,16 +62,18 @@ public class FragmentReverseCableSelection extends Fragment implements View.OnCl
                 fragment.setArguments(args_fragment);
                 ((MainMenuActivity) getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment, true);
                 break;
-            case R.id.buttonSecondtReverse:
+            case R.id.buttonSecondReverse:
                 this.bookingController = new BookingController(getArguments().getString("place"), getArguments().getString("date"),
                         2);
                 args_fragment.putInt("reverseCableNumber", 2);
+                fragment.setArguments(args_fragment);
                 ((MainMenuActivity) getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment, true);
                 break;
             case R.id.buttonThirdReverse:
                 this.bookingController = new BookingController(getArguments().getString("place"), getArguments().getString("date"),
                         3);
                 args_fragment.putInt("reverseCableNumber", 3);
+                fragment.setArguments(args_fragment);
                 ((MainMenuActivity) getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment, true);
                 break;
         }
