@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -39,7 +40,7 @@ public class SeasonTicketsAdapter extends RecyclerView.Adapter<SeasonTicketsAdap
 
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-//        holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation));
+        holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation));
         holder.tv_date.setText(mData.get(position).getDate());
         holder.tv_time.setText(mData.get(position).getTime());
     }

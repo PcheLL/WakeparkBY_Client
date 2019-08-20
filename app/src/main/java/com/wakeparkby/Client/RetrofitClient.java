@@ -123,12 +123,13 @@ public class RetrofitClient {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
                     seasonTicketHistoryList = response.body();
-                    //         observer.notifyAllObservers(3);
+                             observer.notifyAllObservers(3);
                 }
             }
 
             @Override
             public void onFailure(Call<List<SeasonTicketHistory>> call, Throwable t) {
+                observer.notifyAllObservers(3);
             }
         });
 
@@ -167,6 +168,7 @@ public class RetrofitClient {
         httpController.deleteHistory(token, idHistory).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                System.out.println("");
                 if (response.isSuccessful()) {
                     getUserHistory();
                 }

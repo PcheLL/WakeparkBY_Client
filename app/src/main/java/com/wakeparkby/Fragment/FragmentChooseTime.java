@@ -37,7 +37,6 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
     private ChooseTimeAdapter chooseTimeAdapter;
     private final StompedClient client = new StompedClient.StompedClientBuilder().build("http://18.196.191.127:8080/jwtappdemo-0.0.1-SNAPSHOT/gs-guide-websocket/websocket");
     private List<ChooseTimeItem> mData;
-    private MaterialButton buttonChooseTime;
     private BookingController bookingController = new BookingController();
     private List<TimeSpace> responseTimeSpaceList = new ArrayList<>();
     private Observer observer = new Observer("Time") {
@@ -59,10 +58,8 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_choose_time, container, false);
         NewsRecyclerView = rootView.findViewById(R.id.recyclerViewTime);
-        buttonChooseTime = rootView.findViewById(R.id.buttonChooseTime);
         linearLayoutChooseTime = rootView.findViewById(R.id.linearLayoutChooseTime);
         relativeLayoutProgressBarChooseTime = rootView.findViewById(R.id.relativeLayoutProgressBarChooseTime);
-        buttonChooseTime.setOnClickListener(this);
         mData = new ArrayList<>();
         ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         toolbar.setTitle("Выберите время");
@@ -138,7 +135,7 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
 
     @Override
     public boolean onBackPressed() {
-        System.out.println();
+        observer.removeFromList(observer);
         return false;
     }
 }

@@ -9,7 +9,7 @@ public class SeasonTicketHistory {
     @Expose
     private String date;
     @Expose
-    private int time;
+    private String time;
     @Expose
     private String status;
     @Expose

@@ -170,6 +170,7 @@ public class MainMenuActivity extends AppCompatActivity implements BottomNavigat
 
     @Override
     public void onBackPressed() {
+
         popFragments();
     }
 }

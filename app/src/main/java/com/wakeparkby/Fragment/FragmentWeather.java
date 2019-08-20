@@ -77,7 +77,7 @@ public class FragmentWeather extends Fragment {
 
                 try {
 
-                    docLogoysk = Jsoup.connect("https://с/minsk?lat=54.18134156547551&lon=27.810362236397864").get();
+                    docLogoysk = Jsoup.connect("https://yandex.by/pogoda/minsk?lat=54.18134156547551&lon=27.810362236397864").get();
 
                     textView_Air_Temperature_Logoysk.setText(String.valueOf(docLogoysk.select("body > div.b-page__container > div.content.content_compressed > div.content__top > div.content__main > div.content__row > div.fact.card.card_size_big > div.fact__temp-wrap > a > div.temp.fact__temp.fact__temp_size_s > span.temp__value").first().childNode(0)));
 
