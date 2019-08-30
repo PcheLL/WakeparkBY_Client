@@ -42,7 +42,13 @@ public class FragmentBookingDescription extends Fragment implements View.OnClick
         textViewInfoLocation = rootView.findViewById(R.id.textViewInfoLocation);
         textViewInfoDate = rootView.findViewById(R.id.textViewInfoDate);
         textViewInfoCableNumber = rootView.findViewById(R.id.textViewInfoReversNumber);
-        textViewInfoLocation.setText(bookingList.get(0).getLocation());
+        String location = bookingList.get(0).getLocation();
+        if (location.equals("LOGOISK")){
+            textViewInfoLocation.setText("Логойск");
+        }
+        else {
+            textViewInfoLocation.setText("Дрозды");
+        }
         textViewInfoDate.setText(bookingList.get(0).getBookingDate());
         textViewInfoCableNumber.setText(String.valueOf(bookingList.get(0).getReversNumber()));
         bookingDescriptionAdapter = new BookingDescriptionAdapter(getContext(),bookingList);

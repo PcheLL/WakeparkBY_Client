@@ -66,7 +66,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsView
         int endHours = historyList.get(position).getEndTime() / 60;
         holder.tv_endHours.setText(String.valueOf(endHours));
         holder.tv_endMinutes.setText(String.valueOf(historyList.get(position).getEndTime() - endHours * 60));
-        holder.tv_place.setText(historyList.get(position).getLocation());
+        String location = historyList.get(position).getLocation();
+        if (location.equals("LOGOISK")){
+            holder.tv_place.setText("Логойск");
+        }
+        else{
+            holder.tv_place.setText("Дрозды");
+        }
         holder.tv_date.setText(historyList.get(position).getBookingDate());
         holder.tv_revers_number.setText(String.valueOf(historyList.get(position).getReversNumber()));
 
@@ -110,6 +116,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsView
         public void onClick(View v) {
             int pos = getLayoutPosition();
             String status = historyList.get(pos).getStatus();
+            String location = historyList.get(pos).getLocation();
+            if (location.equals("LOGOISK")){
+             location = "Логойск";
+            }
+            else{
+                location = "Дрозды";
+            }
+            int reversNumber = historyList.get(pos).getReversNumber();
+
             if (status.equals("BOOKED") || status.equals("BOOKED_NO_ACCEPTED")) {
                 String data = historyList.get(pos).getBookingDate();
                 String time = historyList.get(pos).getTime();
@@ -129,17 +144,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsView
                         Toast.makeText(mContext, "Отмена невозможна" + System.lineSeparator() + "Осталось меньше 2-x часов", Toast.LENGTH_LONG).show();
                     } else {
                         String idHistory = String.valueOf(pos);
-                        String location = historyList.get(pos).getLocation();
-                        int reversNumber = historyList.get(pos).getReversNumber();
-                        System.out.print(idHistory);
                         createTwoButtonsAlertDialog("Отмена бронирования", "Отменить броинрование ?" + System.lineSeparator() + System.lineSeparator() + "Место: " + location + " ( " +
                                 reversNumber + " реверс )" + System.lineSeparator() + "Дата: " + data + System.lineSeparator() + "Время: " + time, idHistory);
                     }
                 } else {
                     String idHistory = historyList.get(pos).getId();
-                    String location = historyList.get(pos).getLocation();
-                    int reversNumber = historyList.get(pos).getReversNumber();
-                    System.out.print(idHistory);
                     createTwoButtonsAlertDialog("Отмена бронирования", "Отменить броинрование ?" + System.lineSeparator() + System.lineSeparator() + "Место: " + location + " ( " +
                             reversNumber + " реверс )" + System.lineSeparator() + "Дата: " + data + System.lineSeparator() + "Время: " + time, idHistory);
                 }
