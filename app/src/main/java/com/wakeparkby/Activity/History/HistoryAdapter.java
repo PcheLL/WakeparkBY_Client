@@ -60,12 +60,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsView
     public void onBindViewHolder(@NonNull HistoryAdapter.NewsViewHolder holder, int position) {
 
         holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
-        int startHours = historyList.get(position).getStartTime() / 60;
-        holder.tv_startHours.setText(String.valueOf(startHours));
-        holder.tv_startMinutes.setText(String.valueOf(historyList.get(position).getStartTime() - startHours * 60));
-        int endHours = historyList.get(position).getEndTime() / 60;
-        holder.tv_endHours.setText(String.valueOf(endHours));
-        holder.tv_endMinutes.setText(String.valueOf(historyList.get(position).getEndTime() - endHours * 60));
+        holder.tv_startHours.setText(historyList.get(position).getStartHours());
+        holder.tv_startMinutes.setText(historyList.get(position).getStartMinutes());
+        holder.tv_endHours.setText(historyList.get(position).getEndHours());
+        holder.tv_endMinutes.setText(historyList.get(position).getEndMinutes());
         String location = historyList.get(position).getLocation();
         if (location.equals("LOGOISK")){
             holder.tv_place.setText("Логойск");

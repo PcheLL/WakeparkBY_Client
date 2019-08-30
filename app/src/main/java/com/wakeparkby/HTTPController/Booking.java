@@ -35,6 +35,9 @@ public class Booking {
     }
 
     public String getStartMinutes() {
+        if (startTime - (startTime / 60 * 60) == 0 ){
+            return "00";
+        }
         return String.valueOf(startTime - (startTime / 60 * 60));
     }
 
@@ -43,6 +46,9 @@ public class Booking {
     }
 
     public String getEndMinutes() {
+        if (endTime - (endTime / 60 * 60) == 0 ){
+            return "00";
+        }
         return String.valueOf(endTime - (endTime / 60 * 60));
     }
 }
