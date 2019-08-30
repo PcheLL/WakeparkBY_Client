@@ -199,6 +199,7 @@ public class FragmentWeather extends Fragment {
                     textView_Wind_Speed_Drozdy.setText("-");
 
 
+
                 }
 
             }

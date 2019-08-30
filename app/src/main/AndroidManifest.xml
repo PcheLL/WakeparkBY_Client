@@ -35,7 +35,7 @@
 
         </activity >
 
-        <activity android:name=".Activity.Booking.BookingDescriptionActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Fragment.FragmentBookingDescription" android:screenOrientation="portrait" />
         <activity android:name=".Activity.SplashActivity" android:screenOrientation="portrait" />
         <activity android:name=".Activity.Welcome.WelcomeActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Fragment.FragmentReverseCableSelection" android:screenOrientation="portrait"/>

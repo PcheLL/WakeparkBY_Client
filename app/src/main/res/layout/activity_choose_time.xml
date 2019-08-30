@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/relativeLayoutChooseTime"
+        android:id="@+id/relativeLayoutBookingDescriptionItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FAFAFA">
@@ -25,6 +25,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
             </androidx.recyclerview.widget.RecyclerView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonChooseTime"
+                android:theme="@style/Theme.Custom"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Продолжить"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="10dp"/>
 
         </LinearLayout>
         <RelativeLayout

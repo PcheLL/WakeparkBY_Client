@@ -33,6 +33,7 @@ public class RetrofitClient {
     private List<TimeSpace> listTimeSpace = new ArrayList<>();
     private List<SeasonTicketHistory> seasonTicketHistoryList = new ArrayList<>();
     private List<History> historyArrayList = new ArrayList<>();
+    private List<Booking> bookingList = new ArrayList<>();
     private Observer observer = new Observer("Retrofit");
 
 
@@ -78,7 +79,7 @@ public class RetrofitClient {
             public void onResponse(Call<Booking> call, Response<Booking> response) {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
-                    Booking booking = response.body();
+                    bookingList.add(response.body());
                 }
             }
 
@@ -86,6 +87,10 @@ public class RetrofitClient {
             public void onFailure(Call<Booking> call, Throwable t) {
             }
         });
+    }
+
+    public List<Booking> getBookingList() {
+        return bookingList;
     }
 
     public void setListTimeSpace(List<TimeSpace> listTimeSpace) {
@@ -224,4 +229,21 @@ public class RetrofitClient {
         });
     }
 
+    public void putBookingList(List<Booking> bookingList) {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        httpController.putBookingList(token,bookingList).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                System.out.println("");
+                if (response.isSuccessful()) {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
 }

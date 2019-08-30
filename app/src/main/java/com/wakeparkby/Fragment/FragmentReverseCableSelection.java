@@ -42,10 +42,6 @@ public class FragmentReverseCableSelection extends Fragment implements View.OnCl
         return rootView;
     }
 
-    public static FragmentReverseCableSelection newInstance() {
-        return new FragmentReverseCableSelection();
-    }
-
     @Override
     public void onClick(View v) {
         BookingController bookingController;
@@ -82,7 +78,6 @@ public class FragmentReverseCableSelection extends Fragment implements View.OnCl
 
     @Override
     public boolean onBackPressed() {
-        System.out.println();
         return false;
     }
 }

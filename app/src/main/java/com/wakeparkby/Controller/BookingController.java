@@ -16,6 +16,7 @@ public class BookingController {
     private static List<TimeSpace> listTimeSpace = new ArrayList<>();
     private static List<Time> finalTimeSpaceList = new ArrayList<>();
     private List<Time> noAcceptedTimeList = new ArrayList<>();
+    private List<Booking> bookingList = new ArrayList<>();
     private RetrofitClient retrofitClient = RetrofitClient.getRetrofitClient();
     private Observer observer = new Observer("BookingController") {
         @Override
@@ -147,5 +148,9 @@ public class BookingController {
             }
         }
         System.out.println("");
+    }
+
+    public List<Booking> getBookingList() {
+        return retrofitClient.getBookingList();
     }
 }

@@ -10,6 +10,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 
@@ -37,4 +38,7 @@ public interface HTTPController {
 
     @GET("/jwtappdemo-0.0.1-SNAPSHOT/user/seasonTicketHistory")
     Call<List<SeasonTicketHistory>> getSeasonTicketHistory(@Header("Authorization") String token);
+
+    @PUT("/jwtappdemo-0.0.1-SNAPSHOT/user/booking")
+    Call<ResponseBody> putBookingList(@Header("Authorization") String token, @Body List<Booking> bookingList);
 }
