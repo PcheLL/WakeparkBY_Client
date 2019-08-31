@@ -66,7 +66,7 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
         int day = c.get(Calendar.DAY_OF_MONTH);
         int month = c.get(Calendar.MONTH);
         int year = c.get(Calendar.YEAR);
-        datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+        datePicker = new DatePickerDialog(getActivity(), R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month++;

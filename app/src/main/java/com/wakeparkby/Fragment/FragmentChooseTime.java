@@ -91,7 +91,9 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
                             int startTime = Integer.valueOf(mData.get(i).getStartHours()) * 60 + Integer.valueOf(mData.get(i).getStartMinutes());
                             if (startTime == wsEventDto.getBody().getStartTime()) {
                                 mData.get(i).setStatus("BOOKED_NO_ACCEPTED");
+                                chooseTimeAdapter.setFl(1);
                                 chooseTimeAdapter.notifyItemChanged(i);
+
                             }
                         }
                     }

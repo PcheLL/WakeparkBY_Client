@@ -23,6 +23,7 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
     private String place;
     private String date;
     private int reverseCableNumber;
+    private int fl = 0;
 
     public ChooseTimeAdapter(Context mContext, List<ChooseTimeItem> mData, String place, String date, int reverseCableNumber) {
         this.mContext = mContext;
@@ -35,6 +36,7 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        fl = 0;
         View layout;
         if (mData.get(viewType).getStatus().equals("FREE")) {
             layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_free, parent, false);
@@ -46,9 +48,9 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
 
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-
-        holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
-
+        if (fl == 0){
+            holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
+        }
         holder.tv_startHours.setText(mData.get(position).getStartHours());
         holder.tv_startMinutes.setText(mData.get(position).getStartMinutes());
         holder.tv_endHours.setText(mData.get(position).getEndHours());
@@ -64,6 +66,10 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
     @Override
     public int getItemViewType(int position) {
         return position;
+    }
+
+    public void setFl(int i) {
+        fl = i;
     }
 
     public class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
