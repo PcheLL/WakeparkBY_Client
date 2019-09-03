@@ -1,5 +1,6 @@
 package com.wakeparkby.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wakeparkby.Activity.Booking.BookingDescriptionAdapter;
 import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
@@ -65,5 +67,6 @@ public class FragmentBookingDescription extends Fragment implements View.OnClick
     @Override
     public void onClick(View v) {
       BookingDescriptionController bookingDescriptionController = new BookingDescriptionController(bookingList);
+        Toast.makeText(getContext(), "Успешно забронировали !", Toast.LENGTH_SHORT).show();
     }
 }

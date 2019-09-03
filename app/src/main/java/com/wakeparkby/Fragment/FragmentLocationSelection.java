@@ -2,6 +2,7 @@ package com.wakeparkby.Fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
@@ -66,29 +68,50 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
         int day = c.get(Calendar.DAY_OF_MONTH);
         int month = c.get(Calendar.MONTH);
         int year = c.get(Calendar.YEAR);
-        datePicker = new DatePickerDialog(getActivity(), R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month++;
-                String monthOfYear = String.valueOf(month);
-                String day = String.valueOf(dayOfMonth);
-                if (dayOfMonth < 10) {
-                    day = "0" + String.valueOf(dayOfMonth);
+        if (Build.VERSION.SDK_INT < 23) {
+            datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    month++;
+                    String monthOfYear = String.valueOf(month);
+                    String day = String.valueOf(dayOfMonth);
+                    if (dayOfMonth < 10) {
+                        day = "0" + String.valueOf(dayOfMonth);
+                    }
+                    if (month < 10) {
+                        monthOfYear = "0" + String.valueOf(month);
+                    }
+                    String date = day + "." + monthOfYear + "." + String.valueOf(year);
+                    long minDate = c.getTimeInMillis();
+                    long maxDate = c.getTimeInMillis() + 1000 * 86400 * 5;
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(year,month--,dayOfMonth);
+                    long nowTime = calendar.getTimeInMillis();
+                    if (minDate<= nowTime && maxDate >= nowTime){
+                        Bundle args_fragment = new Bundle();
+                        args_fragment.putString("place", place);
+                        args_fragment.putString("date", date);
+                        Fragment fragment = new FragmentReverseCableSelection();
+                        fragment.setArguments(args_fragment);
+                        ((MainMenuActivity) getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment, true);
+                    }
+                        else {
+                        Toast.makeText(getContext(), "Эти дни недоступны !", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                if (month < 10) {
-                    monthOfYear = "0" + String.valueOf(month);
+            }, day, month, year);
+        }
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                    System.out.println("");
                 }
-                String date = day + "." + monthOfYear + "." + String.valueOf(year);
-                Bundle args_fragment = new Bundle();
-                args_fragment.putString("place", place);
-                args_fragment.putString("date", date);
-                Fragment fragment = new FragmentReverseCableSelection();
-                fragment.setArguments(args_fragment);
-                ((MainMenuActivity) getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment, true);
-            }
-        }, day, month, year);
+            }, day, month, year);
+        }
         datePicker.getDatePicker().setMinDate(c.getTimeInMillis());
-        datePicker.getDatePicker().setMaxDate(c.getTimeInMillis() + 1000 * 60 * 60 * 24 * 5);
+        datePicker.getDatePicker().setMaxDate(c.getTimeInMillis() + 1000 * 86400 * 5);
         datePicker.show();
     }
 }
