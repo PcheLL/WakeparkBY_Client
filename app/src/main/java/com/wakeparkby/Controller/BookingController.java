@@ -45,11 +45,6 @@ public class BookingController {
         retrofitClient.postBooking(new Booking(date, place, reverseCableNumber, startTime, endTime));
     }
 
-
-    public static void start(Context context, Intent intent) {
-        context.startActivity(intent);
-    }
-
     public static void setListTimeSpace(List<TimeSpace> listTimeSpace) {
         BookingController.listTimeSpace = listTimeSpace;
     }

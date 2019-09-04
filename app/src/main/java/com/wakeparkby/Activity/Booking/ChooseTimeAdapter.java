@@ -23,7 +23,7 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
     private String place;
     private String date;
     private int reverseCableNumber;
-    private int fl = 0;
+    private static int fl = 0;
 
     public ChooseTimeAdapter(Context mContext, List<ChooseTimeItem> mData, String place, String date, int reverseCableNumber) {
         this.mContext = mContext;
@@ -47,7 +47,7 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
+    public void onBindViewHolder    (@NonNull NewsViewHolder holder, int position) {
         if (fl == 0){
             holder.relativeLayoutCardView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
         }
@@ -68,8 +68,8 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
         return position;
     }
 
-    public void setFl(int i) {
-        fl = i;
+    public static void setFl(int fl) {
+        ChooseTimeAdapter.fl = fl;
     }
 
     public class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

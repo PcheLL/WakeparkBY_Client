@@ -114,6 +114,9 @@ public class RetrofitClient {
                     SeasonTicketController seasonTicketController = new SeasonTicketController(seasonTicket);
                     //   observer.notifyAllObservers(3);
                 }
+                else if (response.body() == null){
+                    SeasonTicketController seasonTicketController = new SeasonTicketController("0");
+                }
             }
 
             @Override
@@ -129,6 +132,9 @@ public class RetrofitClient {
                 if (response.isSuccessful()) {
                     seasonTicketHistoryList = response.body();
                              observer.notifyAllObservers(3);
+                }
+                else if (response.body() == null){
+                    observer.notifyAllObservers(3);
                 }
             }
 
@@ -153,6 +159,9 @@ public class RetrofitClient {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
                     historyArrayList = response.body();
+                    observer.notifyAllObservers(4);
+                }
+                else if (response.body() == null){
                     observer.notifyAllObservers(4);
                 }
             }
@@ -212,11 +221,15 @@ public class RetrofitClient {
                 if (response.isSuccessful()) {
                     UserResponse userResponse = response.body();
                     DatabaseHelper databaseHelper = App.getInstance().getDatabaseInstance();
-                    DataModel model = new DataModel();
-                    model.setTitle("UserToken");
-                    model.setDescription(response.body().getToken().toString());
+                    DataModel modelUserToken = new DataModel();
+                    modelUserToken.setTitle("UserToken");
+                    modelUserToken.setDescription(response.body().getToken());
+                    DataModel modelUserId = new DataModel();
+                    modelUserId.setTitle("UserId");
+                    modelUserId.setDescription(response.body().getId());
                     databaseHelper.clearAllTables();
-                    databaseHelper.getDataDao().insert(model);
+                    databaseHelper.getDataDao().insert(modelUserToken);
+                    databaseHelper.getDataDao().insert(modelUserId);
                     observer.notifyAllObservers(8);
                 } else {
                     observer.notifyAllObservers(9);

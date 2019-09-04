@@ -85,7 +85,7 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
                     long minDate = c.getTimeInMillis();
                     long maxDate = c.getTimeInMillis() + 1000 * 86400 * 5;
                     Calendar calendar = Calendar.getInstance();
-                    calendar.set(year,month--,dayOfMonth);
+                    calendar.set(year,month-1,dayOfMonth);
                     long nowTime = calendar.getTimeInMillis();
                     if (minDate<= nowTime && maxDate >= nowTime){
                         Bundle args_fragment = new Bundle();
@@ -98,15 +98,6 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
                         else {
                         Toast.makeText(getContext(), "Эти дни недоступны !", Toast.LENGTH_SHORT).show();
                     }
-                }
-            }, day, month, year);
-        }
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                    System.out.println("");
                 }
             }, day, month, year);
         }

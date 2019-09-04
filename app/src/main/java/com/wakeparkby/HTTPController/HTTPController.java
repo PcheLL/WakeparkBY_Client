@@ -27,8 +27,8 @@ public interface HTTPController {
     @GET("/jwtappdemo-0.0.1-SNAPSHOT/user/history")
     Call<List<History>> getUserHistory(@Header("Authorization") String token);
 
-    @DELETE("/jwtappdemo-0.0.1-SNAPSHOT/users/booked/{bookedId}")
-    Call<ResponseBody> deleteHistory(@Header("Authorization") String token, @Path("bookedId") String idHistory);
+    @DELETE("/jwtappdemo-0.0.1-SNAPSHOT/user/booking/{id}")
+    Call<ResponseBody> deleteHistory(@Header("Authorization") String token, @Path("id") String idHistory);
 
     @POST("/jwtappdemo-0.0.1-SNAPSHOT/login/regist")
     Call<String> postCreateAccountUser(@Body NewUser newUser);
