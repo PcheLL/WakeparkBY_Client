@@ -16,6 +16,8 @@ import com.wakeparkby.Activity.Booking.ChooseTimeAdapter;
 import com.wakeparkby.Activity.Booking.ChooseTimeItem;
 import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
 import com.wakeparkby.Controller.BookingController;
+import com.wakeparkby.Database.App;
+import com.wakeparkby.Database.DatabaseHelper;
 import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.HTTPController.TimeSpace;
 import com.wakeparkby.HTTPController.WsEventDto;
@@ -40,6 +42,7 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
     private final StompedClient client = new StompedClient.StompedClientBuilder().build("http://18.196.191.127:8080/jwtappdemo-0.0.1-SNAPSHOT/gs-guide-websocket/websocket");
     private List<ChooseTimeItem> mData;
     private List<Booking> bookingList = new ArrayList<>();
+    private DatabaseHelper databaseHelper;
     private BookingController bookingController = new BookingController();
     private List<TimeSpace> responseTimeSpaceList = new ArrayList<>();
     private Observer observer = new Observer("Time") {
@@ -76,6 +79,8 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
     }
 
     private void openConnect() {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String userId = databaseHelper.getDataDao().getByTitle("UserId").get(0).getDescription().toString();
         client.subscribe("/topic/activity", new StompedListener() {
 
             @Override
@@ -83,19 +88,28 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println(frame.getStompedBody());
                         String response = frame.getStompedBody().toString().substring(0, frame.getStompedBody().length() - 1);
                         Gson gson = new Gson();
                         WsEventDto wsEventDto = gson.fromJson(response, WsEventDto.class);
-                        for (int i = 0; i < mData.size(); i++) {
-                            int startTime = Integer.valueOf(mData.get(i).getStartHours()) * 60 + Integer.valueOf(mData.get(i).getStartMinutes());
-                            if (startTime == wsEventDto.getBody().getStartTime()) {
-                                mData.get(i).setStatus("BOOKED_NO_ACCEPTED");
-                                chooseTimeAdapter.setFl(1);
-                                chooseTimeAdapter.notifyItemChanged(i);
+                        if (getArguments().getString("place").equals(wsEventDto.getBody().getLocation()) &&
+                                getArguments().getString("date").equals(wsEventDto.getBody().getBookingDate())&&
+                                getArguments().getInt("reverseCableNumber",0) == wsEventDto.getBody().getReversNumber()){
+                            for (int i = 0; i < mData.size(); i++) {
+                                int startTime = Integer.valueOf(mData.get(i).getStartHours()) * 60 + Integer.valueOf(mData.get(i).getStartMinutes());
+                                if (startTime == wsEventDto.getBody().getStartTime()) {
+                                    if(mData.get(i).getBookingId()== userId ){
+                                        mData.get(i).setStatus("MY_BOOKED_NO_ACCEPTED");
+                                    }
+                                    else{
+                                        mData.get(i).setStatus("BOOKED_NO_ACCEPTED");
+                                    }
+                                    chooseTimeAdapter.setFl(1);
+                                    chooseTimeAdapter.notifyItemChanged(i);
 
+                                }
                             }
                         }
+
                     }
                 });
             }

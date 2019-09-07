@@ -202,7 +202,8 @@ public class RetrofitClient {
             public void onResponse(Call<String> call, Response<String> response) {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
-                    String answer = response.body().toString();
+                   // String answer = response.body().toString();
+                    postSignInUser(new User(newUser.getPhone(),newUser.getPassword()));
                 }
             }
 

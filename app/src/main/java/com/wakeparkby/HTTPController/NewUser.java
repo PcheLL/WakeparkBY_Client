@@ -9,9 +9,9 @@ public class NewUser {
     @Expose
     private String phone;
     @Expose
-    private String userName;
-    @Expose
     private String password;
+    @Expose
+    private String userName;
 
     public NewUser(String phone, String userName, String password) {
         this.phone = phone;

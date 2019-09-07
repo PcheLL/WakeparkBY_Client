@@ -143,8 +143,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                             //verification successful we will start the profile activity
                             Intent intent = new Intent(VerifyPhoneActivity.this, MainMenuActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            CreateAccountController createAccountController = new CreateAccountController();
-                            createAccountController.sendInfoNewUser(intent.getStringExtra("mobile"), intent.getStringExtra("userName"), intent.getStringExtra("password"));
+                            CreateAccountController createAccountController = new CreateAccountController(intent.getStringExtra("mobile"), intent.getStringExtra("userName"), intent.getStringExtra("password"));
+                          //  createAccountController.sendInfoNewUser(intent.getStringExtra("mobile"), intent.getStringExtra("userName"), intent.getStringExtra("password"));
                             startActivity(intent);
 
                         } else {

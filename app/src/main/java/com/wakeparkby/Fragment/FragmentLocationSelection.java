@@ -68,7 +68,6 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
         int day = c.get(Calendar.DAY_OF_MONTH);
         int month = c.get(Calendar.MONTH);
         int year = c.get(Calendar.YEAR);
-        if (Build.VERSION.SDK_INT < 23) {
             datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -100,7 +99,6 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
                     }
                 }
             }, day, month, year);
-        }
         datePicker.getDatePicker().setMinDate(c.getTimeInMillis());
         datePicker.getDatePicker().setMaxDate(c.getTimeInMillis() + 1000 * 86400 * 5);
         datePicker.show();

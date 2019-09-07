@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ChooseTimeItem {
+    private String bookingId;
     private String startHours;
     private String startMinutes;
     private String endHours;

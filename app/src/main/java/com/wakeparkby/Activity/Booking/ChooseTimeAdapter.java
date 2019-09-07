@@ -40,7 +40,11 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
         View layout;
         if (mData.get(viewType).getStatus().equals("FREE")) {
             layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_free, parent, false);
-        } else {
+        }
+        else if (mData.get(viewType).getStatus().equals("MY_BOOKED_NO_ACCEPTED")) {
+            layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_my_waiting_booked, parent, false);
+        }
+        else {
             layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_waiting_booked, parent, false);
         }
         return new NewsViewHolder(layout);
