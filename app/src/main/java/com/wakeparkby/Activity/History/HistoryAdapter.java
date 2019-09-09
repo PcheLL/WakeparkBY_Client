@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.wakeparkby.Controller.HistoryController;
 import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.R;
@@ -142,12 +143,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsView
                         Toast.makeText(mContext, "Отмена невозможна" + System.lineSeparator() + "Осталось меньше 2-x часов", Toast.LENGTH_LONG).show();
                     } else {
                         String idHistory = String.valueOf(pos);
-                        createTwoButtonsAlertDialog("Отмена бронирования", "Отменить броинрование ?" + System.lineSeparator() + System.lineSeparator() + "Место: " + location + " ( " +
+                        createTwoButtonsMaterialAlertDialog("Отмена бронирования", "Отменить броинрование ?" + System.lineSeparator() + System.lineSeparator() + "Место: " + location + " ( " +
                                 reversNumber + " реверс )" + System.lineSeparator() + "Дата: " + data + System.lineSeparator() + "Время: " + time, idHistory);
                     }
                 } else {
                     String idHistory = historyList.get(pos).getId();
-                    createTwoButtonsAlertDialog("Отмена бронирования", "Отменить броинрование ?" + System.lineSeparator() + System.lineSeparator() + "Место: " + location + " ( " +
+                    createTwoButtonsMaterialAlertDialog("Отмена бронирования", "Отменить броинрование ?" + System.lineSeparator() + System.lineSeparator() + "Место: " + location + " ( " +
                             reversNumber + " реверс )" + System.lineSeparator() + "Дата: " + data + System.lineSeparator() + "Время: " + time, idHistory);
                 }
 
@@ -160,9 +161,26 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsView
             }
         }
 
-        private void createTwoButtonsAlertDialog(String title, String content, String idHistory) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setTitle(title);
+        private void createTwoButtonsMaterialAlertDialog(String title, String content, String idHistory) {
+            new MaterialAlertDialogBuilder(mContext,R.style.AlertDialogTheme).setMessage(content).setTitle(title)
+                    .setNegativeButton("Вернуться",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                    .setPositiveButton("Отменить",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    HistoryController historyController = new HistoryController(idHistory);
+                                    Toast.makeText(mContext, "Вы отменили бронирование", Toast.LENGTH_LONG).show();
+                                    dialog.dismiss();
+                                }
+                            })
+                    .show();
+            /*builder.setTitle(title);
             builder.setMessage(content);
             builder.setNegativeButton("Вернуться",
                     new DialogInterface.OnClickListener() {
@@ -180,7 +198,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.NewsView
                             dialog.dismiss();
                         }
                     });
-            builder.show();
+            builder.show();*/
         }
     }
 }

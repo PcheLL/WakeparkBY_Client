@@ -37,15 +37,18 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         fl = 0;
-        View layout;
-        if (mData.get(viewType).getStatus().equals("FREE")) {
-            layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_free, parent, false);
-        }
-        else if (mData.get(viewType).getStatus().equals("MY_BOOKED_NO_ACCEPTED")) {
-            layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_my_waiting_booked, parent, false);
-        }
-        else {
-            layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_waiting_booked, parent, false);
+        View layout = null;
+        String bookingStatus = mData.get(viewType).getStatus();
+        switch (bookingStatus) {
+            case "FREE":
+                layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_free, parent, false);
+                break;
+            case "MY_BOOKED_NO_ACCEPTED":
+                layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_my_waiting_booked, parent, false);
+                break;
+            case "BOOKED_NO_ACCEPTED":
+                layout = LayoutInflater.from(mContext).inflate(R.layout.item_choose_time_card_waiting_booked, parent, false);
+                break;
         }
         return new NewsViewHolder(layout);
     }

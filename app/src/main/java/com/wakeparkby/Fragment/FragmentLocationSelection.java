@@ -68,39 +68,41 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
         int day = c.get(Calendar.DAY_OF_MONTH);
         int month = c.get(Calendar.MONTH);
         int year = c.get(Calendar.YEAR);
-            datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    month++;
-                    String monthOfYear = String.valueOf(month);
-                    String day = String.valueOf(dayOfMonth);
-                    if (dayOfMonth < 10) {
-                        day = "0" + String.valueOf(dayOfMonth);
-                    }
-                    if (month < 10) {
-                        monthOfYear = "0" + String.valueOf(month);
-                    }
-                    String date = day + "." + monthOfYear + "." + String.valueOf(year);
-                    long minDate = c.getTimeInMillis();
-                    long maxDate = c.getTimeInMillis() + 1000 * 86400 * 5;
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(year,month-1,dayOfMonth);
-                    long nowTime = calendar.getTimeInMillis();
-                    if (minDate<= nowTime && maxDate >= nowTime){
-                        Bundle args_fragment = new Bundle();
-                        args_fragment.putString("place", place);
-                        args_fragment.putString("date", date);
-                        Fragment fragment = new FragmentReverseCableSelection();
-                        fragment.setArguments(args_fragment);
-                        ((MainMenuActivity) getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment, true);
-                    }
-                        else {
-                        Toast.makeText(getContext(), "Эти дни недоступны !", Toast.LENGTH_SHORT).show();
-                    }
+        datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month++;
+                String monthOfYear = String.valueOf(month);
+                String day = String.valueOf(dayOfMonth);
+                if (dayOfMonth < 10) {
+                    day = "0" + String.valueOf(dayOfMonth);
                 }
-            }, day, month, year);
+                if (month < 10) {
+                    monthOfYear = "0" + String.valueOf(month);
+                }
+                String date = day + "." + monthOfYear + "." + String.valueOf(year);
+                long minDate = c.getTimeInMillis();
+                long maxDate = c.getTimeInMillis() + 1000 * 86400 * 5;
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month - 1, dayOfMonth);
+                long nowTime = calendar.getTimeInMillis();
+                if (minDate <= nowTime && maxDate >= nowTime) {
+                    Bundle args_fragment = new Bundle();
+                    args_fragment.putString("place", place);
+                    args_fragment.putString("date", date);
+                    Fragment fragment = new FragmentReverseCableSelection();
+                    fragment.setArguments(args_fragment);
+                    ((MainMenuActivity) getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment, true);
+                } else {
+                    Toast.makeText(getContext(), "Эти дни недоступны !", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, day, month, year);
         datePicker.getDatePicker().setMinDate(c.getTimeInMillis());
         datePicker.getDatePicker().setMaxDate(c.getTimeInMillis() + 1000 * 86400 * 5);
         datePicker.show();
+        datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorYelow));
+        datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorYelow));
+
     }
 }

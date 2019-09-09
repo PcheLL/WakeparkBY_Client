@@ -91,21 +91,24 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
                         String response = frame.getStompedBody().toString().substring(0, frame.getStompedBody().length() - 1);
                         Gson gson = new Gson();
                         WsEventDto wsEventDto = gson.fromJson(response, WsEventDto.class);
+                        bookingList =  bookingController.getBookingList();
                         if (getArguments().getString("place").equals(wsEventDto.getBody().getLocation()) &&
                                 getArguments().getString("date").equals(wsEventDto.getBody().getBookingDate())&&
                                 getArguments().getInt("reverseCableNumber",0) == wsEventDto.getBody().getReversNumber()){
                             for (int i = 0; i < mData.size(); i++) {
                                 int startTime = Integer.valueOf(mData.get(i).getStartHours()) * 60 + Integer.valueOf(mData.get(i).getStartMinutes());
                                 if (startTime == wsEventDto.getBody().getStartTime()) {
-                                    if(mData.get(i).getBookingId()== userId ){
-                                        mData.get(i).setStatus("MY_BOOKED_NO_ACCEPTED");
-                                    }
-                                    else{
-                                        mData.get(i).setStatus("BOOKED_NO_ACCEPTED");
+                                    for (int j = 0; j<bookingList.size();j++){
+                                        if(bookingList.get(j).getId() == wsEventDto.getBody().getId())
+                                        {
+                                            mData.get(i).setStatus("MY_BOOKED_NO_ACCEPTED");
+                                        }
+                                        else{
+                                            mData.get(i).setStatus("BOOKED_NO_ACCEPTED");
+                                        }
                                     }
                                     chooseTimeAdapter.setFl(1);
                                     chooseTimeAdapter.notifyItemChanged(i);
-
                                 }
                             }
                         }
@@ -117,7 +120,6 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
     }
 
     private void updateChooseTime() {
-
         mData.clear();
         bookingController.refreshFinalTimeSpaceList();
         for (int i = 0; i < bookingController.getFinalTimeSpaceList().size(); i++) {
@@ -128,7 +130,6 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
         chooseTimeAdapter = new ChooseTimeAdapter(getContext(), mData, getArguments().getString("place"), getArguments().getString("date"), getArguments().getInt("reverseCableNumber", 10));
         newsRecyclerView.setAdapter(chooseTimeAdapter);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         relativeLayoutProgressBarChooseTime.setVisibility(View.GONE);
         linearLayoutChooseTime.setVisibility(View.VISIBLE);
     }
