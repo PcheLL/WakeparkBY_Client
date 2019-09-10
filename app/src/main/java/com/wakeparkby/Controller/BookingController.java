@@ -138,14 +138,16 @@ public class BookingController {
             for (int j = 0; j < noAcceptedTimeList.size(); j++) {
                 int startTime2 = Integer.valueOf(noAcceptedTimeList.get(j).getStartHours()) * 60 + Integer.valueOf(noAcceptedTimeList.get(j).getStartMinutes());
                 if (startTime1 == startTime2) {
-                    String status = finalTimeSpaceList.get(j).getStatus();
-                    if(status.equals("BOOKED") && status.equals("BOOKED_ACCEPTED") &&
-                            status.equals("VISITED") && status.equals("NO_VISITED") && status.equals("MISSED") &&
-                            status.equals("MISSED_ADMIN")){
+                    String status = noAcceptedTimeList.get(j).getStatus();
+                    if (status.equals("BOOKED") || status.equals("BOOKED_ACCEPTED")){
                         finalTimeSpaceList.remove(i);
-                    } else {
+                    } else if (status.equals("MISSED") ||
+                            status.equals("MISSED_ADMIN")){
+                        finalTimeSpaceList.get(i).setStatus("FREE");
+                    } else if (status.equals("MY_BOOKED_NO_ACCEPTED")) {
+                        finalTimeSpaceList.get(i).setStatus("MY_BOOKED_NO_ACCEPTED");
+                    } else if (status.equals("BOOKED_NO_ACCEPTED")) {
                         finalTimeSpaceList.get(i).setStatus("BOOKED_NO_ACCEPTED");
-
                     }
                 }
             }

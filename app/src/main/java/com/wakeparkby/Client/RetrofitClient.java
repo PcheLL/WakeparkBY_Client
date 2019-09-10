@@ -1,5 +1,6 @@
 package com.wakeparkby.Client;
 
+import com.google.android.material.button.MaterialButton;
 import com.wakeparkby.Database.App;
 import com.wakeparkby.Database.DataModel;
 import com.wakeparkby.Database.DatabaseHelper;
@@ -35,6 +36,7 @@ public class RetrofitClient {
     private List<History> historyArrayList = new ArrayList<>();
     private List<Booking> bookingList = new ArrayList<>();
     private Observer observer = new Observer("Retrofit");
+    private MaterialButton buttonChooseTime;
 
 
     private RetrofitClient() {

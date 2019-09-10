@@ -8,12 +8,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.wakeparkby.Controller.BookingController;
+import com.wakeparkby.Fragment.FragmentChooseTime;
 import com.wakeparkby.R;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.NewsViewHolder> {
@@ -85,6 +88,7 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
         TextView tv_endHours;
         TextView tv_endMinutes;
         RelativeLayout relativeLayoutCardView;
+
 
 
         public NewsViewHolder(@NonNull View itemView) {

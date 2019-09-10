@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class Booking {
     @Expose
+    private int clientId;
+    @Expose
     private int id;
     @Expose
     private String bookingDate;
