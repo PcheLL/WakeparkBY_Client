@@ -16,7 +16,6 @@ public class BookingController {
     private static List<TimeSpace> listTimeSpace = new ArrayList<>();
     private static List<Time> finalTimeSpaceList = new ArrayList<>();
     private List<Time> noAcceptedTimeList = new ArrayList<>();
-    private List<Booking> bookingList = new ArrayList<>();
     private RetrofitClient retrofitClient = RetrofitClient.getRetrofitClient();
     private Observer observer = new Observer("BookingController") {
         @Override
@@ -133,21 +132,23 @@ public class BookingController {
             }
             counter++;
         }
-        for (int i = 0; i < finalTimeSpaceList.size(); i++) {
-            int startTime1 = Integer.valueOf(finalTimeSpaceList.get(i).getStartHours()) * 60 + Integer.valueOf(finalTimeSpaceList.get(i).getStartMinutes());
+        for (int k = 0; k < finalTimeSpaceList.size(); k++) {
+            int startTime1 = Integer.valueOf(finalTimeSpaceList.get(k).getStartHours()) * 60 + Integer.valueOf(finalTimeSpaceList.get(k).getStartMinutes());
             for (int j = 0; j < noAcceptedTimeList.size(); j++) {
                 int startTime2 = Integer.valueOf(noAcceptedTimeList.get(j).getStartHours()) * 60 + Integer.valueOf(noAcceptedTimeList.get(j).getStartMinutes());
                 if (startTime1 == startTime2) {
                     String status = noAcceptedTimeList.get(j).getStatus();
                     if (status.equals("BOOKED") || status.equals("BOOKED_ACCEPTED")){
-                        finalTimeSpaceList.remove(i);
+                        finalTimeSpaceList.remove(k);
+                        k--;
                     } else if (status.equals("MISSED") ||
                             status.equals("MISSED_ADMIN")){
-                        finalTimeSpaceList.get(i).setStatus("FREE");
+                        finalTimeSpaceList.get(k).setStatus("FREE");
                     } else if (status.equals("MY_BOOKED_NO_ACCEPTED")) {
-                        finalTimeSpaceList.get(i).setStatus("MY_BOOKED_NO_ACCEPTED");
+                 //       retrofitClient.set(new Booking());
+                        finalTimeSpaceList.get(k).setStatus("MY_BOOKED_NO_ACCEPTED");
                     } else if (status.equals("BOOKED_NO_ACCEPTED")) {
-                        finalTimeSpaceList.get(i).setStatus("BOOKED_NO_ACCEPTED");
+                        finalTimeSpaceList.get(k).setStatus("BOOKED_NO_ACCEPTED");
                     }
                 }
             }
@@ -157,5 +158,13 @@ public class BookingController {
 
     public List<Booking> getBookingList() {
         return retrofitClient.getBookingList();
+    }
+
+    public void clearBookingList() {
+        retrofitClient.clearBookingList();
+    }
+
+    public void cancelReservation(String place, String date, int reverseCableNumber, int startTime, int endTime) {
+        retrofitClient.cancelReservation(place,date,reverseCableNumber,startTime,endTime);
     }
 }

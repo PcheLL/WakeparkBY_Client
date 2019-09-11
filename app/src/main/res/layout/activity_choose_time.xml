@@ -27,6 +27,7 @@
             </androidx.recyclerview.widget.RecyclerView>
 
             <com.google.android.material.button.MaterialButton
+                android:visibility="gone"
                 android:id="@+id/buttonChooseTime"
                 android:theme="@style/Theme.Custom"
                 android:layout_width="match_parent"

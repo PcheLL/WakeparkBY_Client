@@ -63,10 +63,14 @@ public class RetrofitClient {
                 if (response.isSuccessful()) {
                     listTimeSpace = response.body();
                     setListTimeSpace(listTimeSpace);
+                    for(int n = 0; n<listTimeSpace.size();n++){
+                        if(listTimeSpace.get(n).getStatus().equals("MY_BOOKED_NO_ACCEPTED")){
+                            setBookingList(new Booking(date,place,reverseCableNumber,listTimeSpace.get(n).getStartTime(),listTimeSpace.get(n).getEndTime()));
+                        }
+                    }
                     observer.notifyAllObservers(1);
                 }
             }
-
             @Override
             public void onFailure(Call<List<TimeSpace>> call, Throwable t) {
             }
@@ -89,6 +93,10 @@ public class RetrofitClient {
             public void onFailure(Call<Booking> call, Throwable t) {
             }
         });
+    }
+
+    public void setBookingList(Booking bookingList) {
+        this.bookingList.add(bookingList);
     }
 
     public List<Booking> getBookingList() {
@@ -253,6 +261,29 @@ public class RetrofitClient {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 System.out.println("");
                 if (response.isSuccessful()) {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void clearBookingList() {
+        bookingList.clear();
+    }
+
+    public void cancelReservation(String place, String date, int reverseCableNumber, int startTime, int endTime) {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        httpController.cancelReservation(token, place,date,reverseCableNumber,startTime,endTime).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                System.out.println("");
+                if (response.isSuccessful()) {
+
                 }
             }
 

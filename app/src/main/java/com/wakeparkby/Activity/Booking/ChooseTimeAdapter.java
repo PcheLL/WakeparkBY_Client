@@ -106,13 +106,25 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
             int pos = getLayoutPosition();
             int startTime = (Integer.valueOf(mData.get(pos).getStartHours()) * 60 + Integer.valueOf(mData.get(pos).getStartMinutes()));
             int endTime = (Integer.valueOf(mData.get(pos).getEndHours()) * 60 + Integer.valueOf(mData.get(pos).getEndMinutes()));
-            Thread newThread = new Thread() {
-                public void run() {
-                    BookingController bookingController = new BookingController(place, date, reverseCableNumber, startTime, endTime);
+            String status = mData.get(pos).getStatus();
+            if(status.equals("MY_BOOKED_NO_ACCEPTED")){
+                Thread newThread = new Thread() {
+                    public void run() {
+                        BookingController bookingController = new BookingController();
+                        bookingController.cancelReservation(place, date, reverseCableNumber, startTime, endTime);
+                    }
+                };
+                newThread.start();
+            }else if(status.equals("FREE"))
+            {
+                Thread newThread = new Thread() {
+                    public void run() {
+                        BookingController bookingController = new BookingController(place, date, reverseCableNumber, startTime, endTime);
 
-                }
-            };
-            newThread.start();
+                    }
+                };
+                newThread.start();
+            }
         }
     }
 }

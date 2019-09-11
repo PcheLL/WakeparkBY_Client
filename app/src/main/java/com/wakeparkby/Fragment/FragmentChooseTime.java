@@ -15,6 +15,7 @@ import com.stomped.stomped.listener.StompedListener;
 import com.wakeparkby.Activity.Booking.ChooseTimeAdapter;
 import com.wakeparkby.Activity.Booking.ChooseTimeItem;
 import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
+import com.wakeparkby.Client.RetrofitClient;
 import com.wakeparkby.Controller.BookingController;
 import com.wakeparkby.Database.App;
 import com.wakeparkby.Database.DatabaseHelper;
@@ -106,6 +107,12 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
 
                             }
                         }
+                        if (bookingController.getBookingList().size() != 0){
+                            buttonChooseTime.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            buttonChooseTime.setVisibility(View.GONE);
+                        }
                     }
                 });
             }
@@ -123,6 +130,11 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
         chooseTimeAdapter = new ChooseTimeAdapter(getContext(), mData, getArguments().getString("place"), getArguments().getString("date"), getArguments().getInt("reverseCableNumber", 10));
         newsRecyclerView.setAdapter(chooseTimeAdapter);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (bookingController.getBookingList().size() != 0){
+            buttonChooseTime.setVisibility(View.VISIBLE);
+        }else{
+            buttonChooseTime.setVisibility(View.GONE);
+        }
         relativeLayoutProgressBarChooseTime.setVisibility(View.GONE);
         linearLayoutChooseTime.setVisibility(View.VISIBLE);
     }
@@ -136,13 +148,10 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
         Bundle args_fragment = new Bundle();
         args_fragment.putSerializable("bookingList",arrayListBooking);
         fragment.setArguments(args_fragment);
+        bookingController.clearBookingList();
+        observer.removeFromList(observer);
+        client.disconnect();
         ((MainMenuActivity) getActivity()).pushFragments(MainMenuActivity.TAB_HOME, fragment, true);
-        //  Intent intent_description = new Intent(this, FragmentBookingDescription.class);
-        //  startActivity(intent_description);
-      /*  mData.add(2,new ChooseTimeItem("9","10",
-               "9","40",
-                "FREE"));
-        ChooseTimeAdapter.notifyItemInserted(2);*/
     }
 
     @Override
@@ -153,6 +162,7 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
     @Override
     public void onDetach() {
         super.onDetach();
+        bookingController.clearBookingList();
         observer.removeFromList(observer);
         client.disconnect();
 

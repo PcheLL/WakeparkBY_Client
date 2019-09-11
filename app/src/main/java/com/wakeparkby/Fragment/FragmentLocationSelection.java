@@ -102,7 +102,9 @@ public class FragmentLocationSelection extends Fragment implements View.OnClickL
         datePicker.getDatePicker().setMaxDate(c.getTimeInMillis() + 1000 * 86400 * 5);
         datePicker.show();
         datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorYelow));
+        datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setText("Отмена");
         datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorYelow));
+        datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("Выбрать");
 
     }
 }
