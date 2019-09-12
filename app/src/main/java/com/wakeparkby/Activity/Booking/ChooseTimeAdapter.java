@@ -111,7 +111,7 @@ public class ChooseTimeAdapter extends RecyclerView.Adapter<ChooseTimeAdapter.Ne
                 Thread newThread = new Thread() {
                     public void run() {
                         BookingController bookingController = new BookingController();
-                        bookingController.cancelReservation(place, date, reverseCableNumber, startTime, endTime);
+                        bookingController.cancelReservation(mData.get(pos).getId());
                     }
                 };
                 newThread.start();

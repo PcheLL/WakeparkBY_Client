@@ -1,8 +1,14 @@
 package com.wakeparkby.Database;
 
+import androidx.annotation.BoolRes;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.wakeparkby.HTTPController.Booking;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by gleb on 11/15/17.
@@ -32,4 +38,5 @@ public class DataModel {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }

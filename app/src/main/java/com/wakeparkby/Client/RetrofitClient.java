@@ -56,6 +56,7 @@ public class RetrofitClient {
     public void getTimeSpace(final String place, final String date, final int reverseCableNumber) {
         databaseHelper = App.getInstance().getDatabaseInstance();
         String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        int userId = Integer.parseInt(databaseHelper.getDataDao().getByTitle("UserId").get(0).getDescription());
         httpController.getTimeSpace(token, place, date, reverseCableNumber).enqueue(new Callback<List<TimeSpace>>() {
             @Override
             public void onResponse(Call<List<TimeSpace>> call, Response<List<TimeSpace>> response) {
@@ -65,7 +66,7 @@ public class RetrofitClient {
                     setListTimeSpace(listTimeSpace);
                     for(int n = 0; n<listTimeSpace.size();n++){
                         if(listTimeSpace.get(n).getStatus().equals("MY_BOOKED_NO_ACCEPTED")){
-                            setBookingList(new Booking(date,place,reverseCableNumber,listTimeSpace.get(n).getStartTime(),listTimeSpace.get(n).getEndTime()));
+                            setBookingList(new Booking(listTimeSpace.get(n).getId(),date,place,reverseCableNumber,listTimeSpace.get(n).getStartTime(),listTimeSpace.get(n).getEndTime()));
                         }
                     }
                     observer.notifyAllObservers(1);
@@ -275,10 +276,10 @@ public class RetrofitClient {
         bookingList.clear();
     }
 
-    public void cancelReservation(String place, String date, int reverseCableNumber, int startTime, int endTime) {
+    public void cancelReservation(int id) {
         databaseHelper = App.getInstance().getDatabaseInstance();
         String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
-        httpController.cancelReservation(token, place,date,reverseCableNumber,startTime,endTime).enqueue(new Callback<ResponseBody>() {
+        httpController.cancelReservation(token, id ).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 System.out.println("");

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class WsEventDto {
-    private ObjectType objectType;
-    private EventType eventType;
+    private String objectType;
+    private String eventType;
     private Booking body;
 }

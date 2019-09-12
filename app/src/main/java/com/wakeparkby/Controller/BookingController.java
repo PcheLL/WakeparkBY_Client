@@ -62,28 +62,28 @@ public class BookingController {
             String status = "FREE";
             if (startMinutes == 0) {
                 if (endMinutes == 0) {
-                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf(startMinutes + "0"), String.valueOf(endHours), String.valueOf(endMinutes + "0"), status));
+                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf(startMinutes + "0"), String.valueOf(endHours), String.valueOf(endMinutes + "0"), status , 0));
                 } else if (endMinutes < 10) {
-                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf(startMinutes + "0"), String.valueOf(endHours), String.valueOf("0" + endMinutes), status));
+                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf(startMinutes + "0"), String.valueOf(endHours), String.valueOf("0" + endMinutes), status, 0));
                 } else {
-                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf(startMinutes + "0"), String.valueOf(endHours), String.valueOf(endMinutes), status));
+                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf(startMinutes + "0"), String.valueOf(endHours), String.valueOf(endMinutes), status, 0));
                 }
             } else if (endMinutes == 0) {
                 if (startMinutes < 10) {
-                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf("0" + startMinutes), String.valueOf(endHours), String.valueOf("0" + endMinutes), status));
+                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf("0" + startMinutes), String.valueOf(endHours), String.valueOf("0" + endMinutes), status, 0));
                 } else {
-                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf(startMinutes), String.valueOf(endHours), String.valueOf(endMinutes + "0"), status));
+                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf(startMinutes), String.valueOf(endHours), String.valueOf(endMinutes + "0"), status, 0));
                 }
             } else if (startMinutes < 10) {
                 if (endMinutes < 10) {
-                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf("0" + startMinutes), String.valueOf(endHours), String.valueOf("0" + endMinutes), status));
+                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf("0" + startMinutes), String.valueOf(endHours), String.valueOf("0" + endMinutes), status, 0));
                 } else {
-                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf("0" + startMinutes), String.valueOf(endHours), String.valueOf(endMinutes), status));
+                    finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf("0" + startMinutes), String.valueOf(endHours), String.valueOf(endMinutes), status, 0));
                 }
             } else if (endMinutes < 10) {
-                finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf(startMinutes), String.valueOf(endHours), String.valueOf("0" + endMinutes), status));
+                finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf(startMinutes), String.valueOf(endHours), String.valueOf("0" + endMinutes), status, 0));
             } else {
-                finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf(startMinutes), String.valueOf(endHours), String.valueOf(endMinutes), status));
+                finalTimeSpaceList.add(j, new Time(String.valueOf(startHours), String.valueOf(startMinutes), String.valueOf(endHours), String.valueOf(endMinutes), status, 0));
             }
         }
     }
@@ -105,30 +105,31 @@ public class BookingController {
             int endHours = end / 60;
             int endMinutes = end - endHours * 60;
             String status = listTimeSpace.get(i).getStatus();
+            int id = listTimeSpace.get(i).getId();
             if (startMinutes == 0) {
                 if (endMinutes == 0) {
-                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf(startMinutes + "0"), String.valueOf(endHours), String.valueOf(endMinutes + "0"), status));
+                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf(startMinutes + "0"), String.valueOf(endHours), String.valueOf(endMinutes + "0"), status,id));
                 } else if (endMinutes < 10) {
-                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf(startMinutes + "0"), String.valueOf(endHours), String.valueOf("0" + endMinutes), status));
+                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf(startMinutes + "0"), String.valueOf(endHours), String.valueOf("0" + endMinutes), status,id));
                 } else {
-                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf(startMinutes + "0"), String.valueOf(endHours), String.valueOf(endMinutes), status));
+                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf(startMinutes + "0"), String.valueOf(endHours), String.valueOf(endMinutes), status,id));
                 }
             } else if (endMinutes == 0) {
                 if (startMinutes < 10) {
-                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf("0" + startMinutes), String.valueOf(endHours), String.valueOf("0" + endMinutes), status));
+                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf("0" + startMinutes), String.valueOf(endHours), String.valueOf("0" + endMinutes), status,id));
                 } else {
-                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf(startMinutes), String.valueOf(endHours), String.valueOf(endMinutes + "0"), status));
+                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf(startMinutes), String.valueOf(endHours), String.valueOf(endMinutes + "0"), status,id));
                 }
             } else if (startMinutes < 10) {
                 if (endMinutes < 10) {
-                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf("0" + startMinutes), String.valueOf(endHours), String.valueOf("0" + endMinutes), status));
+                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf("0" + startMinutes), String.valueOf(endHours), String.valueOf("0" + endMinutes), status,id));
                 } else {
-                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf("0" + startMinutes), String.valueOf(endHours), String.valueOf(endMinutes), status));
+                    noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf("0" + startMinutes), String.valueOf(endHours), String.valueOf(endMinutes), status,id));
                 }
             } else if (endMinutes < 10) {
-                noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf(startMinutes), String.valueOf(endHours), String.valueOf("0" + endMinutes), status));
+                noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf(startMinutes), String.valueOf(endHours), String.valueOf("0" + endMinutes), status,id));
             } else {
-                noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf(startMinutes), String.valueOf(endHours), String.valueOf(endMinutes), status));
+                noAcceptedTimeList.add(counter, new Time(String.valueOf(startHours), String.valueOf(startMinutes), String.valueOf(endHours), String.valueOf(endMinutes), status,id));
             }
             counter++;
         }
@@ -138,6 +139,7 @@ public class BookingController {
                 int startTime2 = Integer.valueOf(noAcceptedTimeList.get(j).getStartHours()) * 60 + Integer.valueOf(noAcceptedTimeList.get(j).getStartMinutes());
                 if (startTime1 == startTime2) {
                     String status = noAcceptedTimeList.get(j).getStatus();
+                    int id = noAcceptedTimeList.get(j).getId();
                     if (status.equals("BOOKED") || status.equals("BOOKED_ACCEPTED")){
                         finalTimeSpaceList.remove(k);
                         k--;
@@ -145,7 +147,7 @@ public class BookingController {
                             status.equals("MISSED_ADMIN")){
                         finalTimeSpaceList.get(k).setStatus("FREE");
                     } else if (status.equals("MY_BOOKED_NO_ACCEPTED")) {
-                 //       retrofitClient.set(new Booking());
+                        finalTimeSpaceList.get(k).setId(id);
                         finalTimeSpaceList.get(k).setStatus("MY_BOOKED_NO_ACCEPTED");
                     } else if (status.equals("BOOKED_NO_ACCEPTED")) {
                         finalTimeSpaceList.get(k).setStatus("BOOKED_NO_ACCEPTED");
@@ -164,7 +166,7 @@ public class BookingController {
         retrofitClient.clearBookingList();
     }
 
-    public void cancelReservation(String place, String date, int reverseCableNumber, int startTime, int endTime) {
-        retrofitClient.cancelReservation(place,date,reverseCableNumber,startTime,endTime);
+    public void cancelReservation(int id) {
+        retrofitClient.cancelReservation(id);
     }
 }

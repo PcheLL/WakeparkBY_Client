@@ -34,6 +34,16 @@ public class Booking {
         this.endTime = endTime;
     }
 
+    public Booking(int id, String date, String place, int reverseCableNumber, int startTime, int endTime) {
+        this.id = id;
+        this.bookingDate = date;
+        this.location = place;
+        this.reversNumber = reversNumber;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+
     public String getStartHours() {
         return String.valueOf(startTime / 60);
     }

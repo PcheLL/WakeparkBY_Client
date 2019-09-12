@@ -95,15 +95,30 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
                         for (int i = 0; i < mData.size(); i++) {
                             int startTime = Integer.valueOf(mData.get(i).getStartHours()) * 60 + Integer.valueOf(mData.get(i).getStartMinutes());
                             if (startTime == wsEventDto.getBody().getStartTime()) {
-                                if (userId.equals(String.valueOf(wsEventDto.getBody().getClientId())))
-                                {
-                                    mData.get(i).setStatus("MY_BOOKED_NO_ACCEPTED");
+                                if (String.valueOf(wsEventDto.getEventType()).equals("FREE")){
+                                    mData.get(i).setStatus("FREE");
+                                    chooseTimeAdapter.notifyItemChanged(i);
+                                } else if (String.valueOf(wsEventDto.getEventType()).equals("CREATE")) {
+                                    if (userId.equals(String.valueOf(wsEventDto.getBody().getClientId())))
+                                    {
+                                        mData.get(i).setStatus("MY_BOOKED_NO_ACCEPTED");
+                                        chooseTimeAdapter.notifyItemChanged(i);
+                                        buttonChooseTime.setVisibility(View.VISIBLE);
+                                    }
+                                    else{
+                                        mData.get(i).setStatus("BOOKED_NO_ACCEPTED");
+                                        chooseTimeAdapter.notifyItemChanged(i);
+                                    }
+                                } else if (String.valueOf(wsEventDto.getEventType()).equals("ACCEPT")) {
+                                    mData.remove(i);
+                                    chooseTimeAdapter.notifyItemRemoved(i);
+                                }
+                                else if (String.valueOf(wsEventDto.getEventType()).equals("TIME_IS_OVER")) {
+                                    mData.get(i).setStatus("FREE");
                                     chooseTimeAdapter.notifyItemChanged(i);
                                 }
-                                else{
-                                    mData.get(i).setStatus("BOOKED_NO_ACCEPTED");
-                                    chooseTimeAdapter.notifyItemChanged(i);
-                                }
+
+
 
                             }
                         }
@@ -125,7 +140,7 @@ public class FragmentChooseTime extends Fragment implements View.OnClickListener
         for (int i = 0; i < bookingController.getFinalTimeSpaceList().size(); i++) {
             mData.add(new ChooseTimeItem(bookingController.getFinalTimeSpaceList().get(i).getStartHours(), bookingController.getFinalTimeSpaceList().get(i).getStartMinutes(),
                     bookingController.getFinalTimeSpaceList().get(i).getEndHours(), bookingController.getFinalTimeSpaceList().get(i).getEndMinutes(),
-                    bookingController.getFinalTimeSpaceList().get(i).getStatus()));
+                    bookingController.getFinalTimeSpaceList().get(i).getStatus(),bookingController.getFinalTimeSpaceList().get(i).getId()));
         }
         chooseTimeAdapter = new ChooseTimeAdapter(getContext(), mData, getArguments().getString("place"), getArguments().getString("date"), getArguments().getInt("reverseCableNumber", 10));
         newsRecyclerView.setAdapter(chooseTimeAdapter);

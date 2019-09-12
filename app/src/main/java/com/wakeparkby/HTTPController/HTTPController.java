@@ -41,6 +41,6 @@ public interface HTTPController {
 
     @PUT("/jwtappdemo-0.0.1-SNAPSHOT/user/booking")
     Call<ResponseBody> putBookingList(@Header("Authorization") String token, @Body List<Booking> bookingList);
-    @POST("/jwtappdemo-0.0.1-SNAPSHOT/user/booking")
-    Call<ResponseBody> cancelReservation(String token, String place, String date, int reverseCableNumber, int startTime, int endTime);
+    @DELETE("/jwtappdemo-0.0.1-SNAPSHOT/user/booking_free/{bookingId}")
+    Call<ResponseBody> cancelReservation(@Header("Authorization") String token, @Path("bookingId") int id);
 }
