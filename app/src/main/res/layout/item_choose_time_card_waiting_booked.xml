@@ -7,14 +7,17 @@
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/relativeLayoutCardView">
+        android:layout_height="90dp"
+        android:id="@+id/relativeLayoutCardViewBooking">
     <com.google.android.material.card.MaterialCardView
+        android:layout_gravity="center"
         android:theme="@style/Theme.MaterialComponents"
         app:cardElevation="5dp"
         android:layout_width="350dp"
         android:layout_height="80dp"
-        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_marginRight="@dimen/mtrl_card_spacing"
         android:minHeight="200dp"
         app:cardCornerRadius="30dp"
         >

@@ -2,8 +2,10 @@ package com.wakeparkby.Activity.CreateAccount;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -86,7 +88,6 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     }
 
 
-
     //the callback to detect the verification status
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
@@ -142,8 +143,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                             //verification successful we will start the profile activity
                             Intent intent = new Intent(VerifyPhoneActivity.this, MainMenuActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            CreateAccountController createAccountController = new CreateAccountController();
-                            createAccountController.sendInfoNewUser(intent.getStringExtra("mobile"),intent.getStringExtra("userName"),intent.getStringExtra("password"));
+                            CreateAccountController createAccountController = new CreateAccountController(intent.getStringExtra("mobile"), intent.getStringExtra("userName"), intent.getStringExtra("password"));
+                          //  createAccountController.sendInfoNewUser(intent.getStringExtra("mobile"), intent.getStringExtra("userName"), intent.getStringExtra("password"));
                             startActivity(intent);
 
                         } else {

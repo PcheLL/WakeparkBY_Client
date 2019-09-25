@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class UserResponse {
     @Expose
-    private String username;
+    private String id;
     @Expose
     private String token;
 

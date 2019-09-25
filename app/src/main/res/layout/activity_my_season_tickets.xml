@@ -11,27 +11,12 @@
         android:background="#FAFAFA"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewMySeasonTickets"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/neo_sans_pro_regular"
-            android:hint="Ваш абонемент"
-            android:shadowColor="#7d7d7d"
-            android:shadowDy="8"
-            android:shadowRadius="5"
-            android:textColorHint="#000000"
-            android:textSize="35dp">
-
-        </TextView>
 
         <LinearLayout
             android:id="@+id/linearLayoutTimeSeasonTicket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewMySeasonTickets"
+            android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:orientation="horizontal">
 
@@ -40,8 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/andy_bold"
-                android:text="50"
+                android:text="0"
                 android:textColor="#E9CB09"
                 android:textSize="70dp"
                 android:visibility="visible" />
@@ -49,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:text="мин"
                 android:textColor="#E9CB09"
                 android:textSize="20dp"
@@ -80,7 +64,7 @@
 
 
         <RelativeLayout
-            android:id="@+id/relativeLayoutProgressBar"
+            android:id="@+id/relativeLayoutProgressBarSeasonTicket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -101,8 +85,8 @@
                 android:layout_below="@+id/progressbar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:text="Уточняем время..."
-                android:textColor="#ffff00"
+                android:text="Уточняем остаток времени..."
+                android:textColor="#000000"
                 android:textSize="15dp" />
         </RelativeLayout>
 

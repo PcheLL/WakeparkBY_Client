@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#000000</item>
         <item name="colorPrimaryDark">#000000</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorYelow</item>
 
     </style>
 
@@ -44,13 +44,45 @@
     </style>
 
     <style name="Theme.Custom" parent="Theme.MaterialComponents.Light">
-        <item name="android:backgroundTint">#E9CB09</item>
+        <item name="android:backgroundTint">#e8cc14</item>
+    </style>
+
+    <style name="CustomToolbarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/colorBlack</item>
+        <item name="colorAccent">@color/colorYelow</item>
+        <item name="colorPrimary">@color/colorWhite</item>
+    </style>
+
+    <style name="CustomDatePicker" parent="CustomToolbarTheme">
+
+    </style>
+
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorYelow</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorYelow</item>
     </style>
 
     <style name="Theme.EditText" parent="Theme.MaterialComponents.Light">
         <item name="android:backgroundTint">#000000</item>
     </style>
 
+    <style name="MyDarkToolbarStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="menu_labels_style">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
 
 
 </resources>

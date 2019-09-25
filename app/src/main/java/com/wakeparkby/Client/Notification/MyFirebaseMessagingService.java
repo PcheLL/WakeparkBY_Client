@@ -11,32 +11,32 @@ import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.wakeparkby.Activity.Notification;
+import com.wakeparkby.Activity.MainMenu.MainMenuActivity;
 import com.wakeparkby.R;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        generateNotification(remoteMessage.getNotification().getBody());
+        generateNotification(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle());
 
 
     }
 
-    private void generateNotification(String body) {
-        Intent intent_Notification = new Intent(this, Notification.class);
+    private void generateNotification(String body, String title) {
+        Intent intent_Notification = new Intent(this, MainMenuActivity.class);
         intent_Notification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),R.mipmap.ic_launcher))
-             //   .setContentTitle(this.getString(R.string.app_name))
+                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher))
+                .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri);
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0,notificationBuilder.build());
+        notificationManager.notify(0, notificationBuilder.build());
     }
 }

@@ -4,35 +4,18 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/relativeLayoutChooseTime"
+        android:id="@+id/relativeLayoutBookingDescriptionItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FAFAFA">
 
-
-
-        <TextView
-            android:id="@+id/textViewSelectTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:hint="Свободное время"
-            android:textSize="35dp"
-            android:textColorHint="#000000"
-            android:fontFamily="@font/neo_sans_pro_regular"
-            android:shadowColor="#7d7d7d"
-            android:shadowRadius="5"
-            android:shadowDy="8" />
-
-
         <LinearLayout
-            android:id="@+id/linearLayoutChooseTime11"
+            android:id="@+id/linearLayoutChooseTime"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_below="@+id/textViewSelectTime"
             android:paddingLeft="10dp"
+            android:layout_marginTop="2dp"
             android:paddingRight="10dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -40,11 +23,11 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="20dp">
+                android:layout_weight="1">
             </androidx.recyclerview.widget.RecyclerView>
 
             <com.google.android.material.button.MaterialButton
+                android:visibility="gone"
                 android:id="@+id/buttonChooseTime"
                 android:theme="@style/Theme.Custom"
                 android:layout_width="match_parent"
@@ -53,7 +36,52 @@
                 android:textColor="#ffffff"
                 android:layout_marginBottom="10dp"/>
 
-
         </LinearLayout>
+        <RelativeLayout
+
+            android:id="@+id/relativeLayoutProgressBarChooseTime"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+
+            android:visibility="gone">
+
+            <ProgressBar
+
+                android:id="@+id/progressBarMainMenu"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:indeterminateDrawable="@drawable/progress_bar"
+
+                android:indeterminateOnly="true"
+
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+
+                android:layout_below="@+id/progressBarMainMenu"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:text="Уточняем время..."
+
+                android:textColor="#000000"
+
+                android:textSize="15dp"
+
+                android:layout_centerHorizontal="true"
+
+                android:layout_marginTop="5dp"/>
+
+        </RelativeLayout>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

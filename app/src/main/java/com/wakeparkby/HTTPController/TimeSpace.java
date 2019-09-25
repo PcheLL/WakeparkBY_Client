@@ -5,10 +5,21 @@ import com.google.gson.annotations.Expose;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
 @Data
 public class TimeSpace {
     @Expose
-    private int start;
+    private int id;
     @Expose
-    private int end;
+    private int endTime;
+    @Expose
+    private int startTime;
+    @Expose
+    private String status;
+
+    public TimeSpace(int endTime, int startTime, String status) {
+        this.endTime = endTime;
+        this.startTime = startTime;
+        this.status = status;
+    }
 }

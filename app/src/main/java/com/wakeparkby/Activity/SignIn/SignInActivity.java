@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,13 +24,13 @@ import com.wakeparkby.R;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseUser firebaseAuth = FirebaseAuth.getInstance().getCurrentUser();
-    TextView textViewNewAccount;
-    TextView textViewNewPassword;
-    EditText editTextNumberPhoneSI;
-    EditText editTextPasswordSI;
-    MaterialButton buttonEnter;
+    private TextView textViewNewAccount;
+    private TextView textViewNewPassword;
+    private EditText editTextNumberPhoneSI;
+    private EditText editTextPasswordSI;
+    private MaterialButton buttonEnter;
     private DatabaseHelper databaseHelper;
-    Observer observer = new Observer("SignIn") {
+    private Observer observer = new Observer("SignIn") {
 
         /**
          * override method of Observer class with new reaction for notify observers
@@ -40,19 +41,21 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             int n = observer.getStatus();
             if (n == 10) {
                 if (observer.getId() == 8) {
-                    signInAnswer();
+                    signInAnswerTrue();
                     observer.setId(0);
-                } else {
+                } else if (observer.getId() == 9) {
+                    signInAnswerFalse();
+                    observer.setId(0);
                 }
             }
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
         textViewNewAccount = findViewById(R.id.textViewNewAccount);
         textViewNewPassword = findViewById(R.id.textViewNewPassword);
         editTextNumberPhoneSI = findViewById(R.id.editTextNumberPhoneSI);
@@ -62,17 +65,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         textViewNewAccount.setOnClickListener(this);
         databaseHelper = App.getInstance().getDatabaseInstance();
 
-
-        /*if (!databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString().equals("-")) {
-            Intent intent_MainMenu = new Intent(SignInActivity.this, MainMenuActivity.class);
-            startActivity(intent_MainMenu);
-        }*/
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+        if (databaseHelper.getDataDao().getByTitle("UserToken").size() != 0) {
             Intent intent_MainMenu = new Intent(SignInActivity.this, MainMenuActivity.class);
             startActivity(intent_MainMenu);
         }
-
-
     }
 
     @Override
@@ -83,18 +79,22 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent_CreateAccount);
                 break;
             case R.id.buttonEnter:
-                //  Intent intent_MainMenu = new Intent(this,MainMenuActivity.class);
-                //  startActivity(intent_MainMenu);
                 SignInController signInController = new SignInController(editTextNumberPhoneSI.getText().toString(), editTextPasswordSI.getText().toString());
                 break;
         }
         ;
     }
 
-    public void signInAnswer() {
+    public void signInAnswerTrue() {
         databaseHelper = App.getInstance().getDatabaseInstance();
         String token = databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
-        System.out.print(token);
+        Intent intent_MainMenu = new Intent(this, MainMenuActivity.class);
+        startActivity(intent_MainMenu);
+        editTextNumberPhoneSI.setText("");
+        editTextPasswordSI.setText("");
+    }
 
+    private void signInAnswerFalse() {
+        Toast.makeText(this, "Неправильный логин/пароль", Toast.LENGTH_SHORT).show();
     }
 }

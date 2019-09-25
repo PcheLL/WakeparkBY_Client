@@ -9,17 +9,51 @@ public class History {
     @Expose
     private String id;
     @Expose
-    private String data;
+    private String bookingDate;
     @Expose
     private String location;
     @Expose
-    private String reversNumber;
+    private int reversNumber;
     @Expose
-    private String startTime;
+    private int startTime;
     @Expose
-    private String endTime;
+    private int endTime;
     @Expose
     private String status;
 
-    public History() {}
+    private String startHours;
+    private String startMinutes;
+    private String endHours;
+    private String endMinutes;
+
+    public History() {
+    }
+
+
+    public String getTime() {
+        return getStartHours() + ":" + getStartMinutes()+ " - "
+                + getEndHours() + ":" + getEndMinutes();
+    }
+
+    public String getStartHours() {
+        return String.valueOf(startTime / 60);
+    }
+
+    public String getStartMinutes() {
+        if (startTime - (startTime / 60 * 60) == 0 ){
+            return "00";
+        }
+        return String.valueOf(startTime - (startTime / 60 * 60));
+    }
+
+    public String getEndHours() {
+        return String.valueOf(endTime / 60);
+    }
+
+    public String getEndMinutes() {
+        if (endTime - (endTime / 60 * 60) == 0 ){
+            return "00";
+        }
+        return String.valueOf(endTime - (endTime / 60 * 60));
+    }
 }

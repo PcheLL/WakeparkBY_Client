@@ -56,18 +56,18 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             String userName = editTextName.getText().toString();
 
 
-                if(phoneNumber.isEmpty() || phoneNumber.length() < 10){
-                    editTextPhone.setError("Неправильный номер телефона");
-                    editTextPhone.requestFocus();
-                    return;
-                }
-
-                Intent intent = new Intent(this, VerifyPhoneActivity.class);
-                intent.putExtra("mobile", phoneNumber);
-                intent.putExtra("userName", userName );
-                intent.putExtra("password",password);
-                startActivity(intent);
+            if (phoneNumber.isEmpty() || phoneNumber.length() < 10) {
+                editTextPhone.setError("Неправильный номер телефона");
+                editTextPhone.requestFocus();
+                return;
             }
+
+            Intent intent = new Intent(this, VerifyPhoneActivity.class);
+            intent.putExtra("mobile", phoneNumber);
+            intent.putExtra("userName", userName);
+            intent.putExtra("password", password);
+            startActivity(intent);
+        }
 
 
     }

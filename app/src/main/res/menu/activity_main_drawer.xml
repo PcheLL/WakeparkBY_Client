@@ -10,9 +10,9 @@
         android:icon="@drawable/ic_session_ticket"
         android:title="@string/nav_mySeasonTickets" />
     <item
-        android:id="@+id/nav_price"
-        android:icon="@drawable/ic_price"
-        android:title="@string/nav_price" />
+        android:id="@+id/nav_maps"
+        android:icon="@drawable/ic_map"
+        android:title="@string/nav_maps" />
     <item
         android:id="@+id/nav_history"
         android:icon="@drawable/ic_history"

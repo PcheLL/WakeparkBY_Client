@@ -1,5 +1,6 @@
 package com.wakeparkby.Client;
 
+import com.google.android.material.button.MaterialButton;
 import com.wakeparkby.Database.App;
 import com.wakeparkby.Database.DataModel;
 import com.wakeparkby.Database.DatabaseHelper;
@@ -7,6 +8,7 @@ import com.wakeparkby.HTTPController.History;
 import com.wakeparkby.Controller.SeasonTicketController;
 import com.wakeparkby.HTTPController.Booking;
 import com.wakeparkby.HTTPController.HTTPController;
+import com.wakeparkby.HTTPController.SeasonTicketHistory;
 import com.wakeparkby.HTTPController.NewUser;
 import com.wakeparkby.HTTPController.TimeSpace;
 import com.wakeparkby.HTTPController.UserResponse;
@@ -26,13 +28,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     private static RetrofitClient retrofitClient = new RetrofitClient();
-
+    private DatabaseHelper databaseHelper;
     private Retrofit retrofit;
     private HTTPController httpController;
     private List<TimeSpace> listTimeSpace = new ArrayList<>();
-    private ArrayList<History> historyArrayList= new ArrayList<>();
-
+    private List<SeasonTicketHistory> seasonTicketHistoryList = new ArrayList<>();
+    private List<History> historyArrayList = new ArrayList<>();
+    private List<Booking> bookingList = new ArrayList<>();
     private Observer observer = new Observer("Retrofit");
+    private MaterialButton buttonChooseTime;
 
 
     private RetrofitClient() {
@@ -50,18 +54,24 @@ public class RetrofitClient {
     }
 
     public void getTimeSpace(final String place, final String date, final int reverseCableNumber) {
-        httpController.getTimeSpace(place, date, reverseCableNumber).enqueue(new Callback<List<TimeSpace>>() {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        int userId = Integer.parseInt(databaseHelper.getDataDao().getByTitle("UserId").get(0).getDescription());
+        httpController.getTimeSpace(token, place, date, reverseCableNumber).enqueue(new Callback<List<TimeSpace>>() {
             @Override
             public void onResponse(Call<List<TimeSpace>> call, Response<List<TimeSpace>> response) {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
                     listTimeSpace = response.body();
                     setListTimeSpace(listTimeSpace);
-                    //BookingController bookingController = new BookingController(place,date,reverseCableNumber);
+                    for(int n = 0; n<listTimeSpace.size();n++){
+                        if(listTimeSpace.get(n).getStatus().equals("MY_BOOKED_NO_ACCEPTED")){
+                            setBookingList(new Booking(listTimeSpace.get(n).getId(),date,place,reverseCableNumber,listTimeSpace.get(n).getStartTime(),listTimeSpace.get(n).getEndTime()));
+                        }
+                    }
                     observer.notifyAllObservers(1);
                 }
             }
-
             @Override
             public void onFailure(Call<List<TimeSpace>> call, Throwable t) {
             }
@@ -69,13 +79,14 @@ public class RetrofitClient {
     }
 
     public void postBooking(Booking booking) {
-        Call<Booking> call = httpController.postBooking(booking, 1);
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        Call<Booking> call = httpController.postBooking(token, booking);
         call.enqueue(new Callback<Booking>() {
             @Override
             public void onResponse(Call<Booking> call, Response<Booking> response) {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
-                    Booking booking = response.body();
+                    bookingList.add(response.body());
                 }
             }
 
@@ -83,6 +94,14 @@ public class RetrofitClient {
             public void onFailure(Call<Booking> call, Throwable t) {
             }
         });
+    }
+
+    public void setBookingList(Booking bookingList) {
+        this.bookingList.add(bookingList);
+    }
+
+    public List<Booking> getBookingList() {
+        return bookingList;
     }
 
     public void setListTimeSpace(List<TimeSpace> listTimeSpace) {
@@ -93,59 +112,90 @@ public class RetrofitClient {
         return listTimeSpace;
     }
 
-    public void getSeasonTicket(String number) {
-        httpController.getSeasonTicket(number).enqueue(new Callback<String>() {
+    public void getSeasonTicket() {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        httpController
+                .getSeasonTicket(token).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
                     String seasonTicket = response.body();
-                    setListTimeSpace(listTimeSpace);
-                    SeasonTicketController seasonTicketController = new SeasonTicketController();
-                    seasonTicketController.setSeasonTicket(seasonTicket);
-                    observer.notifyAllObservers(3);
+                    SeasonTicketController seasonTicketController = new SeasonTicketController(seasonTicket);
+                    //   observer.notifyAllObservers(3);
+                }
+                else if (response.body() == null){
+                    SeasonTicketController seasonTicketController = new SeasonTicketController("0");
                 }
             }
+
             @Override
             public void onFailure(Call<String> call, Throwable t) {
             }
         });
+
+        httpController
+                .getSeasonTicketHistory(token).enqueue(new Callback<List<SeasonTicketHistory>>() {
+            @Override
+            public void onResponse(Call<List<SeasonTicketHistory>> call, Response<List<SeasonTicketHistory>> response) {
+                System.out.println(response.toString());
+                if (response.isSuccessful()) {
+                    seasonTicketHistoryList = response.body();
+                             observer.notifyAllObservers(3);
+                }
+                else if (response.body() == null){
+                    observer.notifyAllObservers(3);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SeasonTicketHistory>> call, Throwable t) {
+                observer.notifyAllObservers(3);
+            }
+        });
+
     }
 
+    public List<SeasonTicketHistory> getSeasonTicketHistoryList() {
+        return seasonTicketHistoryList;
+    }
 
-    public void getUserHistory(String userId) {
-        httpController.getUserHistory(userId).enqueue(new Callback<ArrayList<History>>() {
+    public void getUserHistory() {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        httpController.getUserHistory(token).enqueue(new Callback<List<History>>() {
             @Override
-            public void onResponse(Call<ArrayList<History>> call, Response<ArrayList<History>> response) {
+            public void onResponse(Call<List<History>> call, Response<List<History>> response) {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
                     historyArrayList = response.body();
-                 //   setListTimeSpace(listTimeSpace);
-                    //BookingController bookingController = new BookingController(place,date,reverseCableNumber);
+                    observer.notifyAllObservers(4);
+                }
+                else if (response.body() == null){
                     observer.notifyAllObservers(4);
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<History>> call, Throwable t) {
+            public void onFailure(Call<List<History>> call, Throwable t) {
             }
         });
     }
 
-    public ArrayList<History> getHistoryArrayList() {
+    public List<History> getHistoryArrayList() {
         return historyArrayList;
     }
 
-    public void setHistoryArrayList(ArrayList<History> historyArrayList) {
-        this.historyArrayList = historyArrayList;
-    }
-
-    public void deleteHistory(String userId, String idHistory) {
-        httpController.deleteHistory(userId,idHistory).enqueue(new Callback<ResponseBody>() {
+    public void deleteHistory(String idHistory) {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        httpController.deleteHistory(token, idHistory).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                System.out.println("");
                 if (response.isSuccessful()) {
-                    getUserHistory(userId);
+                    getUserHistory();
                 }
             }
 
@@ -160,12 +210,14 @@ public class RetrofitClient {
         Call<String> call = httpController.postCreateAccountUser(newUser);
         call.enqueue(new Callback<String>() {
             @Override
-                public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 System.out.println(response.toString());
                 if (response.isSuccessful()) {
-                    String answer = response.body().toString();
+                   // String answer = response.body().toString();
+                    postSignInUser(new User(newUser.getPhone(),newUser.getPassword()));
                 }
             }
+
             @Override
             public void onFailure(Call<String> call, Throwable t) {
             }
@@ -181,14 +233,18 @@ public class RetrofitClient {
                 if (response.isSuccessful()) {
                     UserResponse userResponse = response.body();
                     DatabaseHelper databaseHelper = App.getInstance().getDatabaseInstance();
-                    DataModel model = new DataModel();
-                    model.setTitle("UserToken");
-                    model.setDescription(response.body().getToken().toString());
-                    databaseHelper.getDataDao().insert(model);
+                    DataModel modelUserToken = new DataModel();
+                    modelUserToken.setTitle("UserToken");
+                    modelUserToken.setDescription(response.body().getToken());
+                    DataModel modelUserId = new DataModel();
+                    modelUserId.setTitle("UserId");
+                    modelUserId.setDescription(response.body().getId());
+                    databaseHelper.clearAllTables();
+                    databaseHelper.getDataDao().insert(modelUserToken);
+                    databaseHelper.getDataDao().insert(modelUserId);
                     observer.notifyAllObservers(8);
-                }
-                else {
-                    //Обработка неправильных данных
+                } else {
+                    observer.notifyAllObservers(9);
                 }
             }
 
@@ -198,4 +254,44 @@ public class RetrofitClient {
         });
     }
 
+    public void putBookingList(List<Booking> bookingList) {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        httpController.putBookingList(token,bookingList).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                System.out.println("");
+                if (response.isSuccessful()) {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void clearBookingList() {
+        bookingList.clear();
+    }
+
+    public void cancelReservation(int id) {
+        databaseHelper = App.getInstance().getDatabaseInstance();
+        String token = "Bearer_" + databaseHelper.getDataDao().getByTitle("UserToken").get(0).getDescription().toString();
+        httpController.cancelReservation(token, id ).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                System.out.println("");
+                if (response.isSuccessful()) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
 }
